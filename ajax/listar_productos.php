@@ -42,11 +42,7 @@ if($action == 'ajax'){
 						<th class='text-center'>Placa</th>
 						<th>Año </th>
 						<th>Tipo </th>
-						<th class='text-center'>Tipo Remolque 1</th>
-						<th class='text-right'>Placa 1</th>
-
-						<th class='text-center'>Tipo Remolque 2</th>
-						<th>Placa 2</th>
+						
 						<th>Permiso SCT</th>
 						<th class='text-center'># Permiso</th>
 						<th class='text-right'>Aseguradora resp. civil</th>
@@ -62,23 +58,36 @@ if($action == 'ajax'){
 						<?php 
 						$finales=0;
 						while($row = mysqli_fetch_array($query)){	
-							$product_id=$row['id'];
-							$prod_code=$row['prod_code'];
 							$placa=$row['placa'];
-							$prod_ctry=$row['prod_ctry'];
-							$prod_qty=$row['prod_qty'];
-							$price=$row['price'];						
+							$Anio=$row['Anio'];
+							$tipo=$row['tipo'];
+							$PermisoSCT=$row['PermisoSCT'];
+							$NumeroPermisoSCT=$row['NumeroPermisoSCT'];
+							$NombreAseguradoraResponsabilidadCivil=$row['NombreAseguradoraResponsabilidadCivil'];
+							$NumeroPolizaResponsabilidadCivil=$row['NumeroPolizaResponsabilidadCivil'];		
+							$NombreAseguradoraCarga=$row['NombreAseguradoraCarga'];		
+							$NumeroPolizaCarga=$row['NumeroPolizaCarga'];	
+							$NombreAseguradoraMedioAmbiente=$row['NombreAseguradoraMedioAmbiente'];		
+							$NumeroPolizaMedioAmbiente=$row['NumeroPolizaMedioAmbiente'];		
+							$PrimaSeguro=$row['PrimaSeguro'];			
 							$finales++;
 						?>	
 						<tr class="<?php echo $text_class;?>">
-							<td class='text-center'><?php echo $prod_code;?></td>
-							<td ><?php echo $placa;?></td>
-							<td ><?php echo $prod_ctry;?></td>
-							<td class='text-center' ><?php echo $prod_qty;?></td>
-							<td class='text-right'><?php echo number_format($price,2);?></td>
+							<td class='text-center'><?php echo $placa;?></td>
+							<td class='text-center'><?php echo $Anio;?></td>
+							<td class='text-center'><?php echo $tipo;?></td>
+							<td class='text-center'><?php echo $PermisoSCT;?></td>
+							<td class='text-center' ><?php echo $NumeroPermisoSCT;?></td>
+							<td class='text-center' ><?php echo $NombreAseguradoraResponsabilidadCivil;?></td>
+							<td class='text-center' ><?php echo $NumeroPolizaResponsabilidadCivil;?></td>
+							<td class='text-center' ><?php echo $NombreAseguradoraCarga;?></td>
+							<td class='text-center' ><?php echo $NumeroPolizaCarga;?></td>
+							<td class='text-center' ><?php echo $NombreAseguradoraMedioAmbiente;?></td>
+							<td class='text-center' ><?php echo $NumeroPolizaMedioAmbiente;?></td>
+							<td class='text-center' ><?php echo $PrimaSeguro;?></td>
 							<td>
-								<a href="#"  data-target="#editProductModal" class="edit" data-toggle="modal" data-code='<?php echo $prod_code;?>' data-name="<?php echo $placa?>" data-category="<?php echo $prod_ctry?>" data-stock="<?php echo $prod_qty?>" data-price="<?php echo $price;?>" data-id="<?php echo $product_id; ?>"><i class="material-icons" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
-								<a href="#deleteProductModal" class="delete" data-toggle="modal" data-id="<?php echo $product_id;?>"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+								<a href="#"  data-target="#editProductModal" class="edit" data-toggle="modal" data-placa='<?php echo $placa;?>' data-Anio="<?php echo $Anio?>" data-tipo="<?php echo $tipo?>" data-PermisoSCT="<?php echo $PermisoSCT?>" data-NumeroPermisoSCT="<?php echo $NumeroPermisoSCT;?>" data-NombreAseguradoraResponsabilidadCivil="<?php echo $NombreAseguradoraResponsabilidadCivil; ?>"data-NumeroPolizaResponsabilidadCivil="<?php echo $NumeroPolizaResponsabilidadCivil; ?>"data-NombreAseguradoraCarga="<?php echo $NombreAseguradoraCarga; ?>"data-NombreAseguradoraMedioAmbiente="<?php echo $NombreAseguradoraMedioAmbiente; ?>"data-NumeroPolizaMedioAmbiente="<?php echo $NumeroPolizaMedioAmbiente; ?>"data-PrimaSeguro="<?php echo $PrimaSeguro; ?>"><i class="material-icons" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
+								<a href="#deleteProductModal" class="delete" data-toggle="modal" data-id="<?php echo $placa;?>"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
                     		</td>
 						</tr>
 						<?php }?>

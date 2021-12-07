@@ -1,40 +1,41 @@
 <div id="FormAutoTransporte" class="modal fade in" style="z-index: 1040">
-		<div class="modal-dialogFullScreen modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">
+	<div class="modal-dialogFullScreen modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
 					Auto Transporte
-					</h4>
-				</div>
+				</h4>
+			</div>
 
-				<div class="modal-body">
-					<form id="add_FormAutoTransporte" method="post" name="FormAutoTransporte">
+			<div class="modal-body">
+				<form id="add_FormAutoTransporte" method="post" name="FormAutoTransporte">
 
-						<div class="row">
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_Placa">* Placa</label>
+					<div class="row">
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label">* Placa</label>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="El formato es inválido corrija y vuelva a intentarlo" data-val-regex-pattern="[^(?!.*\s)-]{6,7}" id="placa" name="placa" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="placa" data-valmsg-replace="true"></span>
 							</div>
-							<div class="col-md-1 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="El formato es inválido corrija y vuelva a intentarlo" data-val-regex-pattern="[^(?!.*\s)-]{6,7}" id="AutoTransporteFederal_Placa" name="AutoTransporteFederal.Placa" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.Placa" data-valmsg-replace="true"></span>
-								</div>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label">* A&#241;o del modelo</label>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="El formato es inválido corrija y vuelva a intentarlo" data-val-regex-pattern="(19[0-9]{2}|20[0-9]{2})" id="Anio" name="Anio" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="Anio" data-valmsg-replace="true"></span>
 							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_Anio">* A&#241;o del modelo</label>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="El formato es inválido corrija y vuelva a intentarlo" data-val-regex-pattern="(19[0-9]{2}|20[0-9]{2})" id="AutoTransporteFederal_Anio" name="AutoTransporteFederal.Anio" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.Anio" data-valmsg-replace="true"></span>
-								</div>
-							</div>
-							<div class="col-md-1 col-xs-12 text-center">
-								<label class="control-label" for="AutoTransporteFederal_TipoAutoTransporte">Tipo</label>
-							</div>
-							<div class="col-md-5 col-xs-12">
-								<div class="form-group-sm">
-									<select class="form-control" id="AutoTransporteFederal_TipoAutoTransporte" name="AutoTransporteFederal.TipoAutoTransporte"><option value="C2">Cami&#243;n Unitario (2 llantas en el eje delantero y 4 llantas en el eje trasero)</option>
+						</div>
+						<div class="col-md-1 col-xs-12 text-center">
+							<label class="control-label">Tipo</label>
+						</div>
+						<div class="col-md-5 col-xs-12">
+							<div class="form-group-sm">
+								<select class="form-control" id="tipo" name="tipo">
+									<option value="C2">Cami&#243;n Unitario (2 llantas en el eje delantero y 4 llantas en el eje trasero)</option>
 									<option value="C3">Cami&#243;n Unitario (2 llantas en el eje delantero y 6 o 8 llantas en los dos ejes traseros)</option>
 									<option value="C3R3">Cami&#243;n-Remolque (10 llantas en el cami&#243;n y 12 llantas en remolque)</option>
 									<option value="C3R2">Cami&#243;n-Remolque (10 llantas en el cami&#243;n y 8 llantas en remolque)</option>
@@ -68,20 +69,21 @@
 									<option value="T3S2S2">Tractocami&#243;n Semirremolque-Semirremolque (10 llantas en el tractocami&#243;n, 8 llantas en el semirremolque delantero y 8 llantas en el semirremolque trasero)</option>
 									<option value="T2S2S2">Tractocami&#243;n Semirremolque-Semirremolque (6 llantas en el tractocami&#243;n, 8 llantas en el semirremolque delantero y 8 llantas en el semirremolque trasero)</option>
 									<option value="VL">Veh&#237;culo ligero de carga (2 llantas en el eje delantero y 2 llantas en el eje trasero)</option>
-									</select>
-								</div>
+								</select>
 							</div>
 						</div>
+					</div>
 
-						<br />
+					<br />
 
-						<div class="row">
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_PermisoSCT">Permiso SCT</label>
-							</div>
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<select class="form-control" id="AutoTransporteFederal_PermisoSCT" name="AutoTransporteFederal.PermisoSCT"><option value="TPXX00">Permiso no contemplado en el cat&#225;logo.</option>
+					<div class="row">
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label">Permiso SCT</label>
+						</div>
+						<div class="col-md-2 col-xs-12">
+							<div class="form-group-sm">
+								<select class="form-control" id="PermisoSCT" name="PermisoSCT">
+									<option value="TPXX00">Permiso no contemplado en el cat&#225;logo.</option>
 									<option value="TPAF19">Autorizaci&#243;n expresa para circular en los caminos y puentes de jurisdicci&#243;n federal con configuraciones de tractocami&#243;n doblemente articulado.</option>
 									<option value="TPAF11">Autotransporte Federal de Carga Especializada cuyo &#225;mbito de aplicaci&#243;n comprende la franja fronteriza con Estados Unidos.</option>
 									<option value="TPAF20">Autotransporte Federal de Carga Especializada de fondos y valores.</option>
@@ -102,104 +104,104 @@
 									<option value="TPAF15">Transporte especial para el tr&#225;nsito de gr&#250;as industriales con peso m&#225;ximo de 90 toneladas.</option>
 									<option value="TPAF02">Transporte privado de carga.</option>
 									<option value="TPAF07">Transporte Privado de materiales y residuos peligrosos.</option>
-									</select>
-								</div>
+								</select>
 							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label"># Permiso</label>
-							</div>
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 1 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{1,50}$" id="AutoTransporteFederal_NumeroPermisoSCT" name="AutoTransporteFederal.NumeroPermisoSCT" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.NumeroPermisoSCT" data-valmsg-replace="true"></span>
-								</div>
-							</div>                       
 						</div>
-						<br />
-
-						<div class="row">
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_NombreAseguradoraResponsabilidadCivil">* Aseguradora responsabilidad civil </label>
-							</div>
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="AutoTransporteFederal_NombreAseguradoraResponsabilidadCivil" name="AutoTransporteFederal.NombreAseguradoraResponsabilidadCivil" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.NombreAseguradoraResponsabilidadCivil" data-valmsg-replace="true"></span>
-								</div>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_NumeroPolizaResponsabilidadCivil">* # P&#243;liza resp. civil</label>
-							</div>
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="AutoTransporteFederal_NumeroPolizaResponsabilidadCivil" name="AutoTransporteFederal.NumeroPolizaResponsabilidadCivil" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.NumeroPolizaResponsabilidadCivil" data-valmsg-replace="true"></span>
-								</div>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_NombreAseguradoraCarga">Aseguradora de la carga</label>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="AutoTransporteFederal_NombreAseguradoraCarga" name="AutoTransporteFederal.NombreAseguradoraCarga" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.NombreAseguradoraCarga" data-valmsg-replace="true"></span>
-								</div>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_NumeroPolizaCarga"># P&#243;liza de la carga</label>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="AutoTransporteFederal_NumeroPolizaCarga" name="AutoTransporteFederal.NumeroPolizaCarga" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.NumeroPolizaCarga" data-valmsg-replace="true"></span>
-								</div>
-							</div>
-
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label"># Permiso</label>
 						</div>
-						<br />
+						<div class="col-md-2 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 1 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{1,50}$" id="NumeroPermisoSCT" name="NumeroPermisoSCT" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="NumeroPermisoSCT" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+					</div>
+					<br />
 
-						<div class="row">
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_NombreAseguradoraMedioAmbiente">Aseguradora del medio ambiente</label>
+					<div class="row">
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label">* Aseguradora responsabilidad civil </label>
+						</div>
+						<div class="col-md-2 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="NombreAseguradoraResponsabilidadCivil" name="NombreAseguradoraResponsabilidadCivil" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="NombreAseguradoraResponsabilidadCivil" data-valmsg-replace="true"></span>
 							</div>
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="AutoTransporteFederal_NombreAseguradoraMedioAmbiente" name="AutoTransporteFederal.NombreAseguradoraMedioAmbiente" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.NombreAseguradoraMedioAmbiente" data-valmsg-replace="true"></span>
-								</div>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label">* # P&#243;liza resp. civil</label>
+						</div>
+						<div class="col-md-2 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="NumeroPolizaResponsabilidadCivil" name="NumeroPolizaResponsabilidadCivil" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="NumeroPolizaResponsabilidadCivil" data-valmsg-replace="true"></span>
 							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_NumeroPolizaMedioAmbiente"># P&#243;liza medio ambiente</label>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label">Aseguradora de la carga</label>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="NombreAseguradoraCarga" name="NombreAseguradoraCarga" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="NombreAseguradoraCarga" data-valmsg-replace="true"></span>
 							</div>
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="AutoTransporteFederal_NumeroPolizaMedioAmbiente" name="AutoTransporteFederal.NumeroPolizaMedioAmbiente" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.NumeroPolizaMedioAmbiente" data-valmsg-replace="true"></span>
-								</div>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label"># P&#243;liza de la carga</label>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="NumeroPolizaCarga" name="NumeroPolizaCarga" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="NumeroPolizaCarga" data-valmsg-replace="true"></span>
 							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_PrimaSeguro">Prima del seguro</label>
-							</div>                        
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-number="El campo Prima del seguro debe ser un número." data-val-range="Sólo admite valores numéricos (Mínimo 0.001, máximo 9999999999.999)" data-val-range-max="9999999999.999" data-val-range-min="0.001" id="AutoTransporteFederal_PrimaSeguro" name="AutoTransporteFederal.PrimaSeguro" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.PrimaSeguro" data-valmsg-replace="true"></span>
-								</div>
-							</div>
-
-
-							<div class="col-md-2 col-xs-12 text-center">
-								<button type="button" class="btn btn-primary" onclick="AgregarMedioTransporte();">Aceptar  </button>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<button type="button" class="btn btn-primary" onclick="CerrarModalMedioTransporte();">Cancelar</button>
-							</div>
-
 						</div>
 
-					</form>
-				</div>
+					</div>
+					<br />
+
+					<div class="row">
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label">Aseguradora del medio ambiente</label>
+						</div>
+						<div class="col-md-2 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="NombreAseguradoraMedioAmbiente" name="NombreAseguradoraMedioAmbiente" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="NombreAseguradoraMedioAmbiente" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label"># P&#243;liza medio ambiente</label>
+						</div>
+						<div class="col-md-2 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="NumeroPolizaMedioAmbiente" name="NumeroPolizaMedioAmbiente" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="NumeroPolizaMedioAmbiente" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<label class="control-label">Prima del seguro</label>
+						</div>
+						<div class="col-md-2 col-xs-12">
+							<div class="form-group-sm">
+								<input class="form-control" data-val="true" data-val-number="El campo Prima del seguro debe ser un número." data-val-range="Sólo admite valores numéricos (Mínimo 0.001, máximo 9999999999.999)" data-val-range-max="9999999999.999" data-val-range-min="0.001" id="PrimaSeguro" name="PrimaSeguro" type="text" value="" />
+								<span class="field-validation-valid" data-valmsg-for="PrimaSeguro" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+
+
+						<div class="col-md-2 col-xs-12 text-center">
+							<!-- <button type="submit" class="btn btn-primary">Aceptar  </button> -->
+							<input type="submit" class="btn btn-success" value="Guardar datos">
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<button type="button" class="btn btn-primary" onclick="CerrarModalMedioTransporte();">Cancelar</button>
+						</div>
+
+					</div>
+
+				</form>
 			</div>
 		</div>
 	</div>
-
+</div>

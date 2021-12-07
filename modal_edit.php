@@ -3,18 +3,18 @@
 			<div class="modal-content">
 				<form name="edit_product" id="edit_product">
 					<div class="modal-header">						
-						<h4 class="modal-title">Editar Producto</h4>
+						<h4 class="modal-title">Editar Automovil</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Código</label>
-							<input type="text" name="edit_code"  id="edit_code" class="form-control" required>
+							<label>placa</label>
+							<input type="text" name="edit_placa"  id="edit_placa" class="form-control" required>
 							<input type="hidden" name="edit_id" id="edit_id" >
 						</div>
 						<div class="form-group">
 							<label>Producto</label>
-							<input type="text" name="edit_name" id="edit_name" class="form-control" required>
+							<input type="text" name="NumeroPermisoSCT" id="NumeroPermisoSCT" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Categoría</label>

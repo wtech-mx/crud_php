@@ -9,7 +9,7 @@
 	
  
 	// DELETE FROM  database
-    $sql = "DELETE FROM  tblprod WHERE id='$id_producto'";
+    $sql = "DELETE FROM  cporte_tvehiculos WHERE id='$id_producto'";
     $query = mysqli_query($con,$sql);
     // if product has been added successfully
     if ($query) {
