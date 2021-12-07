@@ -39,11 +39,22 @@ if($action == 'ajax'){
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th class='text-center'>Código</th>
-						<th>Producto </th>
-						<th>Categoría </th>
-						<th class='text-center'>Stock</th>
-						<th class='text-right'>Precio</th>
+						<th class='text-center'>Placa</th>
+						<th>Año </th>
+						<th>Tipo </th>
+						<th class='text-center'>Tipo Remolque 1</th>
+						<th class='text-right'>Placa 1</th>
+
+						<th class='text-center'>Tipo Remolque 2</th>
+						<th>Placa 2</th>
+						<th>Permiso SCT</th>
+						<th class='text-center'># Permiso</th>
+						<th class='text-right'>Aseguradora resp. civil</th>
+						<th class='text-right'>Aseguradora de la carga</th>
+						<th class='text-right'># Póliza de la carga</th>
+						<th class='text-right'>Aseguradora del medio ambiente</th>
+						<th class='text-right'># Póliza medio ambiente</th>
+						<th class='text-right'>Prima del seguro</th>
 						<th></th>
 					</tr>
 				</thead>
