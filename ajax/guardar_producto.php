@@ -2,25 +2,25 @@
 if (empty($_POST['placa'])) {
 	$errors[] = "Ingresa la placa del vehiculo.";
 } elseif (!empty($_POST['placa'])) {
-	require_once("../conexion.php"); //Contiene funcion que conecta a la base de datos
+	require_once("./../conexion.php"); //Contiene funcion que conecta a la base de datos
 	// escaping, additionally removing everything that could be (html/javascript-) code
 	$placa = mysqli_real_escape_string($con, (strip_tags($_POST["placa"], ENT_QUOTES)));
-	$Anio = mysqli_real_escape_string($con, (strip_tags($_POST["Anio"], ENT_QUOTES)));
+	$anio = mysqli_real_escape_string($con, (strip_tags($_POST["anio"], ENT_QUOTES)));
 	$tipo = mysqli_real_escape_string($con, (strip_tags($_POST["tipo"], ENT_QUOTES)));
-	$PermisoSCT = mysqli_real_escape_string($con, (strip_tags($_POST["PermisoSCT"], ENT_QUOTES)));
-	$NumeroPermisoSCT = mysqli_real_escape_string($con, (strip_tags($_POST["NumeroPermisoSCT"], ENT_QUOTES)));
-	$NombreAseguradoraResponsabilidadCivil = mysqli_real_escape_string($con, (strip_tags($_POST["NombreAseguradoraResponsabilidadCivil"], ENT_QUOTES)));
-	$NumeroPolizaResponsabilidadCivil = mysqli_real_escape_string($con, (strip_tags($_POST["NumeroPolizaResponsabilidadCivil"], ENT_QUOTES)));
-	$NombreAseguradoraCarga = mysqli_real_escape_string($con, (strip_tags($_POST["NombreAseguradoraCarga"], ENT_QUOTES)));
-	$NumeroPolizaCarga = mysqli_real_escape_string($con, (strip_tags($_POST["NumeroPolizaCarga"], ENT_QUOTES)));
-	$NombreAseguradoraMedioAmbiente = mysqli_real_escape_string($con, (strip_tags($_POST["NombreAseguradoraMedioAmbiente"], ENT_QUOTES)));
-	$NumeroPolizaMedioAmbiente = mysqli_real_escape_string($con, (strip_tags($_POST["NumeroPolizaMedioAmbiente"], ENT_QUOTES)));
-	$PrimaSeguro = mysqli_real_escape_string($con, (strip_tags($_POST["PrimaSeguro"], ENT_QUOTES)));
+	$permisosct = mysqli_real_escape_string($con, (strip_tags($_POST["permisosct"], ENT_QUOTES)));
+	$numeropermisosct = mysqli_real_escape_string($con, (strip_tags($_POST["numeropermisosct"], ENT_QUOTES)));
+	$nombreaseguradoraresponsabilidadcivil = mysqli_real_escape_string($con, (strip_tags($_POST["nombreaseguradoraresponsabilidadcivil"], ENT_QUOTES)));
+	$numeropolizaresponsabilidadcivil = mysqli_real_escape_string($con, (strip_tags($_POST["numeropolizaresponsabilidadcivil"], ENT_QUOTES)));
+	$nombreaseguradoracarga = mysqli_real_escape_string($con, (strip_tags($_POST["nombreaseguradoracarga"], ENT_QUOTES)));
+	$numeropolizacarga = mysqli_real_escape_string($con, (strip_tags($_POST["numeropolizacarga"], ENT_QUOTES)));
+	$nombreaseguradoramedioambiente = mysqli_real_escape_string($con, (strip_tags($_POST["nombreaseguradoramedioambiente"], ENT_QUOTES)));
+	$numeropolizamedioambiente = mysqli_real_escape_string($con, (strip_tags($_POST["numeropolizamedioambiente"], ENT_QUOTES)));
+	$primaseguro = mysqli_real_escape_string($con, (strip_tags($_POST["primaseguro"], ENT_QUOTES)));
 
 
 	// REGISTER data into database
-	$sql = "INSERT INTO cporte_tvehiculos(id, placa, Anio, tipo, PermisoSCT, NumeroPermisoSCT, NombreAseguradoraResponsabilidadCivil, NumeroPolizaResponsabilidadCivil, NombreAseguradoraCarga, NumeroPolizaCarga, NombreAseguradoraMedioAmbiente, NumeroPolizaMedioAmbiente, PrimaSeguro) 
-	VALUES (NULL,'$placa','$Anio','$tipo','$PermisoSCT','$NumeroPermisoSCT','$NombreAseguradoraResponsabilidadCivil','$NumeroPolizaResponsabilidadCivil','$NombreAseguradoraCarga','$NumeroPolizaCarga','$NombreAseguradoraMedioAmbiente','$NumeroPolizaMedioAmbiente','$PrimaSeguro')";
+	$sql = "INSERT INTO cporte_tvehiculos(id, placa, anio, tipo, permisosct, numeropermisosct, nombreaseguradoraresponsabilidadcivil, numeropolizaresponsabilidadcivil, nombreaseguradoracarga, numeropolizacarga, nombreaseguradoramedioambiente, numeropolizamedioambiente, primaseguro) 
+	VALUES (NULL,'$placa','$anio','$tipo','$permisosct','$numeropermisosct','$nombreaseguradoraresponsabilidadcivil','$numeropolizaresponsabilidadcivil','$nombreaseguradoracarga','$numeropolizacarga','$nombreaseguradoramedioambiente','$numeropolizamedioambiente','$primaseguro')";
 	$query = mysqli_query($con, $sql);
 	// if product has been added successfully
 	if ($query) {

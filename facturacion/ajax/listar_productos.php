@@ -7,10 +7,10 @@ $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['a
 if($action == 'ajax'){
 	$query = mysqli_real_escape_string($con,(strip_tags($_REQUEST['query'], ENT_QUOTES)));
  
-	$tables="cporte_tvehiculos";
+	$tables="facturacion";
 	$campos="*";
-	$sWhere=" cporte_tvehiculos.placa LIKE '%".$query."%'";
-	$sWhere.=" order by cporte_tvehiculos.placa";
+	$sWhere=" facturacion.rfc LIKE '%".$query."%'";
+	$sWhere.=" order by facturacion.rfc";
 	
 	
 	include 'pagination.php'; //include pagination file
@@ -39,22 +39,12 @@ if($action == 'ajax'){
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th class='text-center'>Placa</th>
-						<th>Año </th>
-						<th>Tipo </th>
-						<th class='text-center'>Tipo Remolque 1</th>
-						<th class='text-right'>Placa 1</th>
-
-						<th class='text-center'>Tipo Remolque 2</th>
-						<th>Placa 2</th>
-						<th>Permiso SCT</th>
-						<th class='text-center'># Permiso</th>
-						<th class='text-right'>Aseguradora resp. civil</th>
-						<th class='text-right'>Aseguradora de la carga</th>
-						<th class='text-right'># Póliza de la carga</th>
-						<th class='text-right'>Aseguradora del medio ambiente</th>
-						<th class='text-right'># Póliza medio ambiente</th>
-						<th class='text-right'>Prima del seguro</th>
+						<th class='text-center'>rfc</th>
+						<th>nombre_razon </th>
+						<th>curp </th>
+						
+						<th>tax_id</th>
+						<th class='text-center'>no_licencia</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -62,23 +52,23 @@ if($action == 'ajax'){
 						<?php 
 						$finales=0;
 						while($row = mysqli_fetch_array($query)){	
-							$product_id=$row['id'];
-							$prod_code=$row['prod_code'];
-							$placa=$row['placa'];
-							$prod_ctry=$row['prod_ctry'];
-							$prod_qty=$row['prod_qty'];
-							$price=$row['price'];						
+							$id=$row['id'];
+							$rfc=$row['rfc'];
+							$nombre_razon=$row['nombre_razon'];
+							$curp=$row['curp'];
+							$tax_id=$row['tax_id'];
+							$no_licencia=$row['no_licencia'];		
 							$finales++;
 						?>	
 						<tr class="<?php echo $text_class;?>">
-							<td class='text-center'><?php echo $prod_code;?></td>
-							<td ><?php echo $placa;?></td>
-							<td ><?php echo $prod_ctry;?></td>
-							<td class='text-center' ><?php echo $prod_qty;?></td>
-							<td class='text-right'><?php echo number_format($price,2);?></td>
+							<td class='text-center'><?php echo $rfc;?></td>
+							<td class='text-center'><?php echo $nombre_razon;?></td>
+							<td class='text-center'><?php echo $curp;?></td>
+							<td class='text-center' ><?php echo $tax_id;?></td>
+							<td class='text-center' ><?php echo $no_licencia;?></td>
 							<td>
-								<a href="#"  data-target="#editProductModal" class="edit" data-toggle="modal" data-code='<?php echo $prod_code;?>' data-name="<?php echo $placa?>" data-category="<?php echo $prod_ctry?>" data-stock="<?php echo $prod_qty?>" data-price="<?php echo $price;?>" data-id="<?php echo $product_id; ?>"><i class="material-icons" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
-								<a href="#deleteProductModal" class="delete" data-toggle="modal" data-id="<?php echo $product_id;?>"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+								<a href="#"  data-bs-target="#editProductModal" class="edit" data-bs-toggle="modal" data-rfc='<?php echo $rfc;?>' data-nombre_razon="<?php echo $nombre_razon?>" data-curp="<?php echo $curp?>" data-tax_id="<?php echo $tax_id;?>" data-no_licencia="<?php echo $no_licencia; ?>" data-id="<?php echo $id; ?>"><i class="material-icons" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
+								<a href="#deleteProductModal" class="delete" data-bs-toggle="modal" data-id="<?php echo $id;?>"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
                     		</td>
 						</tr>
 						<?php }?>

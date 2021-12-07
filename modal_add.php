@@ -28,8 +28,8 @@
 							</div>
 							<div class="col-md-1 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="El formato es inválido corrija y vuelva a intentarlo" data-val-regex-pattern="(19[0-9]{2}|20[0-9]{2})" id="Anio" name="Anio" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="Anio" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-regex="El formato es inválido corrija y vuelva a intentarlo" data-val-regex-pattern="(19[0-9]{2}|20[0-9]{2})" id="anio" name="anio" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="anio" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 							<div class="col-md-1 col-xs-12 text-center">
@@ -85,7 +85,7 @@
 							</div>
 							<div class="col-md-2 col-xs-12">
 								<div class="form-group-sm">
-									<select class="form-control" id="PermisoSCT" name="PermisoSCT">
+									<select class="form-control" id="permisosct" name="permisosct">
 										<option value="TPXX00">Permiso no contemplado en el cat&#225;logo.</option>
 										<option value="TPAF19">Autorizaci&#243;n expresa para circular en los caminos y puentes de jurisdicci&#243;n federal con configuraciones de tractocami&#243;n doblemente articulado.</option>
 										<option value="TPAF11">Autotransporte Federal de Carga Especializada cuyo &#225;mbito de aplicaci&#243;n comprende la franja fronteriza con Estados Unidos.</option>
@@ -115,8 +115,8 @@
 							</div>
 							<div class="col-md-2 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 1 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{1,50}$" id="NumeroPermisoSCT" name="NumeroPermisoSCT" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="NumeroPermisoSCT" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 1 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{1,50}$" id="numeropermisosct" name="numeropermisosct" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="numeropermisosct" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 						</div>
@@ -128,8 +128,8 @@
 							</div>
 							<div class="col-md-2 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="NombreAseguradoraResponsabilidadCivil" name="NombreAseguradoraResponsabilidadCivil" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="NombreAseguradoraResponsabilidadCivil" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="nombreaseguradoraresponsabilidadcivil" name="nombreaseguradoraresponsabilidadcivil" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="nombreaseguradoraresponsabilidadcivil" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 							<div class="col-md-1 col-xs-12">
@@ -137,8 +137,8 @@
 							</div>
 							<div class="col-md-2 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="NumeroPolizaResponsabilidadCivil" name="NumeroPolizaResponsabilidadCivil" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="NumeroPolizaResponsabilidadCivil" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="numeropolizaresponsabilidadcivil" name="numeropolizaresponsabilidadcivil" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="numeropolizaresponsabilidadcivil" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 							<div class="col-md-1 col-xs-12">
@@ -146,8 +146,8 @@
 							</div>
 							<div class="col-md-1 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="NombreAseguradoraCarga" name="NombreAseguradoraCarga" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="NombreAseguradoraCarga" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="nombreaseguradoracarga" name="nombreaseguradoracarga" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="nombreaseguradoracarga" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 							<div class="col-md-1 col-xs-12">
@@ -155,8 +155,8 @@
 							</div>
 							<div class="col-md-1 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="NumeroPolizaCarga" name="NumeroPolizaCarga" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="NumeroPolizaCarga" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="numeropolizacarga" name="numeropolizacarga" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="numeropolizacarga" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 
@@ -169,8 +169,8 @@
 							</div>
 							<div class="col-md-2 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="NombreAseguradoraMedioAmbiente" name="NombreAseguradoraMedioAmbiente" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="NombreAseguradoraMedioAmbiente" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 50 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,50}$" id="nombreaseguradoramedioambiente" name="nombreaseguradoramedioambiente" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="nombreaseguradoramedioambiente" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 							<div class="col-md-1 col-xs-12">
@@ -178,8 +178,8 @@
 							</div>
 							<div class="col-md-2 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="NumeroPolizaMedioAmbiente" name="NumeroPolizaMedioAmbiente" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="NumeroPolizaMedioAmbiente" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-regex="Alfanumérico (Mínimo 3 caracteres, máximo 30 caracteres). Excepto comillas dobles &quot; ; | &amp; @ &lt; >" data-val-regex-pattern="^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚÄäËëÏïÖöÜü´@_\.,:\-\{\}\[\]\+\*!¡¿\?#\$%&#39;/\(\)=\s]{3,30}$" id="numeropolizamedioambiente" name="numeropolizamedioambiente" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="numeropolizamedioambiente" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 							<div class="col-md-1 col-xs-12">
@@ -187,8 +187,8 @@
 							</div>
 							<div class="col-md-2 col-xs-12">
 								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-number="El campo Prima del seguro debe ser un número." data-val-range="Sólo admite valores numéricos (Mínimo 0.001, máximo 9999999999.999)" data-val-range-max="9999999999.999" data-val-range-min="0.001" id="PrimaSeguro" name="PrimaSeguro" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="PrimaSeguro" data-valmsg-replace="true"></span>
+									<input class="form-control" data-val="true" data-val-number="El campo Prima del seguro debe ser un número." data-val-range="Sólo admite valores numéricos (Mínimo 0.001, máximo 9999999999.999)" data-val-range-max="9999999999.999" data-val-range-min="0.001" id="primaseguro" name="primaseguro" type="text" value="" />
+									<span class="field-validation-valid" data-valmsg-for="primaseguro" data-valmsg-replace="true"></span>
 								</div>
 							</div>
 

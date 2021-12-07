@@ -5,16 +5,17 @@
 	} elseif (!empty($_POST['edit_id'])){
 	require_once ("../../conexion.php");//Contiene funcion que conecta a la base de datos
 	// escaping, additionally removing everything that could be (html/javascript-) code
-    $prod_code = mysqli_real_escape_string($con,(strip_tags($_POST["edit_code"],ENT_QUOTES)));
-	$prod_name = mysqli_real_escape_string($con,(strip_tags($_POST["edit_name"],ENT_QUOTES)));
-	$prod_ctry = mysqli_real_escape_string($con,(strip_tags($_POST["edit_category"],ENT_QUOTES)));
-	$stock = intval($_POST["edit_stock"]);
-	$price = floatval($_POST["edit_price"]);
+	$rfc = mysqli_real_escape_string($con, (strip_tags($_POST["edit_rfc"], ENT_QUOTES)));
+	$nombre_razon = mysqli_real_escape_string($con, (strip_tags($_POST["edit_nombre_razon"], ENT_QUOTES)));
+	$curp = mysqli_real_escape_string($con, (strip_tags($_POST["edit_curp"], ENT_QUOTES)));
+	$tax_id = mysqli_real_escape_string($con, (strip_tags($_POST["edit_tax_id"], ENT_QUOTES)));
+	$no_licencia = mysqli_real_escape_string($con, (strip_tags($_POST["edit_no_licencia"], ENT_QUOTES)));
+
 	
 	$id=intval($_POST['edit_id']);
 	// UPDATE data into database
-    $sql = "UPDATE tblprod SET prod_code='".$prod_code."', prod_name='".$prod_name."', prod_ctry='".$prod_ctry."', price='".$price."',  prod_qty='".$stock."' WHERE id='".$id."' ";
-    $query = mysqli_query($con,$sql);
+    $sql = "UPDATE facturacion SET rfc='".$rfc."', nombre_razon='".$nombre_razon."', curp='".$curp."', tax_id='".$tax_id."',  no_licencia='".$no_licencia."' WHERE id='".$id."' ";
+	$query = mysqli_query($con, $sql);
     // if product has been added successfully
     if ($query) {
         $messages[] = "El producto ha sido actualizado con éxito.";

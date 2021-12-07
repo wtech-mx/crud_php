@@ -58,36 +58,37 @@ if($action == 'ajax'){
 						<?php 
 						$finales=0;
 						while($row = mysqli_fetch_array($query)){	
+							$id=$row['id'];
 							$placa=$row['placa'];
-							$Anio=$row['Anio'];
+							$anio=$row['anio'];
 							$tipo=$row['tipo'];
-							$PermisoSCT=$row['PermisoSCT'];
-							$NumeroPermisoSCT=$row['NumeroPermisoSCT'];
-							$NombreAseguradoraResponsabilidadCivil=$row['NombreAseguradoraResponsabilidadCivil'];
-							$NumeroPolizaResponsabilidadCivil=$row['NumeroPolizaResponsabilidadCivil'];		
-							$NombreAseguradoraCarga=$row['NombreAseguradoraCarga'];		
-							$NumeroPolizaCarga=$row['NumeroPolizaCarga'];	
-							$NombreAseguradoraMedioAmbiente=$row['NombreAseguradoraMedioAmbiente'];		
-							$NumeroPolizaMedioAmbiente=$row['NumeroPolizaMedioAmbiente'];		
-							$PrimaSeguro=$row['PrimaSeguro'];			
+							$permisosct=$row['permisosct'];
+							$numeropermisosct=$row['numeropermisosct'];
+							$nombreaseguradoraresponsabilidadcivil=$row['nombreaseguradoraresponsabilidadcivil'];
+							$numeropolizaresponsabilidadcivil=$row['numeropolizaresponsabilidadcivil'];
+							$nombreaseguradoracarga=$row['nombreaseguradoracarga'];		
+							$numeropolizacarga=$row['numeropolizacarga'];	
+							$nombreaseguradoramedioambiente=$row['nombreaseguradoramedioambiente'];		
+							$numeropolizamedioambiente=$row['numeropolizamedioambiente'];		
+							$primaseguro=$row['primaseguro'];			
 							$finales++;
 						?>	
 						<tr class="<?php echo $text_class;?>">
 							<td class='text-center'><?php echo $placa;?></td>
-							<td class='text-center'><?php echo $Anio;?></td>
+							<td class='text-center'><?php echo $anio;?></td>
 							<td class='text-center'><?php echo $tipo;?></td>
-							<td class='text-center'><?php echo $PermisoSCT;?></td>
-							<td class='text-center' ><?php echo $NumeroPermisoSCT;?></td>
-							<td class='text-center' ><?php echo $NombreAseguradoraResponsabilidadCivil;?></td>
-							<td class='text-center' ><?php echo $NumeroPolizaResponsabilidadCivil;?></td>
-							<td class='text-center' ><?php echo $NombreAseguradoraCarga;?></td>
-							<td class='text-center' ><?php echo $NumeroPolizaCarga;?></td>
-							<td class='text-center' ><?php echo $NombreAseguradoraMedioAmbiente;?></td>
-							<td class='text-center' ><?php echo $NumeroPolizaMedioAmbiente;?></td>
-							<td class='text-center' ><?php echo $PrimaSeguro;?></td>
+							<td class='text-center'><?php echo $permisosct;?></td>
+							<td class='text-center' ><?php echo $numeropermisosct;?></td>
+							<td class='text-center' ><?php echo $nombreaseguradoraresponsabilidadcivil;?></td>
+							<td class='text-center' ><?php echo $numeropolizaresponsabilidadcivil;?></td>
+							<td class='text-center' ><?php echo $nombreaseguradoracarga;?></td>
+							<td class='text-center' ><?php echo $numeropolizacarga;?></td>
+							<td class='text-center' ><?php echo $nombreaseguradoramedioambiente;?></td>
+							<td class='text-center' ><?php echo $numeropolizamedioambiente;?></td>
+							<td class='text-center' ><?php echo $primaseguro;?></td>
 							<td>
-								<a href="#"  data-bs-target="#editProductModal" class="edit" data-bs-toggle="modal" data-placa='<?php echo $placa;?>' data-Anio="<?php echo $Anio?>" data-tipo="<?php echo $tipo?>" data-PermisoSCT="<?php echo $PermisoSCT?>" data-NumeroPermisoSCT="<?php echo $NumeroPermisoSCT;?>" data-NombreAseguradoraResponsabilidadCivil="<?php echo $NombreAseguradoraResponsabilidadCivil; ?>"data-NumeroPolizaResponsabilidadCivil="<?php echo $NumeroPolizaResponsabilidadCivil; ?>"data-NombreAseguradoraCarga="<?php echo $NombreAseguradoraCarga; ?>"data-NombreAseguradoraMedioAmbiente="<?php echo $NombreAseguradoraMedioAmbiente; ?>"data-NumeroPolizaMedioAmbiente="<?php echo $NumeroPolizaMedioAmbiente; ?>"data-PrimaSeguro="<?php echo $PrimaSeguro; ?>"><i class="material-icons" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
-								<a href="#deleteProductModal" class="delete" data-bs-toggle="modal" data-id="<?php echo $placa;?>"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+								<a href="#"  data-bs-target="#editProductModal" class="edit" data-bs-toggle="modal" data-placa='<?php echo $placa;?>' data-anio="<?php echo $anio?>" data-tipo="<?php echo $tipo?>" data-permisosct="<?php echo $permisosct?>" data-numeropermisosct="<?php echo $numeropermisosct;?>" data-nombreaseguradoraresponsabilidadcivil="<?php echo $nombreaseguradoraresponsabilidadcivil;?>" data-numeropolizaresponsabilidadcivil="<?php echo $numeropolizaresponsabilidadcivil; ?>"data-nombreaseguradoracarga="<?php echo $nombreaseguradoracarga; ?>"data-numeropolizacarga="<?php echo $numeropolizacarga; ?>" data-nombreaseguradoramedioambiente="<?php echo $nombreaseguradoramedioambiente; ?>" data-numeropolizamedioambiente="<?php echo $numeropolizamedioambiente; ?>"data-primaseguro="<?php echo $primaseguro; ?>" data-id="<?php echo $id; ?>"><i class="material-icons" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
+								<a href="#deleteProductModal" class="delete" data-bs-toggle="modal" data-id="<?php echo $id;?>"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
                     		</td>
 						</tr>
 						<?php }?>
