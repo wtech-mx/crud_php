@@ -8,7 +8,7 @@
 				</div>
 
 				<div class="modal-body">
-					<form action="/CartaPorte/SeleccionarCartaPorte" id="add_FormAutoTransporte" method="post" name="FormAutoTransporte">
+					<form id="add_FormAutoTransporte" method="post" name="FormAutoTransporte">
 
 						<div class="row">
 							<div class="col-md-1 col-xs-12">
@@ -72,111 +72,9 @@
 								</div>
 							</div>
 						</div>
+
 						<br />
-						<div class="row">
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_SubTipoRemolque1">Tipo Remolque</label>
-							</div>
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<select class="form-control" id="AutoTransporteFederal_SubTipoRemolque1" name="AutoTransporteFederal.SubTipoRemolque1"><option value="-1">Seleccione (opcional)</option>
-									<option value="CTR001">Caballete</option>
-									<option value="CTR002">Caja</option>
-									<option value="CTR003">Caja Abierta</option>
-									<option value="CTR004">Caja Cerrada</option>
-									<option value="CTR005">Caja De Recolecci&#243;n Con Cargador Frontal</option>
-									<option value="CTR006">Caja Refrigerada</option>
-									<option value="CTR007">Caja Seca</option>
-									<option value="CTR008">Caja Transferencia</option>
-									<option value="CTR009">Cama Baja o Cuello Ganso</option>
-									<option value="CTR010">Chasis Portacontenedor</option>
-									<option value="CTR011">Convencional De Chasis</option>
-									<option value="CTR012">Equipo Especial</option>
-									<option value="CTR013">Estacas</option>
-									<option value="CTR014">G&#243;ndola Madrina</option>
-									<option value="CTR016">Gr&#250;a</option>
-									<option value="CTR015">Gr&#250;a Industrial</option>
-									<option value="CTR017">Integral</option>
-									<option value="CTR018">Jaula</option>
-									<option value="CTR019">Media Redila</option>
-									<option value="CTR020">Pallet o Celdillas</option>
-									<option value="CTR021">Plataforma</option>
-									<option value="CTR022">Plataforma Con Gr&#250;a</option>
-									<option value="CTR023">Plataforma Encortinada</option>
-									<option value="CTR024">Redilas</option>
-									<option value="CTR025">Refrigerador</option>
-									<option value="CTR026">Revolvedora</option>
-									<option value="CTR027">Semicaja</option>
-									<option value="CTR028">Tanque</option>
-									<option value="CTR029">Tolva</option>
-									<option value="CTR031">Volteo</option>
-									<option value="CTR032">Volteo Desmontable</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_PlacaRemolque1">Placa Remolque</label>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="El formato es inválido corrija y vuelva a intentarlo" data-val-regex-pattern="[^(?!.*\s)-]{6,7}" id="AutoTransporteFederal_PlacaRemolque1" name="AutoTransporteFederal.PlacaRemolque1" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.PlacaRemolque1" data-valmsg-replace="true"></span>
-								</div>
-							</div>
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_SubTipoRemolque2">Tipo Remolque</label>
-							</div>
-							<div class="col-md-2 col-xs-12">
-								<div class="form-group-sm">
-									<select class="form-control" id="AutoTransporteFederal_SubTipoRemolque2" name="AutoTransporteFederal.SubTipoRemolque2"><option value="-1">Seleccione (opcional)</option>
-									<option value="CTR001">Caballete</option>
-									<option value="CTR002">Caja</option>
-									<option value="CTR003">Caja Abierta</option>
-									<option value="CTR004">Caja Cerrada</option>
-									<option value="CTR005">Caja De Recolecci&#243;n Con Cargador Frontal</option>
-									<option value="CTR006">Caja Refrigerada</option>
-									<option value="CTR007">Caja Seca</option>
-									<option value="CTR008">Caja Transferencia</option>
-									<option value="CTR009">Cama Baja o Cuello Ganso</option>
-									<option value="CTR010">Chasis Portacontenedor</option>
-									<option value="CTR011">Convencional De Chasis</option>
-									<option value="CTR012">Equipo Especial</option>
-									<option value="CTR013">Estacas</option>
-									<option value="CTR014">G&#243;ndola Madrina</option>
-									<option value="CTR016">Gr&#250;a</option>
-									<option value="CTR015">Gr&#250;a Industrial</option>
-									<option value="CTR017">Integral</option>
-									<option value="CTR018">Jaula</option>
-									<option value="CTR019">Media Redila</option>
-									<option value="CTR020">Pallet o Celdillas</option>
-									<option value="CTR021">Plataforma</option>
-									<option value="CTR022">Plataforma Con Gr&#250;a</option>
-									<option value="CTR023">Plataforma Encortinada</option>
-									<option value="CTR024">Redilas</option>
-									<option value="CTR025">Refrigerador</option>
-									<option value="CTR026">Revolvedora</option>
-									<option value="CTR027">Semicaja</option>
-									<option value="CTR028">Tanque</option>
-									<option value="CTR029">Tolva</option>
-									<option value="CTR031">Volteo</option>
-									<option value="CTR032">Volteo Desmontable</option>
-									</select>
-								</div>
-							</div>
 
-							<div class="col-md-1 col-xs-12">
-								<label class="control-label" for="AutoTransporteFederal_PlacaRemolque2">Placa Remolque</label>
-							</div>
-
-							<div class="col-md-1 col-xs-12">
-								<div class="form-group-sm">
-									<input class="form-control" data-val="true" data-val-regex="El formato es inválido corrija y vuelva a intentarlo" data-val-regex-pattern="[^(?!.*\s)-]{6,7}" id="AutoTransporteFederal_PlacaRemolque2" name="AutoTransporteFederal.PlacaRemolque2" type="text" value="" />
-									<span class="field-validation-valid" data-valmsg-for="AutoTransporteFederal.PlacaRemolque2" data-valmsg-replace="true"></span>
-								</div>
-							</div>
-
-						</div>
-						<br />
 						<div class="row">
 							<div class="col-md-1 col-xs-12">
 								<label class="control-label" for="AutoTransporteFederal_PermisoSCT">Permiso SCT</label>
@@ -217,8 +115,8 @@
 								</div>
 							</div>                       
 						</div>
-
 						<br />
+
 						<div class="row">
 							<div class="col-md-1 col-xs-12">
 								<label class="control-label" for="AutoTransporteFederal_NombreAseguradoraResponsabilidadCivil">* Aseguradora responsabilidad civil </label>
@@ -259,6 +157,7 @@
 
 						</div>
 						<br />
+
 						<div class="row">
 							<div class="col-md-1 col-xs-12">
 								<label class="control-label" for="AutoTransporteFederal_NombreAseguradoraMedioAmbiente">Aseguradora del medio ambiente</label>
