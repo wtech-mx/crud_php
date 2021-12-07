@@ -16,10 +16,12 @@
 </head>
 
 <body id="page-top">
+    
     <div id="wrapper">
         <div class="d-flex flex-column p-2" id="content-wrapper">
             <div id="content">
                 <div class="container-fluid">
+
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
 
                         <div class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -27,29 +29,34 @@
                         </div>
 
                         <div class="container-fluid">
-                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                        </form>
+                            <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                    <div class="input-group">
+                                        <input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                        <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
 
-                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Agregar</button>
-
-                    </div>
-                    
+                                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Agregar</button>
+                            </div>
                         </div>
 
                         <div class='clearfix'></div>
                         <hr>
+
                         <div id="loader"></div><!-- Carga de datos ajax aqui -->
                         <div id="resultados"></div><!-- Carga de datos ajax aqui -->
                         <div class='outer_div'></div><!-- Carga de datos ajax aqui -->
 
                     </div>
-
                 </div>
-
             </div>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+
+        <a class="border rounded d-inline scroll-to-top" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
     </div>
     

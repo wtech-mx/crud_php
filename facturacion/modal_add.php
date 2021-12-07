@@ -1,12 +1,14 @@
 <!-- modal-inc -->
 <div class="modal fade" role="dialog" tabindex="-1" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggle">
         <div class="modal-dialog modal-dialog-centered" role="document">
+
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h4 class="modal-title">Datos del Cliente</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
-                    <p></p>
                     <form>
                         <div class="row">
                             <div class="col-sm-6">
@@ -39,6 +41,7 @@
                         </div>
                     </form>
                 </div>
+
                 <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
             </div>
         </div>
