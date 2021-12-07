@@ -1,0 +1,2256 @@
+﻿    var idTimerVery=0;
+	var id_cto_reg;
+
+    function ConsultaA(indice,id_cancel='',json_insert=''){
+
+		var catalogo="Nfacturas";
+		var vecMon=$("#moneda01").html().replace("<b>","").replace("</b>","").split("|");
+
+		var params={};         
+		params.tipo_cfdi = $("#selectTipoCfd").val();   		
+		params.subfijo= vecMon.length==2 ? vecMon[0] : "M.N.";
+		params.moneda=vecMon.length==2 ? vecMon[1].trim().toUpperCase() : "PESO";			
+		params.action="refreshGrid";   		
+		params.indice=indice;
+		params.indiceSelected=indice;
+		params.resXho=$("#resXhoadoD"+catalogo).val();
+		params.orderBy=$("#orderByadoD"+catalogo).val();
+		params.BanConSQL="2";
+		if(id_cancel != ''){ params.id=id_cancel; }
+		if(json_insert != ''){ params.data_insert=json_insert; }
+
+		$("#preloader,#preloader2").css("display","inline-block");
+		$('#content').load('index.php', params,function(cont){
+			$("#preloader,#preloader2").css("display","none");
+
+			if(id_cancel != ''){ $("#txtProductoX").focus().select(); }	
+
+			if(json_insert != '') $("#temp_id,#temp_impuestos,#temp_unidad,#temp_alias,#temp_precio,#temp_total").val("");		
+			
+			InabilCFD();
+
+		});
+
+		return false;  
+    }
+
+    /*Auxiliar para los catalogos*/
+    function LeeCamposSat(){
+		$(".campoSat").each(function(){
+
+			var params={};            
+			params.index="4";    
+			params.id_obj=$(this).attr("id");  
+			params.id_sel=$(this).attr("data-value"); 
+			params.claveCat=$(this).attr("data-tipo"); 
+
+			$('#divAuxSat').load("../../../../recursos/php/validaciones_3.3.php", params,function(resp){
+			   var vecr=resp.split(" || ");        
+			   $("#" + vecr[0].trim() ).attr("title", vecr[1].trim() );
+			   $("#" + vecr[0].trim() ).html( vecr[2].trim() );             
+			   $("#" + vecr[0].trim() ).attr("data-value", vecr[3].trim() );
+			}); 
+
+		});
+    }
+
+	function UpdateCte(){
+		ClearError();
+
+		var msg="";
+
+		$("#mos_mail").val( $("#mos_mail").val().replace(",",";") );
+
+		var rfc=$("#mos_rfc").val();
+		var razon_social=$("#mos_rz").val();
+		var cod_postal=$("#mos_cp").val();
+		var email=$("#mos_mail").val();
+
+		 rfc=rfc.trim();
+		 razon_social=razon_social.trim();
+		 cod_postal=cod_postal.trim();
+		 email=email.trim();
+
+		 if(rfc.length==0){
+			$("#mos_rfc").css("border","1px red solid");
+			$("#mos_rfc").css("background-color","#FBEFEF");
+			msg=msg+"Falta el RFC.<br>";
+		 }
+
+		 if(ValidaRfc(rfc) == false){
+			$("#mos_rfc").css("border","1px red solid");
+			$("#mos_rfc").css("background-color","#FBEFEF");
+			msg=msg+"El formato del RFC es incorrecto.<br>";
+		 }                    
+
+		 if(razon_social.length==0){
+			$("#mos_rz").css("border","1px red solid");
+			$("#mos_rz").css("background-color","#FBEFEF");
+			$("#mos_rz").focus();
+			msg=msg+"Falta la razon social.<br>";
+		 }                    
+
+							 
+		 if(email.length > 0){ 
+		   var vecEmail=email.split(";");
+		   var e;
+
+		   for(e=0;e<=vecEmail.length;e++){
+			  if( vecEmail[e] != "" && vecEmail[e] != undefined ){
+				 if(validarEmail( vecEmail[e].trim() )==false){
+					 $("#mos_mail").css("border","1px red solid");
+					 $("#mos_mail").css("background-color","#FBEFEF");
+					 $("#mos_mail").focus();
+					 msg=msg+"La dirección de E-Mail: " + vecEmail[e].trim() + " es incorrecta <br>";                      
+				 }
+			  }                         
+		   }                   
+		 }
+		 
+		  /*--------Detecta si hay errores-------*/ 
+
+		 if (msg.length >0 ){
+			 MsgError("<b>PORFAVOR VERIFIQUE LOS SIGUIENTES DATOS:</b>" + "<br>" + msg);
+		 } else {
+
+			   var data= new FormData();
+			   data.append("txtRfc",$("#mos_rfc").val());
+			   data.append("txtRazon_social",$("#mos_rz").val());
+			   data.append("txtCod_pos",$("#mos_cp").val());
+			   data.append("txtEmail",$("#mos_mail").val());
+			   data.append("txtId",$("#txtIdCte").val());   
+
+			   $.ajax({
+					   url: "recursos/php/actualizaCliente.php",
+					   type:"POST",
+					   data:data,
+					   contentType:false,
+					   processData:false,
+					   cache:false,
+					   timeout: 60000,                 
+					   error: function(objeto, quepaso, otroobj){
+						  $("#preloader,#preloader2").css("display","none");
+					   },
+					   beforeSend: function(objeto){
+						$("#preloader,#preloader2").css("display","inline-block");
+					   }
+			   }).done(function (msg){  
+				  if(msg.trim()==1){
+					 $("#txtRfcCte").val( $("#mos_rfc").val().toUpperCase() );
+					 $("#txtRazonSocialCte").val($("#mos_rz").val().toUpperCase());
+					 $("#txtEmail").val($("#mos_mail").val());
+					 $("#cte_cp").val($("#mos_cp").val());
+					 $("#divDatosCtes").dialog("close");
+				  } else {                           							   
+					 MsgError("No se realizaron cambios al registro de usuario.");
+				  }
+
+				  $("#preloader,#preloader2").css("display","none");                             
+			   });        
+
+		 }		
+	}
+
+
+	function BuscaProd(id){
+
+		$("#txtProductoX").attr("readonly",true);
+
+		var params={};   
+		params.txt_producto= $("#txtProductoX").val();    
+
+		$("#preloader,#preloader2").css("display","inline-block");
+		$("#mostrarProductos").css("display","none");						 
+
+		$("#contenido_productos").load("recursos/php/listarProductos.php",params,function(datos){			
+			    $("#preloader,#preloader2").css("display","none");				
+				$("#txtProductoX").removeAttr("readonly");
+				$("#txtProductoX").focus().select();
+
+				if(datos.length > 752 ){
+					$("#mostrarProductos").css("display","block");
+					$("#DivdatosProductos").css("display","none");	
+					$("#ListadoProductos tbody tr").css("background-color", "#FFFFFF"); 
+					$("#mostrarProductos").css("overflow-y","auto");
+				} else {
+					$("#mostrarProductos").css("display","block");
+					$("#DivdatosProductos").css("display","none");
+					$("#mostrarProductos").css("overflow-y","none");
+				}	 	
+
+				$("#ListadoProductos thead").css("background-color","#F2F2F2");
+				$("#ListadoProductos thead th").css("height","2.7em");
+
+				$("#ListadoProductos tbody tr").mouseenter(function(){
+					$(this,"td").css("background-color","#F2F2F2")	
+				});
+
+				$("#ListadoProductos tbody tr").mouseleave(function(){
+					$(this,"td").css("background-color","#FFFFFF")	
+				});							  
+		});	   			  	
+	}	   
+
+	function aceptBotton(id,impuestos,unidad,alias,precio,total){								
+		var importex=0.0;
+
+		precio=num(precio);
+		total=num(total);
+
+	    if(isNaN(precio)==true){
+			alert("El precio debe de ser numérico.");
+			$("#temp_precio").focus().select();
+			return;
+	    }
+
+		if($("#CalculoInv").is(':checked')){
+
+		   var importex= num($("#DImporte").val());
+		   cantidad="0";
+
+		   if(isNaN(importex)==true){
+				alert("Importe debe de ser numérico.");
+				$("#DImporte").focus().select();
+				return;
+		   }
+
+		   importex=parseFloat(importex);
+		   if(importex==0){return;}
+
+		} else {
+
+		   var cantidad= num($("#DCantidad").val());	
+
+		   if(isNaN(cantidad)==true){
+				  alert("Cantidad debe de ser numérica.");
+				  $("#DCantidad").focus().select();
+				 return;
+		   }
+
+		   importex="0";			
+		   cantidad=parseFloat(cantidad);				   
+		   if(cantidad==0){ return; }
+
+		}
+
+		$("#DImporte").val("0.00");
+		$("#DCantidad").val("0.00"); 	
+
+		addProductoN(id,impuestos,unidad,alias,precio,total,cantidad,importex,""); 	 				
+
+	   $("#dialogo").dialog("close");	
+}
+
+function addProductoN(id,impuestos,unidad,alias,precio,total,cantidad,importex,detalles){
+
+	 if(id=="" || unidad=="" ){
+		 alert("DEBE SELECCIONAR UN PRODUCTO");
+		 return;
+	 }                
+
+	  /*Separamos los impuestos aplicables al producto*/
+	  var vector=impuestos.split('/');													   							   
+
+	  /*Inicializa los valores para hacer calculos*/
+	  $("#VAL_CANTIDAD").val(cantidad);
+	  $("#VAL_UNIDAD").val(unidad); 												
+	  $("#VAL_DESCRIPCION").val(alias); 
+	  $("#VAL_PRECIO").val(precio);
+
+	  $("#VAL_IMPORTE").val(importex);
+	  $("#VAL_TRASLADADO,#VAL_RETENIDO,#VAL_IVA,#VAL_DESCUENTO,#VAL_IVA1,#VAL_IVA2,#VAL_ISR,#VAL_IEPS,#VAL_TASA,#VAL_TASA1,#VAL_TASA2,#VAL_ADN_NUMERO").val("0");
+	  $("#VAL_ADN_FECHA,#VAL_ADN_ADUANA").val("");
+
+
+	  for(i=0;i< vector.length; i++){
+		   
+		  /*Recorre impuestos trasladados*/
+		   $(".trasladados").each(function (index) {														
+				   if($(this).is(':checked')){
+					   var nombre=$(this).attr("value");												
+					  if(vector[i]==nombre){	
+						 ejecutaFuncion(nombre+"_trasladado");
+					  }
+				   }
+		   });
+
+		   $(".retenidos").each(function (index) {				
+				   if($(this).is(':checked')){
+					   var nombre=$(this).attr("value");
+					  if(vector[i]==nombre){	
+						 ejecutaFuncion(nombre+"_retenido");
+					  }
+				   }
+		   });
+		   
+	  }
+
+
+	   /*----- Almacena los valores----------*/	   
+
+	   var data_insert = JSON.stringify({ 
+		id_producto: id, 
+		cantidad: $("#VAL_CANTIDAD").val(),
+		precio_unit: $("#VAL_PRECIO").val(), 
+		importe: $("#VAL_IMPORTE").val(),
+		descuento: $("#VAL_DESCUENTO").val(), 
+		impuesto_tras: $("#VAL_TRASLADADO").val(),
+		impuesto_ret: $("#VAL_RETENIDO").val(), 
+		iva: $("#VAL_IVA").val(),
+		iva1: $("#VAL_IVA1").val(), 
+		iva2: $("#VAL_IVA2").val(),
+		isr: $("#VAL_ISR").val(), 
+		ieps: $("#VAL_IEPS").val(),
+		tasa: $("#VAL_TASA").val(), 
+		tasa1: $("#VAL_TASA1").val(),
+		tasa2: $("#VAL_TASA2").val(), 
+		adn_numero: $("#VAL_ADN_NUMERO").val(),																																	 
+		adn_fecha: $("#VAL_ADN_FECHA").val(), 
+		adn_aduana: $("#VAL_ADN_ADUANA").val(),
+		folio: $("#txtSerie").val() + "-" + $("#txtFolio").val(), 
+		detalles: detalles
+	});
+
+	ConsultaA(0,'',data_insert);
+
+}
+
+function calcularimpuesto(id,impuestos,unidad,alias,precio,total,calculoinv){	
+
+	/*Guarda temporalmente los valores*/
+	$("#temp_id").val(id);
+	$("#temp_impuestos").val(impuestos);
+	$("#temp_unidad").val(unidad);
+	$("#temp_alias").val(alias);
+	$("#temp_precio").val(format(precio) );
+	$("#temp_total").val(total);
+
+	/*Visualiza Objetos*/
+	 if($("#ban_calculoInv").val()=="inline"){
+		 $("#CalculoInv").prop("checked",true);
+		 $("#DIVcantidad").css("display","none");
+		 $("#DIVimporte").css("display","block");
+	 }				
+
+
+	if(calculoinv=="1" && $("#CalculoInv").is(':checked')){
+		  $("#CalculoInv").prop("checked",false);
+		  $("#DIVcantidad").css("display","block");
+		  $("#DIVimporte").css("display","none");
+	}				
+	if(calculoinv=="0" && $("#CalculoInv").is(':checked')==false){
+		  $("#CalculoInv").prop("checked",true);
+		  $("#DIVcantidad").css("display","none");
+		  $("#DIVimporte").css("display","block");
+	}	
+
+	/*----------Solicitamos la cantidad---------*/
+
+	$("#DCantidad").val("1.00");					  
+	$("#DImporte").val("");
+
+	/*Limpia panel d productos*/
+	$("#mostrarProductos").css("display","none");							  		             
+
+	if(unidad.toUpperCase() != "NO APLICA"){
+	   $("#dunidad").html(" en '" + unidad.toUpperCase() + "S'");
+	} else {
+	   $("#dunidad").html("");
+	}
+	
+	$("#dialogo").dialog({
+	autoOpen: true,
+	resizable: false,
+	title:alias,
+	width: 350,
+	height: 500,
+	modal: true, 
+	position: 'top',
+	buttons: {
+	  "CANCELAR": function() { 
+	      $(this).dialog("close");
+	  }, 		
+	  "ACEPTAR": function() { 
+		  aceptBotton(id,impuestos,unidad,alias,$("#temp_precio").val() ,total);
+	  }
+	}/*,
+	close: function() {
+	  alert('close');
+	}*/
+	});
+
+	 var timeoutId = setTimeout(function(){
+		if($("#DIVimporte").css("display")=="block"){
+		    $("#DImporte").focus();
+		}else {
+			  if( parseFloat(precio) <=0 ){
+					$("#temp_precio").focus().select();	
+			  } else {
+					$("#DCantidad").focus();
+			  }			          
+		}   
+	 },((20)*5)*1);
+}  
+
+function LimpiaTodo(){
+	/*Recetea detalles de factura*/	
+	$("#fact_notasDto,#fact_numTarjeta,#DImporte,#DCantidad,#temp_id,#temp_impuestos,#temp_unidad,#temp_alias,#temp_precio,#temp_total,#txtNumIdent,#txtPaisRes").val("");                                        
+	$("#fact_tipoCambio").val("1");   
+	$("#fact_tipoCambio").attr("data-ant","1");                   
+	$("#fact_iva1,#fact_iva2,#fact_isr,#fact_ieps").val("0");                      
+	$("#num_tarjeta").prop('checked', false);
+	$("#fact_numTarjeta").attr("display","none");
+	$("#ivaExento").prop("checked",false);
+
+	/*Limpia catalogos del sat*/
+	$("#formaPago01").attr("data-value", "01" );
+	$("#usoCfdi1").attr("data-value", "G03" );
+	$("#metodopago01").attr("data-value", "PUE" );
+	$("#moneda01").attr("data-value", "MXN" );
+	LeeCamposSat();                      
+
+	/*Limpia cliente*/					  
+	$("#mostrarClientes").css("border-bottom","none");
+	$("#DivdatosClientes").css("display","none");
+	$("#mostrarClientes").css("overflow","hidden");
+	$("#mostrarClientes").css("height","5em");
+	$('#op_busqueda').click();
+
+	/*Limpia panel d productos*/
+	$("#mostrarProductos").css("border-bottom","none");
+	$("#DivdatosProductos").css("display","none");
+	$("#mostrarProductos").css("overflow","hidden");
+	$("#mostrarProductos").css("height","5em");
+
+
+	if($("#panelBusqueda").val()=="1") $("#txtRazonSocialx").val("");
+
+	if($("#ban_calculoInv").val()=="inline"){
+		$("#CalculoInv").attr("checked",true);
+		$("#DIVcantidad").css("display","none");
+		$("#DIVimporte").css("display","block");
+		$("#DImporte").focus();
+	}	
+	
+
+}
+
+
+function VerFolioySerie(){
+
+	var dataSer= new FormData();
+	dataSer.append("tipoCFDI",$("#selectTipoCfd").val());
+
+	$.ajax({
+			url: "recursos/php/serieyFolio.php",
+			type:"POST",
+			data: dataSer,
+			contentType:false,
+			processData:false,
+			cache:false,
+			timeout: 60000,                 
+			error: function(objeto, quepaso, otroobj){
+				$("#txtSerie").val("");
+				$("#txtFolio").val("");
+			},
+			beforeSend: function(objeto){
+				$("#txtSerie").val("");
+				$("#txtFolio").val("");
+			}
+	}).done(function (msg){  	
+		var vec=msg.split("/");
+
+		if(vec.length==3){
+				$("#txtSerie").val(vec[0]);
+				$("#txtFolio").val(vec[1]);
+
+
+
+		} else{
+				$("#txtSerie").val("");
+				$("#txtFolio").val("");
+
+				//Detecta session expirada
+				if( msg=="SESSION_EXPIRADA" ){			
+					alert("LA SESION HA CADUCADO, DEBERA LOGUEARSE DE NUEVO.");				                    	
+					document.location.href="../../../../recursos/php/cerrarSesion.php";
+				}
+				
+				MsgError(msg);
+		}
+
+	});			
+}
+
+function vizRecPag(visible){
+	if($("#selectTipoCfd").val() =="Pago"){
+		//Muestra panel de complemento para pago
+		$(".panelRecepcionPagos").css("display", visible ? "inline-block" : "none");
+		if(visible) $("#busca_rfc").val( $("#txtRfcCte").val() );		
+	} else {
+		$(".panelRecepcionPagos").css("display", "none");
+	}	
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+       //Obtiene las formas de pago           
+       function getFormaPagoSat(){                     
+				var params={};            
+				params.index="3";                                                               
+				$('#cpag_forma_pago').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+					 //Cancela forma de pago 99
+					 $("#cpag_forma_pago option[value='99']").remove();
+				});                                
+	    }
+
+		//Obtiene las Monedas           
+		function getMonedaSat(){                     
+				var params={};            
+				params.index="4";                                                               
+				$('#cpag_moneda').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+					$("#edit_dpag_moneda").html(res);
+					$("#edit_dpag_moneda option[value='MXN']").prop("selected",true);
+					$("#cpag_moneda option[value='MXN']").prop("selected",true);
+					$("#cpag_moneda,#edit_dpag_moneda").change();
+				});                                
+	   }
+
+		//Obtiene Metodo de pago     
+		function getMetodoPagoSat(){                     
+				var params={};            
+				params.index="5";                                                               
+				$('#edit_dpag_metodo_pago').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+					 $("#edit_dpag_metodo_pago option[value='PPD']").attr("selected",true);
+					 $("#edit_dpag_metodo_pago").prop("disabled",true);
+					 $("#edit_dpag_metodo_pago").css("background-color","#ECF0F1");
+				});                                
+	   }
+
+		//Obtiene Listado de Documentos Relacionados    
+		function getDocsRelacionados(banLimpia){                     
+				var params={};            
+				params.index="6"; 
+				
+				$('#listaDocumentosRelacionados').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+					if(banLimpia){
+					  LimpiaEditUUIDRelRP();
+					  $("#tablaEditDetallesPago").css("display","none");
+					  $(".FilaUUID").removeClass("selFilaUUID");
+					  $("#idRegUUIDRel").val("");
+					} else {
+					  $("#filaUuID_" + $("#idRegUUIDRel").val()).addClass("selFilaUUID");                           
+					}                         
+				});                                
+	   }
+
+	   //Limpia captura Documentos Relacionados
+	   function LimpiaEditUUIDRelRP(){
+				$("#edit_dpag_id_documento,#edit_dpag_serie,#edit_dpag_folio,#edit_dpag_tipo_cambio,#edit_dpag_imp_pagado,#edit_dpag_imp_saldo_anterior,#edit_dpag_imp_saldo_insoluto,#importe_orig_fact").val("");
+				$("#edit_dpag_moneda option[value=''],#edit_dpag_metodo_pago option[value=''],#edit_dpag_num_parcialidad option[value='']").prop("selected",true);
+	   }
+
+	   //Cancela detalles de uuid relacionado
+	   function CancelaDetallesUUIDRel(idReg){                      
+				var params={};            
+				params.index="10"; 
+				params.id_registro=idReg; 
+				
+				$("#preloader,#preloader2").css("display","inline-block");
+
+				$('#divAuxTmp').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+					$("#preloader,#preloader2").css("display","none");                                              
+
+					if(res.trim() == "1" ){
+						LimpiaEditUUIDRelRP();
+						$("#tablaEditDetallesPago").fadeOut();
+						$(".FilaUUID").removeClass("selFilaUUID");
+						$("#idRegUUIDRel").val("");
+						getDocsRelacionados(true);
+					} else {
+					   alert(res);
+					}
+				});  
+	   }
+
+	   //Consulta detalles de uuid relacionado
+	   function ConsultaDetallesUUIDRel(idReg){
+				$("#idRegUUIDRel").val(idReg);
+				var params={};            
+				params.index="7"; 
+				params.id_registro=idReg; 
+				
+				$("#preloader,#preloader2").css("display","inline-block");              
+
+				$('#divAuxTmp').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+					$("#preloader,#preloader2").css("display","none");
+
+					LimpiaEditUUIDRelRP();        
+
+					var vecRes= res.split("|");
+					if( vecRes.length ==12 ){
+						$("#edit_dpag_id_documento").val(vecRes[0]);
+						$("#edit_dpag_serie").val(vecRes[1]);
+						$("#edit_dpag_folio").val(vecRes[2]);
+						$("#edit_dpag_moneda option[value='" + vecRes[3] + "']").prop("selected",true);
+						$("#edit_dpag_tipo_cambio").val(vecRes[4]);
+						$("#edit_dpag_metodo_pago option[value='" + vecRes[5] + "']").prop("selected",true);
+						$("#edit_dpag_num_parcialidad option[value='" + vecRes[6] + "']").prop("selected",true);
+						$("#edit_dpag_imp_saldo_anterior").val(format(vecRes[7]));
+						$("#edit_dpag_imp_pagado").val(format(vecRes[8]));
+						$("#edit_dpag_imp_saldo_insoluto").val(format(vecRes[9]));
+						$("#importe_orig_fact").val(vecRes[10]);
+
+						$("#edit_dpag_num_parcialidad").change();
+						calculaImpSaldoInsoluto();
+						$("#tablaEditDetallesPago").css("display","inline-block");
+					} else {
+						 $("#tablaEditDetallesPago").fadeOut();
+						 alert("No fue posible recuperar los detalles.");
+					}
+				});                                                    
+	   } 
+
+	   //Agrega documento relacionado
+	   function AddComprobanteRel(uuidSel){
+				var params={};            
+				params.index="9"; 
+				params.uuidSel=uuidSel; 
+
+				$("#preloader,#preloader2").css("display","inline-block");                                       
+
+				$('#divAuxTmp').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+					$("#preloader,#preloader2").css("display","none");
+
+					 if( res.trim()=="1" ){
+						 getDocsRelacionados(true); 
+					 } else {
+						 alert(res);
+					 }
+				}); 
+	   }  
+
+	   //Se optiene de {Importe Saldo Anterior} - {Importe Pagado}
+	   function calculaImpSaldoInsoluto(){
+			$("#edit_dpag_imp_saldo_insoluto").val(parseFloat(num($("#edit_dpag_imp_saldo_anterior").val())) - parseFloat(num($("#edit_dpag_imp_pagado").val())));
+	   }  
+
+        function EnviaMail(){   	
+
+				if( $("#mos_mail").val().trim() == ""){
+					LimpiaTodo();
+					return; 
+				}	
+
+				var data6= new FormData();
+				data6.append("correo",$("#mos_mail").val());
+
+				$.ajax({
+					url: "efactura/correo.php",
+					type:"POST",
+					data:data6,
+					contentType:false,
+					processData:false,
+					cache:false,
+					timeout: 60000,                 
+					error: function(objeto, quepaso, otroobj){
+						MsgError("HA OCURRIDO UN ERROR CON LOS DATOS PARA EL ENVÍO DE LA FACTURA POR E-MAIL, COMUNIQUELO AL ADMINISTRADOR");						
+					},
+					beforeSend: function(objeto){
+						LimpiaTodo();
+					}
+				}).done(function (msg){  
+					msg=msg.trim();												             
+					if(msg!="1"){
+						MsgError(msg);	
+					} 		                           
+				});	   	
+        }
+
+        function desaseCFDI_DB(vistaPrev=false){
+				var data= new FormData();
+				data.append("vistaPrev", vistaPrev ? '1' : '0' );			
+			    $.ajax({
+					url: "recursos/php/desaseCFDI_DB.php",
+					type:"POST",
+					data:data,
+					contentType:false,
+					processData:false,
+					cache:false,
+					timeout: 60000,                 
+					error: function(objeto, quepaso, otroobj){
+						$("#preloader,#preloader2").css("display","none");
+					   $("body").css("overflow-y","auto");
+					}
+				}).done(function (msg){  												             
+					$("#preloader,#preloader2").css("display","none");
+					$("body").css("overflow-y","auto");					
+					if(msg.trim() != "ok") MsgError("Back: " + msg);
+					ConsultaA(0);
+				});	
+        }
+
+		//Complemento Pago
+
+		//Añade los conceptos de la factura con complemento de pago
+		function addConceptoCompPago(){                     
+				var params={};            
+				params.index="1";   
+				params.serie=$("#txtSerie").val();
+				$("#preloader,#preloader2").css("display","inline-block");								
+				$('#divAuxTmp').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+					$("#preloader,#preloader2").css("display","none");
+					if(res.trim()=="1"){ 
+							getDocsRelacionados(true); 
+							ConsultaA(0); 
+
+							$("#usoCfdi1,#metodopago01,#formaPago01,#moneda01").css("background-color","#ECF0F1");
+							$("#btn_metodopago01,#btn_usoCfdi1,#ayudaBtnMoneda01,#btn_formaPago01").css("display","none");
+							$("#btn_metodopago01,#ayudaBtnMoneda01,#btn_usoCfdi1,#btn_formaPago01").attr("data-tipo",""); 							
+							$("#metodopago01,#fact_tipoCambio,#moneda01,#formaPago01").html("No aplica");
+
+							//Uso del CFDI
+							$("#usoCfdi1").html("<b>P01</b> | Por definir");
+							$("#usoCfdi1").attr("data-value","P01"); 
+							$("#fact_tipoCambio").prop("disabled",true);   
+						
+							//Limpia campos                        
+							$("#cpag_fecha_pago").val($("#fechaNow").val());
+							$("#cpag_monto").val("0.00");
+							$("#cpag_num_operacion").val("");
+							$("#cpag_forma_pago option[value='']").prop("selected",true);
+							$("#cpag_moneda option[value='MXN']").prop("selected",true);
+							$("#cpag_forma_pago,#cpag_moneda").change();
+							$("#cantLetraCP").val("CERO PESOS 00/100 M.N.");
+
+							$("#panelOcultCompPagos").css("display","none");                        
+
+					} else { 
+						alert(res); 
+					}
+				});                                
+        }
+
+		//Cancela los conceptos de la factura con complemento de pago
+		function cancelConceptoCompPago(){                     
+				var params={};            
+				params.index="2";   
+													
+				$('#divAuxTmp').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+				 	ConsultaA(0); 
+				});                                
+		}
+
+		//----------Fin Complemento Pago-----
+
+
+
+   function InabilCFD(){
+	   var x=$("#txtSubtotal").val();
+	   var acep=false;
+
+	   //Condiciones para visualizar el boton de Generar CFDI
+	   if( x=="0.00" && $("#selectTipoCfd").val()=="Pago" ){ acep=true; }
+	   if( x != "0.00" && $("#selectTipoCfd").val() != "Pago"){ acep=true; }
+
+
+	   if(acep==false){	
+		$('.EmitirCfdi').css("display", "none");	
+		$('#AjusteManual').css("display", "none");
+		$('#lblAjusteManual').css("display", "none");
+	   } else {
+		$('.EmitirCfdi').css("display", "inline");	
+		$('#AjusteManual').css("display", "inline");   
+		$('#lblAjusteManual').css("display", "inline");			
+	   }
+   }
+
+function CalculaImporteLetra(IDObjDestino,textMoneda,importeMon){
+	var vecMon=textMoneda.replace("<b>","").replace("</b>","").split("|");
+	var subfijo = vecMon.length==2 ? vecMon[0] : "M.N.";
+	var moneda = vecMon.length==2 ? vecMon[1].trim().toUpperCase() : "PESO";
+
+	var data= new FormData();
+	data.append("importe",num(importeMon));
+	data.append("subfijo", subfijo);
+	data.append("moneda", moneda);
+
+	$.ajax({
+	    url: "recursos/php/importe_letra.php",
+		type:"POST",
+		data:data,
+		contentType:false,
+		processData:false,
+		cache:false,
+		timeout: 60000,                 
+			error: function(objeto, quepaso, otroobj){
+			$("#" + IDObjDestino).val("CERO " + moneda + " 00/100 " + subfijo);
+			InabilCFD();
+		},
+		beforeSend: function(objeto){
+			$("#espera2").css("display","inline");
+		}
+	}).done(function (msg){  	
+		$("#" + IDObjDestino).val(msg);
+		$("#espera2").css("display","none");
+		InabilCFD();
+	});	
+}
+
+function BuscaCte(){
+		    	  
+	if($("#txtRazonSocialx").val().trim().length==0) return; 
+
+	if($("#txtRazonSocialx").val().trim().length < 5){
+		if(confirm("La busqueda es muy general y tardaria en completarse, ¿Desea proseguir?")==false) return; 
+	}
+
+	var params={};   
+	params.razon_social= $("#txtRazonSocialx").val();    
+	$("#preloader,#preloader2").css("display","inline-block");
+	$("#mostrarClientes").css("display","none");						 
+
+	$("#contenido").load("recursos/php/listarClientes.php",params,function(datos){	            	
+		$("#preloader,#preloader2").css("display","none");
+
+        $("#txtRazonSocialx").focus().select();
+		$("#panelBusqueda2").css("margin-bottom","0.7em");	
+		$("#mostrarClientes").css("display","block");
+		$("#DivdatosClientes").css("display","none");			
+		vizRecPag(false);
+
+		if(datos.length > 752 ){			
+			$("#ListadoClientes tbody tr").css("background-color", "#FFFFFF"); 
+			if(ban==4){ 
+				$("#primFila").click(); 
+				$("#txtProductoX").focus();
+				$("html,body").animate({ scrollTop : $("#txtProductoX").offset().top -325 }, 400 );
+			}								     
+		} 	 	
+
+		$("#ListadoClientes thead").css("background-color","#F2F2F2");
+		$("#ListadoClientes thead th").css("height","2.7em");
+
+		$("#ListadoClientes tbody tr").mouseenter(function(){
+			$(this,"td").css("background-color","#F2F2F2")	
+		});
+
+		$("#ListadoClientes tbody tr").mouseleave(function(){
+			$(this,"td").css("background-color","#FFFFFF")	
+		});															
+
+	});	   			  	
+}	
+
+function TimerVery(){    
+	    $("#xfolio").val( $("#txtSerie").val() + "-" + $("#txtFolio").val() );
+	    $("#xnumfolio").val( $("#txtFolio").val() );
+
+       idTimerVery = setTimeout(function(){
+	                var datax= new FormData();
+	                datax.append("handel",$("#Handel").val());
+	                datax.append("folio",$("#xfolio").val());
+	                datax.append("numfolio",$("#xnumfolio").val());
+	                datax.append("ID_SUCURSAL",$("#ID_SUCURSAL").val());
+	                
+                   $.ajax({
+                      url: "recursos/php/veriCFDI_Ok.php",
+	                  data:datax,                      
+                      type:"POST",
+                      contentType:false,
+                      processData:false,
+                      cache:false,
+                      timeout: 60000,                 
+                      error: function(objeto, quepaso, otroobj){	
+						$("#preloader,#preloader2").css("display","none");                       							        
+                      },
+                      beforeSend: function(objeto){
+						$("#preloader,#preloader2").css("display","inline-block");
+                      }
+                   }).done(function (msg){
+					    $("#preloader,#preloader2").css("display","none");                 	
+                   });	
+								                        
+       }, 300*10 );
+}
+
+
+/*--------------------------------------------------------------------------------------------------------*/
+      function ClearError(){
+                    $('#divDatosCtes input[type=text],#divDatosCtes select').each(function(){
+                      $(this).css("background-color","white");
+                      $(this).css("border","1px #D8D8D8 solid");
+                    });
+                  
+      }   
+
+	  function ValidaRfc(rfcStr) {
+	                    var strCorrecta;
+	                    strCorrecta = rfcStr; 
+	                    if (rfcStr.length == 12){
+	                    var valid = '^(([A-Z]|[a-z]|[&]|[Ñ]|[ñ]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+	                    }else{
+	                    var valid = '^(([A-Z]|[a-z]|[&]|[Ñ]|[ñ]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+	                    }
+	                    var validRfc=new RegExp(valid);
+	                    var matchArray=strCorrecta.match(validRfc);
+	                    if (matchArray==null) {
+	                      return false;
+	                    }else{
+	                      return true;
+	                    }
+	    
+	  }
+
+	  function validarEmail( email ) {
+	                expr = /^([a-zA-Z0-9_\ñ\Ñ\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	                if ( !expr.test(email) ){
+	                  return false;      
+	                } else {
+	                  return true;      
+	                }
+	          
+	  }
+
+	function MuestrDetalleTimb(){
+            var buttonsx = {};
+            buttonsx["Enterado"] = function() {$(this).dialog("close"); };								            	
+
+			$("#MsgTimb").dialog({
+			autoOpen: true,
+			modal: false,
+			resizable: false,
+			width: 670,
+			height:500,
+			position: 'top',
+			top:0,
+			buttons: buttonsx, 
+			title:" Generación de XML"      
+			});	
+
+			$("html,body").animate({ scrollTop : $("#MsgTimb").offset().top  }, 400 );
+	}
+
+	function send_timbrado(vist_prev=false) {
+
+		if(!vist_prev) $("#block").dialog("close");
+
+		if($("#txtSerie").val().trim() =="" || $("#txtFolio").val().trim()==""){
+			alert("El folio es incorrecto.");
+			return;
+		}
+
+		var datax = { 		
+		   serie:$("#txtSerie").val(),
+		   num_folio:$("#txtFolio").val(),					
+		   formaPago: $("#formaPago01").attr("data-value"),
+		   formaPago_html: $("#formaPago01").html(),
+		   metodopago: $("#metodopago01").attr("data-value"),
+		   metodopago_html: $("#metodopago01").html(),											
+		   usoCfdi:  $("#usoCfdi1").attr("data-value"),
+		   usoCfdi_html: $("#usoCfdi1").html(),
+		   num_tarjeta: $("#fact_numTarjeta").val(),
+		   moneda: $("#moneda01").attr("data-value"),
+		   tipoCambio: $("#fact_tipoCambio").val(),
+		   iva1: num($("#fact_iva1").val()),
+		   iva2: num($("#fact_iva2").val()),
+		   isr: num($("#fact_isr").val()),
+		   ieps: num($("#fact_ieps").val()),
+		   bruto_fact: num($("#txtSubtotal").val()),
+		   TOTALDESC: num($("#txtDescuentos").val()),
+		   fact_impuesto: num($("#txtIva").val()),
+		   importe: num($("#txtTotal").val()),
+
+		   descuento_gral: num($("#txtDesctoGral").val()),
+		   notasDto: $("#fact_notasDto").val(),
+		   cte_rfc : $("#txtRfcCte").val(),
+		   id_cliente : $("#txtIdCte").val(),
+		   cte_razon : $("#txtRazonSocialCte").val(),
+		   txtNumIdent : $("#txtNumIdent").val(),
+		   txtPaisRes : $("#txtPaisRes").val(),
+		   cte_cp : $("#cte_cp").val(),											
+		   desglosa0 : $("#ivaExento").is(":checked") ? '1' : '0',				
+		   txtImportLetra : $("#txtImportLetra").val(),
+		   txtFecha : $("#txtFecha").val()
+
+	   };
+
+		var data= new FormData();
+		data.append("selectTipoCfd", $("#selectTipoCfd").val() );
+		data.append("data_insert", JSON.stringify(datax) );
+		
+		$.ajax({
+				url: "recursos/php/ingresaCFDI.php",
+				type:"POST",
+				data:data,
+				contentType:false,
+				processData:false,
+				cache:false,
+				timeout: 60000,                 
+				error: function(objeto, quepaso, otroobj){
+
+					$("#preloader,#preloader2").css("display","none");
+					$("body").css("overflow-y","auto");
+
+					MsgError("Estimado usuario, no fue posible enviar la solicitud para registrar el documento, intentelo mas tarde.");
+
+				},
+				beforeSend: function(objeto){
+							$("body").css("overflow-y","none");	 
+							$("#preloader,#preloader2").css("display","inline-block");
+				}
+		}).done(function (msg){  
+			msg=msg.trim();
+
+			if(msg=="La sesión se caducó."){
+				document.location.href = "../../../../recursos/php/cerrarSesion.php"; 
+				return;
+			}
+
+			if(msg=="1"){							            	     						            	     						            		 
+
+					/**** INTENTA GENERAR EL ARCHIVO XML ******/
+					var data2= new FormData();
+					data2.append("regimen", $("#selectRegimen option:selected").html() );		
+					data2.append("ban_modoDep",$("#ban_modoDep").val());
+					data2.append("email",$("#mos_mail").val());	
+					data2.append("vist_prev",vist_prev);																							  
+
+					if($("#selectTipoCfd").val() =="Pago"){										  	   
+							data2.append("cpag_fecha_pago",$("#cpag_fecha_pago").val());
+							data2.append("cpag_forma_pago",$("#cpag_forma_pago").val());
+							data2.append("cpag_moneda",$("#cpag_moneda").val());
+							data2.append("cpag_tipo_cambio",$("#cpag_tipo_cambio").val());
+							data2.append("cpag_monto",$("#cpag_monto").val().replace(",","") );
+							data2.append("cpag_num_operacion",$("#cpag_num_operacion").val().toUpperCase());
+							data2.append("cpag_rfc_emisor_cta",$("#cpag_rfc_emisor_cta").val().toUpperCase());
+							data2.append("cpag_nombre_banco",$("#cpag_nombre_banco").val().toUpperCase());
+							data2.append("cpag_cta_ordenante",$("#cpag_cta_ordenante").val());
+							data2.append("cpag_rfc_cta_beneficiaria",$("#cpag_rfc_cta_beneficiaria").val().toUpperCase());
+							data2.append("cpag_cta_beneficiario",$("#cpag_cta_beneficiario").val());
+					}	
+
+				$.ajax({
+						url: "efactura/xml2rest1.php",
+						type:"POST",
+						data:data2,
+						contentType:false,
+						processData:false,
+						cache:false,
+						timeout: 60000,                 
+						error: function(objeto, quepaso, otroobj){
+
+							/*-----Desaser factura aqui----*/
+							desaseCFDI_DB();
+
+							MsgError("Estimado usuario, no fue posible enviar la solicitud para timbrado, intentelo mas tarde.");
+
+						},
+						beforeSend: function(objeto){
+						}
+				}).done(function (msg){  							            	
+
+					$("#MsgTimb").html(msg);
+
+					var buttonsx = {};
+					buttonsx["Enterado"] = function() {$(this).dialog("close"); };								            	
+
+						if($("#ban_modoDep").val()=="1" || msg.search("ESQUEMAERROR2")==31){
+
+							if( msg.search("ESQUEMAERROR2")==31 ){ msg="ES PROBABLE QUE LA INFORMACIÓN DEL CLIENTE CONTENGA ERRORES. VERIFIQUE PORFAVOR EL RFC E INFORMACIÓN COMPLEMENTARIA."; }
+
+							$("#MensajesC").html(msg);
+							$("#MensajesC").dialog({
+							autoOpen: true,
+							modal: false,
+							resizable: false,
+							width: 670,
+							height:500,
+							position: 'top',
+							top:0,
+							buttons: buttonsx, 
+							title:"Generación de CFDI"      
+							});
+						}     
+					
+						
+						/*VERIFICA SI SE CREO EL ARCHIVO XML*/	
+						$.ajax({
+						url: "recursos/php/veryXmlGenerate.php",
+						type:"POST",
+						contentType:false,
+						processData:false,
+						cache:false,
+						timeout: 60000,                 
+						error: function(objeto, quepaso, otroobj){
+
+							/*-----Desaser factura aqui----*/ 
+							desaseCFDI_DB();
+
+							MsgError("Estimado usuario, no fue posible finalizar la validación del XML generado, intentelo mas tarde.");
+							
+						},
+						beforeSend: function(objeto){
+						}
+						}).done(function (msg){  
+								msg=msg.trim();	
+								
+								if(msg=="1"){
+										var data3= new FormData();
+										data3.append("folio",$("#txtSerie").val() + "-" + $("#txtFolio").val());
+										if($("#selectTipoCfd").val() =="Pago") data3.append("ImportLetraRP",$("#cantLetraCP").val()); 
+										if(vist_prev){
+											data3.append("rfc_emi",$("#txtRfc").val()); 
+											data3.append("regimen", $("#selectRegimen option:selected").html() );		
+											data3.append("rfc_cte", $("#txtRfcCte").val() );
+										}																					
+
+										/*INTENTA GENERAR EL ARCHIVO PDF*/	
+										$.ajax({
+										url: "efactura/pdf/pdfv33.php",
+										type:"POST",
+										data:data3,
+										contentType:false,
+										processData:false,
+										cache:false,
+										timeout: 60000,                 
+										error: function(objeto, quepaso, otroobj){
+
+											if(vist_prev) desaseCFDI_DB(); 
+											MsgError("Estimado usuario, no fue posible generar la representación impresa del CFDI, intentelo mas tarde.");
+											$("#preloader,#preloader2").css("display","none");
+
+										},
+										beforeSend: function(objeto){
+										}
+										}).done(function (msg){ 
+
+													/*VERIFICA SI SE CREO EL ARCHIVO PDF*/	
+													$.ajax({
+													url: "recursos/php/veryPdfGenerate.php",
+													type:"POST",
+													contentType:false,
+													processData:false,
+													cache:false,
+													timeout: 60000,                 
+													error: function(objeto, quepaso, otroobj){
+
+														if(vist_prev) desaseCFDI_DB(); 
+														MsgError("Estimado usuario, no fue posible validar la representación impresa del CFDI, intentelo mas tarde.");
+														$("#preloader,#preloader2").css("display","none");
+
+													},
+													beforeSend: function(objeto){
+													}
+													}).done(function (msg){  
+
+														msg=msg.trim();															                   	    
+
+														if(msg != "0"){
+															window.open("../" + msg, "ventana1","width=950,height=600,Left=100, top=50");
+															$("#espera2").css("display","none"); 
+															$("#preloader,#preloader2").css("display","none");
+															$("body").css("overflow-y","auto");
+															
+															if(!vist_prev){
+																$("#selectTipoCfd").change();
+																EnviaMail();	
+															} else {																
+																setTimeout(function(){ desaseCFDI_DB(vist_prev); }, 1000);
+															}
+
+														} else {
+
+															/*-----Desaser factura aqui----*/ 
+															if(vist_prev) desaseCFDI_DB(); 
+																
+															MsgError("Estimado usuario, no fue posible generar la representación impresa PDF, intentelo mas tarde.");
+															$("#preloader,#preloader2").css("display","none");
+
+														}	
+													});       	    	
+													/*FIN Verifica si se creo el archivo PDF*/
+
+
+										});
+										/*FIN intenta generar el archivo PDF*/
+
+
+								} else {
+									/*-----Desaser factura aqui----*/
+									desaseCFDI_DB();
+
+									if($("#ban_modoDep").val()=="1"){
+										$("#MensajesC2").html(msg);
+										$("#MensajesC2").dialog({
+										autoOpen: true,
+										modal: false,
+										resizable: false,
+										width: 670,
+										height:600,
+										position: 'top',
+										top:0,
+										buttons: buttonsx2, 
+										title:"Regultado 'veryXmlGenerate.php'"      
+										});
+									} else {
+										if(vist_prev){
+											MsgError("Estimado usuario, la vista previa no esta disponible por el momento.");
+										} else {
+											MsgError("Estimado usuario, ocurrió un error al tratar de timbrar el comprobante, le pedimos por favor intente mas tarde, es posible que el servicio del SAT no este disponible por el momento, por su atención, gracias. <a href='#' id='mosDetlle' style='color:#8A0808'> Mas Detalles</a>");
+										}										
+									}       
+
+								}
+
+						});
+						/*FIN verifica si se creo el archivo XML*/
+
+				});	
+				/* FIN intenta generar el archivo XML**/
+
+
+
+			} else {		  
+
+					/*-----Desaser factura aqui----*/
+					desaseCFDI_DB();
+
+
+					var buttonsx2 = {};
+					buttonsx2["Enterado"] = function() {$(this).dialog("close"); };								            	
+
+						if($("#ban_modoDep").val()=="1"){
+							$("#MensajesC2").html(msg);
+							$("#MensajesC2").dialog({
+							autoOpen: true,
+							modal: false,
+							resizable: false,
+							width: 670,
+							height:600,
+							position: 'top',
+							top:0,
+							buttons: buttonsx2, 
+							title:"Regultado 'ingresaCFDI.php'"      
+							});
+						} else {    
+							MsgError("Estimado usuario, no fue posible registrar el documento, intentelo mas tarde.");
+						}		  
+			}
+
+
+		});	
+	}
+
+	function clCtos(aLimp) {
+		aLimp = aLimp.split('<br>').join(' ;; ');
+		aLimp = aLimp.split('<div>').join(' ;; ');
+		aLimp = aLimp.split('</div>').join('');
+		aLimp = aLimp.split('&nbsp;').join(' ');
+		return aLimp;
+	}
+
+	function HabilitDetalles() {
+		if( $("#Detalles").html().trim()==""){
+			$("#util_detalles").prop("disabled",true);
+			$("#util_detalles").prop("checked",false);
+		} else {
+			$("#util_detalles").prop("disabled",false);
+		}					
+	}
+    function sav_cto_vta() {
+
+		var detalles=clCtos($("#Detalles").html());
+
+		if(detalles==""){
+			alert("Indique una descripción.");
+			$("#Detalles").focus();
+			return;
+		}
+
+		var data= new FormData();
+		data.append("idx" , id_cto_reg );
+		data.append("util_detalles" , $("#util_detalles").is(":checked") ? '1' : '0' );
+		data.append("detalles" , detalles );
+
+		/*INTENTA GENERAR EL ARCHIVO PDF*/	
+		$.ajax({
+		url: "recursos/php/actuConcepto_Prod.php",
+		type:"POST",
+		data:data,
+		contentType:false,
+		processData:false,
+		cache:false,
+		timeout: 60000,                 
+		error: function(objeto, quepaso, otroobj){
+			MsgError("No fue posible enviar la solicitud.");
+			$("#preloader,#preloader2").css("display","none");
+		},
+		beforeSend: function(objeto){
+			$("#preloader,#preloader2").css("display","inline-block");
+		}
+		}).done(function (msg){ 
+			$("#preloader,#preloader2").css("display","none");
+			if(msg.trim()=='1'){
+				ConsultaA(0);
+				$("#NuevoProd").dialog("close");
+			} else {
+				MsgError(msg);
+			}
+		});
+
+	}
+
+	function onlyNumber(e){
+		var key = window.Event ? e.which : e.keyCode
+		return (key >= 48 && key <= 57) || key == 46;		
+	}
+
+	function actuTot() {
+		var subt= num($("#txtSubtotal").val());
+		var desc= num($("#txtDescuentos").val());
+		var ivax= num($("#txtIva").val());
+		var tot= parseFloat(subt) - parseFloat(desc) + parseFloat(ivax);
+		$("#txtTotal").val( format(tot) );		
+	}
+
+$(document).ready(function(){
+
+		  LeeCamposSat();
+		  $("#fact_numTarjeta").mask("9999"); 
+		  $("#mos_cp").mask("99999");  	  
+
+          /*----------- Comandos para catalogos del sat ---------------*/
+          $(".campoSat").click(function(){ $("[data-id='" + $(this).attr("id") + "']").click(); });
+
+          $(".ayudaCatSat").click(function(e){
+              e.preventDefault();
+
+              if( $(this).attr("data-tipo") == "" ){ return; }
+
+              var params={};            
+              params.index="2";    
+              params.claveCat=$(this).attr("data-tipo");
+              params.titulo=$(this).attr("title");
+              params.id_sel= $("#" + $(this).attr("data-id")).attr("data-value");          
+
+              params.urlAjust="../../../../modulos/facturacion/";
+              $("#idObjSel").val( $(this).attr("data-id") );
+                                                        
+              $('#divAyudaSat').load("../../../../recursos/php/validaciones_3.3.php", params,function(resp){
+					var buttons = {};                                    
+					buttons["Cerrar"] = function() { 
+					$(this).dialog("close");
+					}; 				  
+                    $("#divAyudaSat").dialog({
+                          autoOpen: true,
+                          modal: true,
+                          resizable: false,
+						  width: 350,
+						  height: 600,
+                          top:5,
+                          title: params.titulo,
+                          position:"top",
+						  buttons: buttons 
+                    }); 
+                    setTimeout(function(){ $("#buscaCrit").focus(); }, 50);  
+                    $("#idCatSatSel").val( params.claveCat );
+              }); 
+
+          });
+          
+
+          $("body").on("keypress","#buscaCrit",function(e){ if(e.which == 13) { $(".btnBuscaCrit").click(); } });
+
+          $("body").on("click",".btnBuscaCrit",function(e){
+              e.preventDefault();
+
+              var params={};            
+              params.index="3";    
+              params.claveCat=$("#idCatSatSel").val();
+              params.selCritCatSat=$("#selCritCatSat").val();
+              params.buscaCrit=$("#buscaCrit").val().replace("'","");
+              params.id_sel= $("#" + $("#idObjSel").val()).attr("data-value");
+              params.urlAjust="../../../../modulos/facturacion/";
+
+              $("#preloader,#preloader2").css("display","inline-block");
+
+              $('#LiscatSat').load("../../../../recursos/php/validaciones_3.3.php", params,function(resp){
+				  $("#preloader,#preloader2").css("display","none"); 
+                  $("#buscaCrit").focus().select();
+              }); 
+          });
+
+          $("body").on("change","#selCritCatSat",function(e){
+              var cat=$("#idCatSatSel").val();
+
+              if( cat == 'RegimenFiscal' || cat == 'UsoCFDI' || cat == 'FormaPago' ){
+                  if( $(this).val()=="Descripcion" ){ 
+                      $(".pivBusqueda").fadeIn(); 
+                      setTimeout(function(){ $("#buscaCrit").focus(); }, 50); 
+                  } else { 
+                      $(".pivBusqueda").fadeOut(); $(".btnBuscaCrit").click(); 
+                  }
+               }         
+
+               if( cat == 'ClaveUnidad' || cat == 'ClaveProdServ' || cat == 'ClaveMoneda' ){
+                      $(".pivBusqueda").fadeIn(); 
+                      setTimeout(function(){ $("#buscaCrit").focus(); }, 50);             
+               } 
+               
+          });    
+
+          $("body").on("click",".tabFila,.btnCancelValSat",function(e){
+               e.preventDefault();
+               $("#" + $("#idObjSel").val() ).attr("title", $(this).attr("data-title") );
+               $("#" + $("#idObjSel").val() ).html( $(this).attr("data-caption") );
+               $("#" + $("#idObjSel").val() ).attr("data-value", $(this).attr("data-id") );
+
+               $("[name='" + $("#idObjSel").val() + "']" ).val( $(this).attr("data-id") );
+
+               if($("#idObjSel").val()=="moneda01"){
+	               if($(this).attr("data-id")=="MXN"){ 
+	               	  $("#fact_tipoCambio").val("1"); 
+	               	  $("#fact_tipoCambio").attr("data-ant","1");
+	               	  $("#fact_tipoCambio").prop("disabled",true);               	  
+	               } else {
+					  $("#fact_tipoCambio").prop("disabled",false);
+					  setTimeout(function(){ $("#fact_tipoCambio").focus().select(); }, 100);
+	               }
+
+	               CalculaImporteLetra("txtImportLetra",$("#moneda01").html(),$("#txtTotal").val());
+               }
+
+               $("#divAyudaSat").dialog("close");
+          });  
+
+          $("#fact_tipoCambio").focusout(function(){
+          	    //Valida que sea un numero
+          		if( isNaN($(this).val()) || parseFloat($(this).val()) <= 0 ){  
+          			$("#fact_tipoCambio").val( $("#fact_tipoCambio").attr("data-ant") ); 
+          		} else {
+          			$("#fact_tipoCambio").attr("data-ant", $("#fact_tipoCambio").val() );
+          		}
+          });
+
+
+//----------------------------------------------------------------------------------------   
+
+
+    $("#divDatosCtes input").keyup(function(e){
+        $(this).css("background-color","white");
+        $(this).css("border","1px #D8D8D8 solid");
+        if(e.which==13) UpdateCte();
+        if(e.which==27) $("#divDatosCtes").dialog("close");
+    });      
+
+
+    $("#RedondeoBan").click(function(){
+
+    	if( $("#DIVcantidad").css("display") != "none" ){
+    		$("#DCantidad").focus();
+    	} else {
+    		$("#DImporte").focus();
+    	}
+
+        var data= new FormData();
+
+    	if($("#RedondeoBan").is(':checked')){
+    	   data.append("valor","1");
+    	} else {
+    	   data.append("valor","0");
+    	}
+
+        $.ajax({
+            url: "recursos/php/RedondeoBan.php",
+            type:"POST",
+            data:data,
+            contentType:false,
+            processData:false,
+            cache:false,
+            timeout: 60000
+        });	    
+
+    });       
+	
+
+    $("#obs_cte").click(function(){
+            var buttons = {};
+            buttons["Cerrar"] = function() { $("#divDatosCtes").dialog("close"); };
+			buttons["Actualizar"] = function() { UpdateCte(); };
+		   
+            $("#divDatosCtes").dialog({
+            autoOpen: true,
+            modal: true,
+            resizable: false,
+            width: 370,
+            height:500,
+            position: 'center',
+            top:0,
+            title:"Editar Registro",
+            buttons: buttons       
+            });
+
+    	    $("#mos_rz").focus();
+
+    });
+
+
+    $("#SelectSucursales").change(function(){
+
+    	if( $("#SelectSucursales option:selected").text() != $("#txtSucursal").val() ){
+
+    		var valorSelect=$("#SelectSucursales").val();
+    		var nombrenewsucursal=$("#SelectSucursales option:selected").text();
+			var data= new FormData();
+			data.append("SelectSucursales", valorSelect );	
+			data.append("nombre_sucursal", nombrenewsucursal );							  
+
+			$.ajax({
+				url: "recursos/php/eligeSucursal.php",
+				type:"POST",
+				data:data,
+				contentType:false,
+				processData:false,
+				cache:false,
+				timeout: 60000,                 
+				error: function(objeto, quepaso, otroobj){
+					$("#preloader,#preloader2").css("display","none");
+					$("body").css("overflow-y","auto");
+
+					MsgError("No se pudo elegir la sucursal");
+
+				},
+				beforeSend: function(objeto){
+					$("body").css("overflow-y","none");	 
+					$("#preloader,#preloader2").css("display","inline-block");
+				}
+			}).done(function (msg){
+
+				if(msg=="1"){
+				    location.reload();					            		
+				} else {						            	       	
+					$('#SelectSucursales option[value="' + $("#ID_SUCURSAL").val() + '"]').attr('selected', 'selected');
+
+					$("#preloader,#preloader2").css("display","none");
+					$("body").css("overflow-y","auto");
+
+					MsgError("No se pudo elegir la sucursal");
+				}
+						                       
+			});    		
+    	}
+    	
+    });
+
+
+    $("#panelMensajeErr").on("click","#mosDetlle",function(){
+    	$("#panelMensajeErr").css("display","none"); 
+    	MuestrDetalleTimb();
+    });
+
+    $(".EmitirCfdi").click(function(){	
+		
+		var vist_prev = parseInt($(this).attr("data-vp"));
+    	  
+    	//Valida datos del complemento de pago
+    	if($("#selectTipoCfd").val() =="Pago"){
+
+    	  	    if( $("#cpag_forma_pago").val()=="" ){
+    	  	    	alert("Indique la forma de pago."); 
+    	  	    	$("#cpag_forma_pago").focus();
+    	  	    	return;
+    	  	    } 
+    	  	    if( $("#cpag_moneda").val()=="" ){
+    	  	    	alert("Indique la moneda."); 
+    	  	    	$("#cpag_moneda").focus();
+    	  	    	return;
+    	  	    }
+    	  	    if( $("#cpag_tipo_cambio").val()=="" || $("#cpag_tipo_cambio").val()=="0.00" ){
+    	  	    	alert("Indique el tipo de cambio."); 
+    	  	    	$("#cpag_tipo_cambio").focus();
+    	  	    	return;
+    	  	    } 
+    	  	    if( parseFloat(num($("#cpag_monto").val())) <= 0.0 ){
+    	  	    	alert("El monto debe ser mayor a cero."); 
+    	  	    	$("#cpag_monto").focus().select();
+    	  	    	return;
+    	  	    }
+
+    	  	    if($("#cpag_monto").val()=="" || $("#cpag_monto").val()=="0.00"){
+    	  	    	alert("Indique el monto."); 
+    	  	    	$("#cpag_monto").focus().select();
+    	  	    	return;
+    	  	    }
+
+    	  	    if( $("#cpag_rfc_emisor_cta").val() != "" ){
+    	  	    	if(ValidaRfc($("#cpag_rfc_emisor_cta").val())==false){
+	    	  	    	alert("Parece que el RFC emisor de cta. origen es incorrecto."); 
+	    	  	    	$("#cpag_rfc_emisor_cta").focus().select();
+	    	  	    	return;    	  	    		
+    	  	    	}
+    	  	    }
+
+    	  	    if( $("#cpag_rfc_cta_beneficiaria").val() != "" ){
+    	  	    	if(ValidaRfc($("#cpag_rfc_cta_beneficiaria").val())==false){
+	    	  	    	alert("Parece que el RFC emisor de cta. beneficiaria es incorrecto."); 
+	    	  	    	$("#cpag_rfc_cta_beneficiaria").focus().select();
+	    	  	    	return;   	  	    		
+    	  	    	}
+    	  	    }
+
+    	  	    var contRes=0;
+    	  	    $(".editCpago").each(function(){ contRes++; });
+    	  	    if(contRes==0){
+    	  	    	alert("Debe indicar al menos un documento relacionado."); 
+    	  	    	$("#addDocRelacionados").click();
+    	  	    	return;   	  	    	
+    	  	    }
+
+    	  	    var contActul=0;
+    	  	    $(".actuAliz").each(function(){ contActul++; });
+    	  	    if(contActul != contRes){
+    	  	    	alert("Debe llenar los datos de todos los documento relacionado."); 
+    	  	    	return;	  	    	
+    	  	    }
+
+    	  	    //Cierra panel de edicion
+                $("#tablaEditDetallesPago").css("display","none");
+                $(".FilaUUID").removeClass("selFilaUUID");
+                $("#idRegUUIDRel").val("");    	  	        	  	    
+    	}	
+
+
+		if( $("#DivdatosClientes").css("display") == "none"){
+ 				alert("Falta el receptor.");
+ 				if($("#ListadoClientes_filter").length >0){
+ 			    	$("html,body").animate({ scrollTop : $("#ListadoClientes_filter").offset().top  } ); 				
+ 			    } else { 			    	
+ 			    	$("html,body").animate({ scrollTop : $("#panelBusqueda2").offset().top  } ); 				
+ 			    	$("#txtClientex").focus();
+ 			    }	
+ 			    return;
+		} else {
+
+
+			if( $("#fact_numTarjeta").val().trim().length >0 && $("#fact_numTarjeta").val().trim().length != 4 ) $("#fact_numTarjeta").val("");							    	    
+									 
+			var xstot= parseFloat(num($("#txtSubtotal").val()));
+			var xtot= parseFloat(num($("#txtTotal").val()));
+
+			if( $("#selectTipoCfd").val() =="Factura  CFDI" || $("#selectTipoCfd").val() == "Nota de Credito"){	
+				if( xstot <= 0 ){
+			        alert("Verifique los importes de la factura. El subtotal no puede ser $0.00");	 								    	
+			    	return;										
+				}
+				if( xtot <= 0 ){
+			        alert("Verifique los importes de la factura. El Total no puede ser $0.00");	 								    	
+			    	return;										
+				}
+			}	
+
+			//Debe completar los nuevos datos del SAT
+			if( $("#usoCfdi1").attr("data-value")=="" ){
+				alert("Indique el uso del CFDI");
+				$("#usoCfdi1").click();
+				return;
+			}
+			if( $("#formaPago01").attr("data-value")=="" ){
+				alert("Indique la forma de pago");
+				$("#formaPago01").click();
+			    return;
+			}
+			if( $("#metodopago01").attr("data-value")=="" ){
+				alert("Indique el metodo de pago");
+				$("#metodopago01").click();
+				return;
+			}																		
+			if( $("#txtFecha").val()=="" ){
+				alert("Indique una fecha valida");
+				$("#txtFecha").focus();
+				return;
+			}
+
+			if(vist_prev){
+				
+				send_timbrado(vist_prev);
+
+			} else {
+				$("#block").html("Confirme para continuar. ");
+
+				var buttons = {};			
+				buttons["Cerrar"] = function() {$(this).dialog("close"); };			            
+				buttons["ACEPTAR"] = function() { send_timbrado(vist_prev); };		    
+			   
+				$("#block").dialog({
+				autoOpen: true,
+				modal: true,
+				resizable: false,
+				width: 270,
+				height:200,
+				position: 'center',
+				top:0,
+				title:"Emisión del CFDI",
+				buttons: buttons       
+				});	
+			}
+
+		}
+		
+    });	
+
+
+
+   if($("#panelBusqueda").val()=="1"){
+
+		$("#mostrarClientes,#DivdatosClientes").css("display","none");
+		vizRecPag(false);
+
+		$("#txtRazonSocialx").keydown(function(e){
+			$("#mostrarClientes,#op_busqueda,#DivdatosClientes,#obs_cte").css("display","none");
+			vizRecPag(false);
+		});
+
+		$("#txtProductoX").keydown(function(e){
+			$("#mostrarProductos").css("display","none");								  		             
+		});			
+
+		$("#buscaRazon").click(function(){ BuscaCte(); });		
+	    $("#txtRazonSocialx").keyup(function(evento){
+		    if(evento.which==13){ $("#buscaRazon").click(); }
+		});
+
+
+		
+	    $("#buscaProducto").click(function(){ BuscaProd(); });
+		$("#txtProductoX").keyup(function(evento){
+		    if(evento.which==13) $("#buscaProducto").click();
+		});
+
+		$('#op_busqueda').click(function(){
+			vizRecPag(false);
+		    $("#panel-seach-cte").css("display","block");
+			$("#DivdatosClientes,#op_busqueda,#obs_cte").css("display","none");
+			$("#txtRazonSocialx").val("");
+			$("#txtRazonSocialx").focus();
+		});
+
+    	$('#mostrarClientes').on("click","#ListadoClientes a", function(event){	
+		    event.preventDefault();
+			      
+			$("#txtIdCte").val($(this).attr("data-id"));
+			$("#txtEmail,#mos_mail").val($(this).attr("data-email"));
+			$("#txtRazonSocialCte,#mos_rz").val($(this).attr("data-razon"));	
+			$("#txtRfcCte,#mos_rfc").val($(this).attr("data-rfc"));						
+			$("#cte_cp,#mos_cp").val($(this).attr("data-cp"));	
+
+			$("#fact_numTarjeta").val($(this).attr("data-numtarj"));													
+
+			vizRecPag(true); 
+			$("#DivdatosClientes,#op_busqueda,#obs_cte").css("display","inline-block");
+			$("#mostrarClientes,#panel-seach-cte").css("display","none");
+
+			if($("#fact_numTarjeta").val() != ""){
+				$("#num_tarjeta").prop('checked', true);
+			    $("#fact_numTarjeta").css('display', "inline");	
+			} else {						
+				$("#num_tarjeta").prop('checked', false);
+				$("#fact_numTarjeta").css('display', "none");	
+			}
+
+
+			//----------------- DATOS DEL SAT -----------------------------------------
+			if($("#selectTipoCfd").val() !="Pago"){
+				$("#formaPago01").attr("data-value", $(this).attr("data-formaPago") != "" ?  $(this).attr("data-formaPago") : '01' ); 
+				$("#usoCfdi1").attr("data-value", $(this).attr("data-usoCFDI") != "" ? $(this).attr("data-usoCFDI") : 'G03' ); 
+				LeeCamposSat();
+			}	
+
+			$("#txtNumIdent").val($(this).attr("data-NumRegFisc"));
+			$("#txtPaisRes").val($(this).attr("data-c_Pais"));
+
+		});	
+
+	}
+
+    /*--------------------------------------*/
+
+    $("#CalculoInv").click(function(){
+        if($(this).is(':checked')){
+          $("#DIVcantidad").css("display","none");
+          $("#DIVimporte").css("display","block");
+          $("#DImporte").focus().select();
+
+        } else {
+          $("#DIVcantidad").css("display","block");
+          $("#DIVimporte").css("display","none");
+          $("#DCantidad").focus().select();
+        }   	
+    	
+    });	
+
+	$("#num_tarjeta").click(function(e){
+		  if($(this).is(':checked')){
+			  $("#fact_numTarjeta").css("display","inline");
+			  $("#fact_numTarjeta").focus();
+		  } else {
+		  	  $("#fact_numTarjeta").css("display","none");
+		  	  $("#fact_numTarjeta").val("");		  	  
+		  }	
+     });     
+
+	$("#newCte").click(function(e){
+		e.preventDefault();
+        window.location="../clientes/nuevo.php?newcte=1";
+	});	
+
+    /*----------*/
+	$("#imgnuevoProd").mouseenter(function(){
+        $("#imgnuevoProd").attr("src","imagenes/nuevo_sel.png");
+	});
+	$("#imgnuevoProd").mouseleave(function(){
+        $("#imgnuevoProd").attr("src","imagenes/nuevo.png");
+	}); 
+
+	$("#checkdescuento").click(function(){
+		  if($(this).is(':checked')){		  	  
+		  	  $("#ActualizarDto").css("display","inline");
+		  	  $("#txtDesctoGral").css("display","inline");
+		  	  $("#txtDesctoGral").focus();
+		  } else {
+		  	  $("#ActualizarDto").css("display","none");
+		  	  $("#txtDesctoGral").css("display","none");
+		  	  $("#txtDesctoGral").val("");
+		  }	
+     });	
+
+   /* TOTAL  */
+   $("#txtTotal").focusout(function(){
+   	   	  var numero=num($("#txtTotal").val() );
+   	      $("#txtTotal").val( format(numero) );   	      
+   }); 
+
+   $("#txtTotal").keydown(function(e){
+   	   if(e.which==13){
+   	   	  $("#txtTotal").focusout();
+   	   }   	      
+   });  
+   /**/
+
+   /* IVA  */
+   $("#txtIva").focusout(function(){
+   	   	  var numero=num($("#txtIva").val() );
+   	      $("#txtIva").val( format(numero) );   	      
+   }); 
+
+   $("#txtIva").keydown(function(e){
+   	   if(e.which==13){
+   	   	  actuTot();
+   	   	  $("#txtIva").focusout();
+   	   }   	      
+   });  
+   /**/   
+
+   /* IMPUESTO TRASLADADO  */
+   $("#txtImpTras").focusout(function(){
+   	   	  var numero=num($("#txtImpTras").val() );
+   	      $("#txtImpTras").val( format(numero) );   	      
+   }); 
+
+   $("#txtImpTras").keydown(function(e){
+   	   if(e.which==13){
+   	   	  $("#txtImpTras").focusout();
+   	   }   	      
+   });  
+   /**/   
+
+   /* IMPUESTO RETENIDO  */
+   $("#txtImpRet").focusout(function(){
+   	   	  var numero=num($("#txtImpRet").val() );
+   	      $("#txtImpRet").val( format(numero) );   	      
+   }); 
+
+   $("#txtImpRet").keydown(function(e){
+   	   if(e.which==13){
+   	   	  $("#txtImpRet").focusout();
+   	   }   	      
+   });  
+   /**/      
+
+	$("#AjusteManual").click(function(){
+	    if($(this).is(':checked')){
+			$("#txtTotal").removeAttr("readonly");	
+			$("#txtIva").removeAttr("readonly");	
+
+			$("#txtTotal").addClass("importesFactHab");
+			$("#txtIva").addClass("importesFactHab");
+
+			$(".EmitirCfdi").css("display","none");
+
+	    } else {
+			$("#txtTotal").attr("readonly","true");
+			$("#txtIva").attr("readonly","true");
+
+			$("#txtTotal").removeClass("importesFactHab");
+			$("#txtIva").removeClass("importesFactHab");	
+
+			$(".EmitirCfdi").css("display","inline");
+
+    	    var ivax= num($("#txtIva").val());
+    	    var desc= num($("#txtDescuentos").val());
+
+			var data= new FormData();
+			data.append("txtIva", ivax );
+			data.append("txtDesctoGral", desc );
+
+			$.ajax({
+			     url: "recursos/php/actualizaImporteManual.php",
+			     type:"POST",
+			     data:data,
+			     contentType:false,
+			     processData:false,
+			     cache:false,
+			     timeout: 60000
+			});
+
+
+			CalculaImporteLetra("txtImportLetra",$("#moneda01").html(),$("#txtTotal").val());
+	    }	
+	});
+
+    $("#txtIva").keyup(function(){
+    		$("#txtImpTras").val($("#txtIva").val());
+    });
+
+    $("#txtIva").keyup(function(){ actuTot(); });
+
+    /*----------- Cancelación de Registros -------------*/
+    $('#cont-regCfdi').on('click','.imgeditar',function(event){
+    	    /*event.preventDefault();*/
+            id_cto_reg= $(this).data("clave");              
+
+            $("#preloader,#preloader2").css("display","inline-block");
+
+             var params={};   
+             params.id= id_cto_reg;        
+
+            $("#NuevoProd").load("recursos/php/addConcepto.php",params,function(){				
+
+				    $("#preloader,#preloader2").css("display","none");
+                    var buttonsx2 = {};
+                    buttonsx2["Cerrar"] = function() {$(this).dialog("close"); };   
+					buttonsx2["GUARDAR"] = function() { sav_cto_vta(); }; 
+
+		            $("#NuevoProd").dialog({
+						autoOpen: true,
+						modal: true,
+						resizable: false,
+						width: 350,
+						height: 500,
+						top:5,
+						title:"Editar Concepto", 
+						position: 'center',
+						buttons: buttonsx2,   
+		            });
+
+					HabilitDetalles();
+
+            }); 
+
+
+    });
+
+		/*----------- Cancelación de Registros -------------*/
+		$('#cont-regCfdi').on('click','.imgcancelar',function(event){
+			ConsultaA(0,$(this).data("clave"));    
+	    });   
+
+
+		$("#DImporte").keyup(function(tecla){
+			if(tecla.which==13) {
+				if($("#DImporte").val().trim().length == 0){
+		      	  	 alert("Proporcione el importe.");
+		      	  	 $("#DImporte").focus();					
+				} else {
+					var id=$("#temp_id").val();
+					var impuestos=$("#temp_impuestos").val();
+					var unidad=$("#temp_unidad").val();
+					var alias=$("#temp_alias").val();
+					var precio=$("#temp_precio").val();
+					var total=$("#temp_total").val();
+
+					aceptBotton(id,impuestos,unidad,alias,precio,total);	
+				}	
+			}
+
+		});
+
+		$("#DCantidad").keyup(function(tecla){
+			if(tecla.which==13) {
+				if($("#DCantidad").val().trim().length == 0){
+		      	  	 alert("Proporcione la cantidad.");
+		      	  	 $("#DCantidad").focus();					
+				} else {
+					var id=$("#temp_id").val();
+					var impuestos=$("#temp_impuestos").val();
+					var unidad=$("#temp_unidad").val();
+					var alias=$("#temp_alias").val();
+					var precio=$("#temp_precio").val();
+					var total=$("#temp_total").val();
+
+					aceptBotton(id,impuestos,unidad,alias,precio,total);	
+				}	
+			}
+
+		});
+
+
+         //----- Complemento Pago  -----
+
+                $("#selectTipoCfd").change(function(){
+						if($(this).val() != "Pago"){            
+							$("#metodopago01,#formaPago01,#usoCfdi1,#moneda01").css("background-color","white");
+							$("#ayudaBtnMoneda01,#btn_formaPago01,#btn_metodopago01,#btn_usoCfdi1").css("display","inline-block"); 
+							$("#btn_formaPago01").attr("data-tipo","FormaPago");                         
+							$("#btn_metodopago01").attr("data-tipo","MetodoPago"); 
+							$("#btn_usoCfdi1").attr("data-tipo","UsoCFDI");
+							$("#ayudaBtnMoneda01").attr("data-tipo","Moneda");
+							$("#usoCfdi1").attr("data-value","G03"); 
+							$("#moneda01").attr("data-value","MXN");
+
+							$("#fact_tipoCambio").val("1");                        
+							$("#fact_tipoCambio").prop("disabled",true);
+							$("#panelOcultCompPagos").css("display","block");
+							$(".panelCFDI-ing").fadeIn();							
+						
+							LeeCamposSat();							
+							cancelConceptoCompPago(); 
+							
+						} else {
+														
+							addConceptoCompPago();
+							$(".panelCFDI-ing").fadeOut();
+							$("#num_tarjeta,#ivaExento").prop("checked",false);							
+						}
+
+						vizRecPag( $("#DivdatosClientes").css("display") != 'none' );
+
+						$("#txtRazonSocialx").focus();
+
+                });
+              
+
+                //Aplica formato de fecha
+                $( ".funcionFecha" ).datepicker();     
+
+                //Dependiendo de la forma de pago si es bancarizada deshabilita/habilita ciertos campos
+                $("#cpag_forma_pago").change(function(){
+                    var option = $('option:selected', this).attr('data-bancarizado');
+                    if(option=="No"){
+                       $("#cpag_rfc_emisor_cta,#cpag_nombre_banco,#cpag_cta_ordenante,#cpag_rfc_cta_beneficiaria,#cpag_cta_beneficiario").prop("disabled",true);
+                       $("#cpag_rfc_emisor_cta,#cpag_nombre_banco,#cpag_cta_ordenante,#cpag_rfc_cta_beneficiaria,#cpag_cta_beneficiario").val("");
+                    } else {
+                       $("#cpag_rfc_emisor_cta,#cpag_nombre_banco,#cpag_cta_ordenante,#cpag_rfc_cta_beneficiaria,#cpag_cta_beneficiario").prop("disabled",false);
+                    }
+                });
+
+                //Valida tipo de cambio en base a la moneda seleccionada
+                $("#edit_dpag_moneda,#cpag_moneda").change(function(){
+                    if($(this).attr("id")=="cpag_moneda"){ var idSel="cpag_tipo_cambio"; }
+                    if($(this).attr("id")=="edit_dpag_moneda"){ var idSel="edit_dpag_tipo_cambio"; }
+
+                    if( $(this).val()=="MXN" ){
+                       $("#" + idSel).val("1");
+                       $("#" + idSel).prop("disabled",true);
+                    } else {
+                       $("#" + idSel).val("");
+                       $("#" + idSel).prop("disabled",false);
+                    }
+                });  
+
+                //Aplica mascaras de numero de cuenta
+                //$("#cpag_cta_ordenante,#cpag_cta_beneficiario").mask("**********");
+
+                //Opcion Editar Elemento
+                $("body").on("click",".editCpago",function(e){
+					 e.preventDefault();
+                     var idSel=$(this).attr("data-id");
+                     $(".FilaUUID").removeClass("selFilaUUID");
+                     $("#filaUuID_" + idSel).addClass("selFilaUUID");
+                     ConsultaDetallesUUIDRel(idSel);
+                });
+
+                //Opcion Cancelar Elemento
+                $("body").on("click",".cancelCpago",function(){
+                     var idSel=$(this).attr("data-id");
+                     CancelaDetallesUUIDRel(idSel);
+                });                
+
+                //Panel para buscar CFDI creado anteriormente
+                $("#addDocRelacionados").click(function(){
+
+                    LimpiaEditUUIDRelRP();
+                    $("#tablaEditDetallesPago").css("display","none");
+                    $(".FilaUUID").removeClass("selFilaUUID");
+                    $("#idRegUUIDRel").val("");
+
+                    var buttonsx2 = {};
+                    buttonsx2["Cerrar"] = function() {$(this).dialog("close"); };                             
+
+                    $("#divBuscaCFDI").dialog({
+                        autoOpen: true,
+                        modal: true,
+                        resizable: false,
+						width: 350,
+						height: 500,
+                        position: 'top',
+                        top:0,
+                        buttons: buttonsx2,
+                        title:"Buscar CFDI"      
+                    });
+
+					$("#buscaCFDIR").click();
+
+                });
+                
+                $("#buscaCFDIR").click(function(){
+                     //Debe haber al menos un creiterio de busqueda
+                     if( $("#busca_razon_social").val().trim()=="" && $("#busca_rfc").val().trim()=="" && $("#busca_folio_cfdi").val().trim()=="" && $("#busca_uuid").val().trim()=="" && $("#busca_fecha").val().trim()=="" ){
+                          alert("Indique al menos un criterio de busqueda.");
+                         return;
+                     }
+                      var params={};            
+                      params.index="8"; 
+                      params.busca_razon_social=$("#busca_razon_social").val();
+                      params.busca_rfc=$("#busca_rfc").val();
+                      params.busca_folio_cfdi=$("#busca_folio_cfdi").val();
+                      params.busca_uuid=$("#busca_uuid").val();
+                      params.busca_fecha=$("#busca_fecha").val();
+
+                      $("#preloader,#preloader2").css("display","inline-block");
+                      $('#resBusCFDI').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+						  $("#preloader,#preloader2").css("display","none");                                           
+                      });                       
+                });
+
+                $("#busca_razon_social,#busca_rfc,#busca_folio_cfdi,#busca_uuid,#busca_fecha").keypress(function(e) {
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if(code==13){ $("#buscaCFDIR").click(); }
+                });  
+
+                $("body").on("click",".FilaBusc",function(){
+                     var idSel=$(this).attr("data-id");
+                     if(idSel != ""){
+                          AddComprobanteRel(idSel);
+                     }
+                });
+
+                $("#edit_dpag_num_parcialidad").change(function(){
+                    if( $(this).val()=="1" ){
+                        $("#edit_dpag_imp_saldo_anterior").val( format($("#importe_orig_fact").val()) );
+                        $("#edit_dpag_imp_saldo_anterior").prop("disabled",true);
+                    } else {
+                        $("#edit_dpag_imp_saldo_anterior").prop("disabled",false);
+                        $("#edit_dpag_imp_saldo_anterior").focus().select();
+                    }
+                    calculaImpSaldoInsoluto();
+                });
+
+                $("#sav_edit_dpag").click(function(){
+                    //Validaciones de llenado
+                    if($("#edit_dpag_moneda").val()==""){
+                        alert("Indique la moneda.");
+                        $("#edit_dpag_moneda").focus();
+                       return;
+                    }
+                    if($("#edit_dpag_tipo_cambio").val()==""){
+                        alert("Indique el tipo de cambio.");
+                        $("#edit_dpag_tipo_cambio").focus();
+                        return;
+                    }                    
+                    if($("#edit_dpag_metodo_pago").val()=="PPD" && $("#edit_dpag_num_parcialidad").val()==""){
+                        alert("Indique el numero de parcialidad.");
+                        $("#edit_dpag_num_parcialidad").focus();
+                        return;
+                    }     
+                    if( parseFloat(num($("#edit_dpag_imp_saldo_anterior").val())) <= 0.0 ){
+                        alert("El importe del saldo anterior debe ser mayor a cero.");
+                        $("#edit_dpag_imp_saldo_anterior").focus();
+                        return;                        
+                    }
+                    if( parseFloat(num($("#edit_dpag_imp_saldo_insoluto").val())) < 0.0 ){
+                        alert("El importe del saldo insoluto debe ser mayor o igual a cero.");
+                        $("#edit_dpag_imp_saldo_insoluto").focus();
+                        return;                        
+                    }
+                    if( parseFloat(num($("#edit_dpag_imp_pagado").val())) <= 0.0 ){
+                        alert("El importe pagado debe ser mayor a cero.");
+                        $("#edit_dpag_imp_pagado").focus();
+                        return;                        
+                    }					
+
+                     var params={};            
+                     params.index="11"; 
+                     params.idRegistro=$("#idRegUUIDRel").val();
+                     params.Serie=$("#edit_dpag_serie").val().replace("'","");
+                     params.Folio=$("#edit_dpag_folio").val().replace("'","");
+                     params.MonedaDR=$("#edit_dpag_moneda").val();
+                     params.TipoCambioDR=$("#edit_dpag_tipo_cambio").val();
+                     params.MetodoDePagoDR=$("#edit_dpag_metodo_pago").val();
+                     params.NumParcialidad=$("#edit_dpag_num_parcialidad").val();
+                     params.ImpSaldoAnt=num($("#edit_dpag_imp_saldo_anterior").val());
+                     params.ImpPagado=num($("#edit_dpag_imp_pagado").val());
+
+
+                     $("#preloader,#preloader2").css("display","inline-block");                                        
+                     $('#divAuxTmp').load("recursos/php/cmd_comandos_recibo_pago.php", params,function(res){
+						 $("#preloader,#preloader2").css("display","none");
+
+                         if(res.trim() == "1"){
+                            getDocsRelacionados(false); 
+                            $("#panelMensajeOk").html("Actualizacion correcta.");                
+                              $("#panelMensajeOk").fadeIn(500,function(){
+                              $("#panelMensajeOk").fadeOut(4000);
+                            });     
+                         } else {
+                             alert(res);
+                         }                                             
+                     });
+
+                });
+
+                $("#edit_dpag_imp_saldo_anterior,#edit_dpag_imp_pagado").keyup(function(){
+                    calculaImpSaldoInsoluto();
+                });  
+                
+                $("#cpag_monto,#cpag_moneda").change(function(){
+                	  if( $("#cpag_moneda").val() != "" ){
+                         CalculaImporteLetra("cantLetraCP",$("#cpag_moneda option:selected").text(),$("#cpag_monto").val());
+                      } else {
+                      	  $("#cantLetraCP").val("CERO PESOS 00/100 M.N.");
+                      }
+                });                
+
+                // ----- Fin Complemento Pago -----
+
+				$("#mas-filtr-rp").click(function(e){
+					e.preventDefault();
+					if( $("#moz-filtr-rp").css("display")=='none' ){
+						$("#moz-filtr-rp").css("display","inline-block");
+						$(this).html("- Menos filtros");
+					} else {
+						$("#moz-filtr-rp").css("display","none")
+						$(this).html("+ Mas filtros");
+					}
+				});
+
+				$("body").on("keyup","#Detalles",function(e) {
+					HabilitDetalles();
+				});
+
+});
+
+
+
+
+NS={};

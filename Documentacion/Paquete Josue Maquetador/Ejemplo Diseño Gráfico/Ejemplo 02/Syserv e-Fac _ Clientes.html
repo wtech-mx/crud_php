@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<!-- saved from url=(0085)https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/nuevo.php -->
+<html lang="es_MX"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <title>Syserv e-Fac | Clientes</title> <!---------- SISTEMA ------> <!-- Estilos --> <link rel="stylesheet" href="./Syserv e-Fac _ Clientes_files/css"> <link type="text/css" href="./Syserv e-Fac _ Clientes_files/bootstrap.min.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Clientes_files/adminlte.min.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Clientes_files/paginasAdmin.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Clientes_files/styleCabeceraPieSistema.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Clientes_files/all.min.css" rel="stylesheet"> <!-- Libreria Framework --> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/jquery-1.10.2.min.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/bootstrap.min.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/funcionesSistema.js.descarga"></script> <!---------- UTILIDADES ------> <!-- Estilos --> <link rel="stylesheet" href="./Syserv e-Fac _ Clientes_files/jquery-ui.css"> <link type="text/css" href="./Syserv e-Fac _ Clientes_files/atooltip.css" rel="stylesheet" media="screen"> <link type="text/css" href="./Syserv e-Fac _ Clientes_files/glDatePicker.default.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Clientes_files/superfish.css" rel="stylesheet" media="screen"> <!-- JavaScript --> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/hoverIntent.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/superfish.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/jquery.atooltip.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/glDatePicker.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/mask.min.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/jquery.validate.js.descarga"></script> <!-- Funciones especiales (Utilidades) --> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.core.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.widget.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.mouse.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.button.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.draggable.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.position.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.resizable.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.button.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.dialog.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.effect.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.ui.datepicker.js.descarga"></script> <script src="./Syserv e-Fac _ Clientes_files/jquery.scrollTo-1.4.2-min.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Clientes_files/funciones_nuevo.js.descarga"></script><script> /*Validacion de text*/ (function(a){a.fn.validCampo=function(b){a(this).on({keypress:function(a){var c=a.which,d=a.keyCode,e=String.fromCharCode(c).toLowerCase(),f=b;(-1!=f.indexOf(e)||9==d||37!=c&&37==d||39==d&&39!=c||8==d||46==d&&46!=c)&&161!=c||a.preventDefault()}})}})(jQuery); function vacia_info(orderBy,ind,indice,resXho,varAction,contenedor,archivo,ConSQL,forza,nombreGrid){ params={}; params.indice=ind; params.indiceSelected=indice; params.resXho=resXho; params.action=varAction; params.orderBy=orderBy; params.ConSQL=ConSQL; params.BanConSQL=forza; params.nombreGrid=nombreGrid; $("#preloader,#preloader2").css("display","inline-block"); $("#"+contenedor).load(archivo, params,function(cont){ $("#preloader,#preloader2").css("display","none"); $("body").css("overflow-y","auto"); }) } function pag(npagina,nombreAdod,nombreGrid){ var resXho= parseInt( $("#resXho"+nombreAdod).attr("value") ); $("#indice"+nombreAdod).attr("value", ((npagina * resXho)-resXho) ); muestra_pagina(nombreGrid,nombreAdod,"refreshGrid","content","index.php",0); } function ChecKpaginacion(nombreAdod,nombreGrid){ var margen=1; var paginacion=""; var nelem; var x; var centro=$("#npagina"+nombreAdod).val(); var npag=$("#numpag"+nombreAdod).val(); if(npag>0) { var par1= '"' + nombreAdod + '"'; var par2= '"' + nombreGrid + '"'; /*--------Recorre a la derecha -------*/ nelem=1; x = parseInt(centro)+1; while ( x < parseInt(npag) ) { if(nelem <= margen){ paginacion=paginacion + "<a href='javascript:pag(" + x + "," + par1 + "," + par2 + ")'>" + x + "</a>&nbsp;&nbsp;"; if( (nelem+1) > margen ){ if((x-1) != parseInt(npag)){ paginacion= paginacion +".."; } } } nelem=nelem+1; x=x+1; } paginacion= centro + "&nbsp;&nbsp;" + paginacion; /*--------Recorre a la Izquierda -------*/ nelem=1; x = parseInt(centro)-1; while ( x > 1 ) { if(nelem <= margen){ paginacion= "<a href='javascript:pag(" + x + "," + par1 + "," + par2 + ")'>" + x + "</a>&nbsp;&nbsp;" + paginacion; if( (nelem+1) > margen ){ if((x-1) != 1){ paginacion=".." +paginacion ; } } } nelem=nelem+1; x=x-1; } /*--------- Coloca primer elemento y ultimo -------*/ if(parseInt(centro)!=1) { paginacion= "<a href='javascript:pag(1," + par1 + "," + par2 + ")'>1</a>&nbsp;&nbsp;" + paginacion; } if(parseInt(centro)!= parseInt(npag)) { paginacion= paginacion + "&nbsp;&nbsp;" + "<a href='javascript:pag(" + npag + "," + par1 + "," + par2 + ")'>" + npag + "</a>&nbsp;&nbsp;" ; } $("#paginacion"+nombreAdod).html(paginacion); } else { $("#paginacion"+nombreAdod).html(""); } } function enabled_indice(indice,totReg,nombreAdod,nombreGrid){ ChecKpaginacion( nombreAdod , nombreGrid ); if(totReg <= 1){ $("#primero"+nombreAdod).addClass("imgprimero_des"); $("#anterior"+nombreAdod).addClass("imganterior_des"); $("#siguiente"+nombreAdod).addClass("imgsiguiente_des"); $("#ultimo"+nombreAdod).addClass("imgultimo_des"); } else { if(indice==0) { $("#primero"+nombreAdod).addClass("imgprimero_des"); $("#anterior"+nombreAdod).addClass("imganterior_des"); $("#siguiente"+nombreAdod).removeClass("imgsiguiente_des"); $("#ultimo"+nombreAdod).removeClass("imgultimo_des"); } else { if((indice+1)==totReg) { $("#primero"+nombreAdod).removeClass("imgprimero_des"); $("#anterior"+nombreAdod).removeClass("imganterior_des"); $("#siguiente"+nombreAdod).addClass("imgsiguiente_des"); $("#ultimo"+nombreAdod).addClass("imgultimo_des"); } else { $("#primero"+nombreAdod).removeClass("imgprimero_des"); $("#anterior"+nombreAdod).removeClass("imganterior_des"); $("#siguiente"+nombreAdod).removeClass("imgsiguiente_des"); $("#ultimo"+nombreAdod).removeClass("imgultimo_des"); } } } } function muestra_pagina(nombreGrid,nombreAdod,varAction,contenedor,archivo, forza){ /*--- Lee todos los valores ---*/ var indice= parseInt( $("#indice"+nombreAdod).attr("value") ); var totReg= parseInt( $("#totReg"+nombreAdod).attr("value") ); var totPag= parseInt( $("#totPag"+nombreAdod).attr("value") ); var PagAct= parseInt( $("#PagAct"+nombreAdod).attr("value") ); var resXho= parseInt( $("#resXho"+nombreAdod).attr("value") ); var ConSQL= $("#ConSQL"+nombreAdod).attr("value"); if(totPag==0){totPag=1;} /*Calcula la hoja a partir del indice*/ for(i=1;i<=totPag;i++){ var ind=((i*resXho)-resXho); var ind1=((i*resXho)-1); if(indice>=ind && indice<=ind1){ enabled_indice(indice,totReg,nombreAdod,nombreGrid); if((PagAct != i) || forza >= 1){ $("#PagAct"+nombreAdod).attr("value",i); $("#npagina"+nombreAdod).attr("value",i); var orderBy=$("#"+nombreAdod).data("orden"); vacia_info(orderBy,ind,indice,resXho,varAction,contenedor,archivo,ConSQL,forza,nombreGrid); } else { $(".imgfondoitem").removeClass("imgfondoitem_sel"); $("#indiceBody" + nombreGrid + indice).addClass("imgfondoitem_sel"); $("#Body" + nombreGrid).scrollTo("#celdaBody"+nombreGrid + indice,100); } ChecKpaginacion( nombreAdod , nombreGrid ); return; } } ChecKpaginacion( nombreAdod , nombreGrid ); } $(document).ready(function(){ $("#panelMensajeOk,#panelMensajeErr").mouseenter(function(){ $(this).stop().animate({opacity:"100"}); }); $("#panelMensajeOk,#panelMensajeErr").mouseleave(function(){ $(this).fadeOut(10000); }); $("#panelMensajeOk,#panelMensajeErr").click(function(){ $(this).css("display","none"); }); }); /*----------Funciones para subir archivos--------*/ function NombreFile(Ruta){ var x=Ruta.length; var rt=x; var a; while (x >= 1) { a=Ruta.substring(x-1,x); if(a.charCodeAt()==92){ return Ruta.substring(x,rt); } x=x-1; } return Ruta; } function ExtFile(Ruta){ var x=Ruta.length; var rt=x; var a; while (x >= 1) { a=Ruta.substring(x-1,x); if(a=="."){ return Ruta.substring(x,rt); } x=x-1; } return Ruta; } function validaExtx(condicion,ext){ var elem = condicion.split("/"); for(i=0; i< elem.length;i++){ if(elem[i]==ext){ return 1; } } return 0; } function QuitaAllExt(NombreObjeto){ $("#icono" + NombreObjeto).removeClass("doc"); $("#icono" + NombreObjeto).removeClass("xls"); $("#icono" + NombreObjeto).removeClass("htm"); $("#icono" + NombreObjeto).removeClass("default"); $("#icono" + NombreObjeto).removeClass("jpg"); $("#icono" + NombreObjeto).removeClass("pdf"); $("#icono" + NombreObjeto).removeClass("ppt"); $("#icono" + NombreObjeto).removeClass("avi"); $("#icono" + NombreObjeto).removeClass("rar"); $("#icono" + NombreObjeto).removeClass("mp3"); } function roundf(numero, lugares_decimales){ var p = Math.pow(10, lugares_decimales); return Math.round(numero * p) / p; } function format(numero){ var num=numero + ""; var vec=num.split("."); var x=vec.length; if(x==1){ban=1; var dec=".00"; } else {ban=0; var dec=""; } var contador=1; longi=num.length-1; var retorno=""; while( longi >= 0 ){ car=num.substr(longi, 1); /* alert("numero:" + num + " car:" + car + " acum:" + retorno); */ if(ban==1){ if( (contador % 3)==0 && longi > 0 ){ retorno="," + car + retorno; } else { retorno= car + retorno; } contador=contador+1; } if(car=="."){ban=1; dec=(num.substr(longi, 3));} longi=longi-1; } if(dec.length==2){dec=dec+"0";} return retorno + dec; } /* Quita Signos Decimales a un nÃºmero */ function num(numero){ var number = numero.toString(10); var posComa = number.indexOf(","); var posPunto = number.indexOf("."); if(posComa > -1 && posPunto==-1){ number = number.replace(",", "."); } longi=number.length-1; var car=""; var retorna=""; while( longi >= 0 ){ car=number.substr(longi, 1); if(car != ","){ retorna= car + retorna } longi=longi-1; } if(isNaN(parseFloat(retorna))){retorna=0;} return parseFloat(retorna); } </script> </head> <body style=""> <div id="msg_mod_test">Modo evaluación</div> <section class="barr-herramientas"> <a title="Menú Principal" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion"><span class="fa fa-th fa-lg"></span></a> <a title="Nueva Factura" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura"><span class="fas fa-plus fa-lg"></span></a> <a title="Nueva remisión" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/remisiones"><span class="fa fa-sticky-note fa-lg"></span></a> <a title="Registro de CFDI" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/registro_cfdi"><span class="fa fa-folder-open fa-lg"></span></a> <a id="new-cte" title="Nuevo Cliente" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/nuevo.php"><span class="fa fa-user-plus fa-lg"></span></a> <a title="Configuraciones" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/infofiscal/nuevo.php"><span class="fa fa-cog fa-lg"></span></a> </section><section class="header-program"> <a id="logotipo" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion"><img src="./Syserv e-Fac _ Clientes_files/LOGO-01.png"></a> <label id="v-sis"> eFac v1.0 </label> <section id="ContenedorDatosUsuario"> <div id="imgLogo" class="opt-cont-user"> <img src="./Syserv e-Fac _ Clientes_files/logo.jpg"> </div> <a title="Contraseña y Pin de Usuario" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/config_accesos/" class="opt-cont-user"> <label><span class="fas fa-user-alt fa-lg"></span> test </label> </a> <a title="Cerrar Sesión" href="https://www.sistemasyservicios.mx/efac/recursos/php/cerrarSesion.php" class="opt-cont-user"> <label><span class="fa fa-power-off fa-lg"></span>&nbsp;<div id="lbl-cerrar">Cerrar</div></label> </a> <a id="mnu-movile" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/nuevo.php#" class="opt-cont-user"> <label><span class="fas fa-align-justify fa-lg"></span></label> </a> <div style="clear:both"></div> </section> <div style="clear:both"></div> </section> <script> function msg_system(msg,type){ $("#panelMensaje" + type).html(msg); $("#panelMensaje" + type).fadeIn(500,function(){ setTimeout(function(){ $("#panelMensaje" + type ).css("display","none"); }, 4000); }); } function MsgError(Mensaje){ msg_system(Mensaje,"Err"); } function MsgExito(Mensaje){ msg_system(Mensaje,"Ok"); } $(document).ready(function() { function DesSelectMnu(){ if($("#var1Menu1").val()=="0"){ $(".SubmenuX2").css("display","none"); $(".panelCubre").css("background-color","#075D9E"); }} $(".SubmenuX2").css("border-color","#075D9E"); $("html").click(function(){ DesSelectMnu(); }); $("body").keyup(function(e){ if(e.which==27){ DesSelectMnu(); } }); $( window ).scroll(function(){ DesSelectMnu(); }); $( window ).resize(function(){ DesSelectMnu(); }); $("#MenuX2Menu1").on("click","#MenMenu10",function(event){ document.location.href ="https://www.sistemasyservicios.mx/efac/modulos/facturacion/index.php"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu10",function(event){ $("#MenMenu10").css("background-color","#07ACC9"); $("#MenMenu10").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu10",function(event){ $("#MenMenu10").css("background-color","#075D9E"); $("#MenMenu10").css("cursor","normal"); }); $("#MenuX2Menu1").on("click","#MenMenu11",function(event){ document.location.href ="#"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu11",function(event){ $("#MenMenu11").css("background-color","#07ACC9"); $("#MenMenu11").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu11",function(event){ if($("#smnuCatalogos").css("display")=="none"){ $("#MenMenu11").css("background-color","#075D9E"); $("#MenMenu11").css("cursor","normal"); } }); $("#MenuX2Menu1").on("click","#MenMenu12",function(event){ document.location.href ="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/registro_cfdi/index.php"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu12",function(event){ $("#MenMenu12").css("background-color","#07ACC9"); $("#MenMenu12").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu12",function(event){ $("#MenMenu12").css("background-color","#075D9E"); $("#MenMenu12").css("cursor","normal"); }); $("#MenuX2Menu1").on("click","#MenMenu13",function(event){ document.location.href ="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/remisiones/index.php"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu13",function(event){ $("#MenMenu13").css("background-color","#07ACC9"); $("#MenMenu13").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu13",function(event){ $("#MenMenu13").css("background-color","#075D9E"); $("#MenMenu13").css("cursor","normal"); }); $("#MenuX2Menu1").on("click","#MenMenu14",function(event){ document.location.href ="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu14",function(event){ $("#MenMenu14").css("background-color","#07ACC9"); $("#MenMenu14").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu14",function(event){ $("#MenMenu14").css("background-color","#075D9E"); $("#MenMenu14").css("cursor","normal"); }); $("#MenuX2Menu1").on("click","#MenMenu15",function(event){ document.location.href ="#"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu15",function(event){ $("#MenMenu15").css("background-color","#07ACC9"); $("#MenMenu15").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu15",function(event){ if($("#smnuMiCuenta").css("display")=="none"){ $("#MenMenu15").css("background-color","#075D9E"); $("#MenMenu15").css("cursor","normal"); } }); $(".procSubMnu").click(function(e){ e.preventDefault(); var subMnux = $(this).attr("data-subMnux"); var NombreMenuX = $(this).attr("data-name"); var anchoSubmn = $(this).attr("data-width"); if( subMnux != "" ){ $("#var1" + NombreMenuX).attr("value","1"); var pos=$("#MenuX2" + NombreMenuX); if($("#" + subMnux).css("display") != "none"){ $("#" + subMnux).css("display","none"); $(this).css("background-color","#075D9E"); } else { $(".SubmenuX2").css("display","none"); $(".panelCubre").css("background-color","#075D9E"); $(this).css("background-color","#07ACC9"); if ($("#Men" + NombreMenuX + "0").css("font-style")=="italic" ){ $("#" + subMnux).css("left","0px"); $("#" + subMnux).css("width","100%"); $("#" + subMnux).css("top",(pos.position().top + parseFloat(pos.css("height")) ) + "px" ); } else { $("#" + subMnux).css("left", $(this).offset().left + "px" ); $("#" + subMnux).css("width", anchoSubmn ); $("#" + subMnux).css("top",(pos.offset().top + parseFloat(pos.css("height")) ) + "px" ); } $("#" + subMnux).css("display","inline-block"); } /*Neutraliza quitar el menu por click en body*/ var timeoutId = setTimeout(function(){ $("#var1" + NombreMenuX).attr("value","0"); },300); } return false; }); $("#mnu-movile").click(function(e){ e.preventDefault(); if( $(this).hasClass("opt-cont-user-select") ){ $(this).removeClass("opt-cont-user-select"); $(".panelCubre").css("display","none"); $("#separator-header").css({"height":""}); } else { $(this).addClass("opt-cont-user-select"); $(".panelCubre").css("display","inline-block"); $("#separator-header").css("height", (parseFloat($("#MenuX2Menu1").css("height")) + 40) + "px" ); } }); $( window ).resize(function() { if( $( window ).width() > 900 && $("#mnu-movile").css("display")=="none" ) $(".panelCubre").css({"display":""}); }); }); </script>  <div id="MenuX2Menu1" style="background-color:#075D9E; color:white; margin-top:0px; " class="panelBusqueda"> <a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/index.php" id="MenMenu10" data-width="15em" data-name="Menu1" data-submnux="" style="background-color:#075D9E; width:23px; margin-left:5.5em; " class="panelCubre" title=""><div class="imgMenux" id="img0" style="background:url(https://www.sistemasyservicios.mx/efac/imagenes/home.png) no-repeat"></div><div style="clear:both"></div></a><div id="MenMenu11" data-width="15em" data-name="Menu1" data-submnux="smnuCatalogos" style="background-color:#075D9E; width:120px; margin-left:1.5em; " class="panelCubre procSubMnu" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Catálogos</div><div class="imgabajo">&nbsp;</div><div style="clear:both"></div></div><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/registro_cfdi/index.php" id="MenMenu12" data-width="15em" data-name="Menu1" data-submnux="" style="background-color:#075D9E; width:155px; margin-left:1em; " class="panelCubre" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Registro de CFDI</div><div style="clear:both"></div></a><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/remisiones/index.php" id="MenMenu13" data-width="15em" data-name="Menu1" data-submnux="" style="background-color:#075D9E; width:115px; margin-left:1em; " class="panelCubre" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Remisiones</div><div style="clear:both"></div></a><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php" id="MenMenu14" data-width="15em" data-name="Menu1" data-submnux="" style="background-color:#075D9E; width:130px; margin-left:1em; " class="panelCubre" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Factura CFDI</div><div style="clear:both"></div></a><div id="MenMenu15" data-width="15em" data-name="Menu1" data-submnux="smnuMiCuenta" style="background-color:#075D9E; width:110px; margin-left:1.5em; " class="panelCubre procSubMnu" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Mi Cuenta</div><div class="imgabajo">&nbsp;</div><div style="clear:both"></div></div> <div style="clear:both;"></div> </div> <div id="smnuCatalogos" class="SubmenuX2" style="border-color: rgb(7, 93, 158); display: none;"><a class="normalTip exampleTip" title="Registro de clientes" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/index.php"> Cartera de Clientes</a><a class="normalTip exampleTip" title="" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/catalogos/productos/index.php"> Conceptos de venta</a><a class="normalTip exampleTip" title="" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/catalogos/resumen/index.php"> Resumen de ventas</a><a class="normalTip exampleTip" title="" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/catalogos/precios/index.php"> Lista de Precios</a><br></div><div id="smnuMiCuenta" class="SubmenuX2" style="border-color: rgb(7, 93, 158); display: none;"><a class="normalTip exampleTip" title="Configuración de información de empresa" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/infofiscal/nuevo.php"> Configuraciones</a><a class="normalTip exampleTip" title="Configuración de sucursales o cuentas" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/sucursales/index.php"> Sucursales &amp; Cuentas</a><a style="color:#D8D8D8;" class="normalTip exampleTip" title="Solicitud de facturación de sus pagos" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/nuevo.php#"> Mis Pagos</a><br></div><input id="var1Menu1" type="hidden" value="0">						
+
+<div id="separator-header"></div>
+<section id="cuerpo-container-app"><script>
+                                     $(document).ready(function(){
+                                        $("#selectId_estado").load("recursos/php/cargaEstado.php?id_pais=1"); 
+                                     });
+                                  </script>  
+                                   
+
+    <script language="JavaScript" type="text/JavaScript">
+
+         function SigEtapa(){
+
+                if( $("#txtEmail").val().trim()=="" ){ exit(0); }
+                
+                var datax= new FormData();
+                datax.append("eMail",$("#txtEmail").val());
+                datax.append("RazonSocial",$("#txtRazon_social").val());
+
+                $.ajax({
+                        url: "../../../../recursos/php/CheckEmail_02.php",
+                        type:"POST",
+                        data:datax,
+                        contentType:false,
+                        processData:false,
+                        cache:false,
+                        timeout: 60000,                 
+                        error: function(objeto, quepaso, otroobj){
+                          $("#preCar").css("display","none");
+                          $("#btnenviar").css("display","inline");                          
+                        },
+                        beforeSend: function(objeto){
+                          $("#preCar").css("display","inline");                         
+                        }
+                }).done(function (msg){  
+                          $("#preCar").css("display","none");
+                          $("#btnenviar").css("display","inline");                          
+                          if(parseInt(msg) == 1 && msg.trim().length==1 ){
+                             $("#ErrEmail").css("display","inline");
+                             alert("ERROR EN CAMPO E-MAIL: Verifique que la dirección de correo electrónico del cliente sea válida.");
+                          } else {
+                             $("#OkEmail").css("display","inline");
+                          }            
+                });               
+         }
+
+         function BuscaRfc(){
+               if( $("#txtRfc").val().length < 10  ){exit(0);}
+
+                var data2= new FormData();
+
+                data2.append("txtRfc",$("#txtRfc").val());
+
+                $.ajax({
+                        url: "recursos/php/consultaRFC.php",
+                        type:"POST",
+                        data:data2,
+                        contentType:false,
+                        processData:false,
+                        cache:false,
+                        timeout: 60000,                 
+                        error: function(objeto, quepaso, otroobj){
+                        },
+                        beforeSend: function(objeto){
+                        }
+                }).done(function (msg){  
+                    var vector=msg.split("|");
+                    if(vector.length >=2 ){
+                         var rzoc=msg.replace("||",", ");
+                         $("#panelMensajeOk").html("El RFC se encuentra registrado, puede ingresar un nuevo cliente con una razón social diferente.");                
+                         $("#panelMensajeOk").fadeIn(500);  
+                    } else {
+                         $("#panelMensajeOk").fadeOut(100);
+                    }                                                                                                       
+                });        
+         }
+
+        /*Auxiliar para los catalogos*/
+        function LeeCamposSat(){
+            $(".campoSat").each(function(){
+
+                var params={};            
+                params.index="4";    
+                params.id_obj=$(this).attr("id");  
+                params.id_sel=$(this).attr("data-value"); 
+                params.claveCat=$(this).attr("data-tipo"); 
+
+                $('#divAuxSat').load("../../../../recursos/php/validaciones_3.3.php", params,function(resp){
+                   var vecr=resp.split(" || ");        
+                   $("#" + vecr[0].trim() ).attr("title", vecr[1].trim() );
+                   $("#" + vecr[0].trim() ).html( vecr[2].trim() );             
+                   $("#" + vecr[0].trim() ).attr("data-value", vecr[3].trim() );
+                }); 
+
+            });
+        }
+    $(document).ready(function(){
+
+         $("#selectId_pais").change(function(event){
+              var id = $("#selectId_pais").find(':selected').val();
+              $('#selectId_estado').fadeOut(300);
+              $('#selectId_estado').fadeIn(1300);
+              $("#selectId_estado").load('recursos/php/cargaEstado.php?id_pais='+id);
+          });
+
+          $("#txtEmail").keyup(function(){
+              $("#OkEmail").css("display","none");
+              $("#ErrEmail").css("display","none");
+          });
+
+          $("#txtRfc").focusout(function(){
+              var value=$("#btnenviar").val();
+              if(value=="Agregar"){
+                BuscaRfc();
+              }
+          });
+
+          /*----------- Comandos para catalogos del sat ---------------*/
+          $(".campoSat").click(function(){ $("[data-id='" + $(this).attr("id") + "']").click(); });
+
+          $(".ayudaCatSat").click(function(e){
+              e.preventDefault();
+
+              var params={};            
+              params.index="2";    
+              params.claveCat=$(this).attr("data-tipo");
+              params.titulo=$(this).attr("title");
+              params.id_sel= $("#" + $(this).attr("data-id")).attr("data-value");          
+
+              params.urlAjust="../../../../modulos/facturacion/";
+              $("#idObjSel").val( $(this).attr("data-id") );
+                                                        
+              $('#divAyudaSat').load("../../../../recursos/php/validaciones_3.3.php", params,function(resp){
+                    var buttons = {};                                    
+                    buttons["Cerrar"] = function() { 
+                      $(this).dialog("close");
+                    };                
+                    $("#divAyudaSat").dialog({
+                          autoOpen: true,
+                          modal: true,
+                          resizable: false,
+                          width: 350,
+						              height: 600,
+                          top:5,
+                          title: params.titulo,
+                          position:"top",
+                          buttons: buttons
+                    }); 
+                    setTimeout(function(){ $("#buscaCrit").focus(); }, 50);  
+                    $("#idCatSatSel").val( params.claveCat );
+              }); 
+
+          });
+          
+
+          $("body").on("keypress","#buscaCrit",function(e){ if(e.which == 13) { $(".btnBuscaCrit").click(); } });
+
+          $("body").on("click",".btnBuscaCrit",function(e){
+              e.preventDefault();
+
+              var params={};            
+              params.index="3";    
+              params.claveCat=$("#idCatSatSel").val();
+              params.selCritCatSat=$("#selCritCatSat").val();
+              params.buscaCrit=$("#buscaCrit").val().replace("'","");
+              params.id_sel= $("#" + $("#idObjSel").val()).attr("data-value");
+              params.urlAjust="../../../../modulos/facturacion/";
+
+              $("#preloader").fadeIn("300");
+              $("#preloader2").fadeIn("100");  
+
+              $('#LiscatSat').load("../../../../recursos/php/validaciones_3.3.php", params,function(resp){
+                  $("#preloader").fadeOut("300");
+                  $("#preloader2").fadeOut("100");  
+                  $("#buscaCrit").focus().select();
+              }); 
+          });
+
+          $("body").on("change","#selCritCatSat",function(e){
+              var cat=$("#idCatSatSel").val();
+
+              if( cat == 'RegimenFiscal' || cat == 'UsoCFDI' || cat == 'FormaPago' ){
+                  if( $(this).val()=="Descripcion" ){ 
+                      $(".pivBusqueda").fadeIn(); 
+                      setTimeout(function(){ $("#buscaCrit").focus(); }, 50); 
+                  } else { 
+                      $(".pivBusqueda").fadeOut(); $(".btnBuscaCrit").click(); 
+                  }
+               }         
+
+               if( cat == 'ClaveUnidad' || cat == 'ClaveProdServ' ){
+                      $(".pivBusqueda").fadeIn(); 
+                      setTimeout(function(){ $("#buscaCrit").focus(); }, 50);             
+               } 
+          });    
+
+          $("body").on("click",".tabFila,.btnCancelValSat",function(e){
+               e.preventDefault();
+               $("#" + $("#idObjSel").val() ).attr("title", $(this).attr("data-title") );
+               $("#" + $("#idObjSel").val() ).html( $(this).attr("data-caption") );
+               $("#" + $("#idObjSel").val() ).attr("data-value", $(this).attr("data-id") );
+
+               $("[name='" + $("#idObjSel").val() + "']" ).val( $(this).attr("data-id") );
+
+               $("#divAyudaSat").dialog("close");
+          });  
+
+          //Obtiene valores de catalogos
+          LeeCamposSat(); 
+
+          /*------------------------------------------------------------------------------*/
+
+          $("#sel-domicilio").click(function(){
+              $("#viz-domicilio-x").css("display", $("#sel-domicilio").is(":checked") ? 'inline-block' : 'none' );
+              $("#ban_dom_fiscal").val($("#sel-domicilio").is(":checked") ? '1' : '0');
+          });
+
+    });
+  </script>
+
+    
+	
+
+<section class="content-header navbar-light">
+            <div class="container-fluid">
+            <div class="row mb-2">
+               <div class="col-sm-6"> 
+                  <h1> Añadir   Cliente</h1>
+               </div>
+               <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/">Inicio</a></li>
+                  <li class="breadcrumb-item"><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/">Clientes</a></li>
+                  <li class="breadcrumb-item active">Añadir   Cliente</li>
+                  </ol>
+               </div>
+            </div>
+            </div><!-- /.container-fluid -->
+</section>
+
+<style>
+    .form-intern label{ text-align:left; }
+</style>
+
+ <form class="formulario" method="POST" id="FormDatosClientes" style="text-align:center">        
+
+          
+          <section class="form-intern" style="max-width:1120px; margin-top:0px; display:inline-block;">
+              <section class="sectionCampos" style="display:none;">
+                <label>ID Cte.:
+                </label>
+                <input type="text" id="txtId" name="txtId" disabled="" style="background-color:#F2F2F2; font-weight:bold">
+              </section>
+
+              <section class="sectionCampos">
+                <label>Alias:
+                </label>
+                <input type="text" value="-" id="txtCliente" name="txtCliente">
+              </section>
+
+              <section class="sectionCampos">
+                <label><font color="red">*</font>Rfc:
+                </label>
+                <input type="text" id="txtRfc" name="txtRfc">
+              </section>
+
+              <section class="sectionCampos col100">
+                <label><font color="red">*</font>Razon Social:
+                </label>
+                <input type="text" id="txtRazon_social" name="txtRazon_social">
+              </section>
+
+              <section class="sectionCampos col100">
+                <label>E-Mail:
+                </label>
+                <input style="text-transform:none;" type="text" id="txtEmail" name="txtEmail">
+                <div id="preCar" style="display:none">
+                  <img src="./Syserv e-Fac _ Clientes_files/ajax-loader.gif"><font color="#FA8258" size="2"> &nbsp; Validando...</font>
+                </div>
+                <div id="OkEmail" style="display:none">
+                  <img style="max-width:1.5em" src="./Syserv e-Fac _ Clientes_files/correctoIcon.png">
+                </div>     
+                <div id="ErrEmail" style="display:none">
+                  <font color="red" size="2"> &nbsp; Error..</font>
+                </div>
+              </section>
+
+              <section class="sectionCampos">
+                <label>Núm. Tarjeta:
+                </label>
+                <input type="text" id="fact_numTarjeta" name="fact_numTarjeta">
+              </section>                          
+              
+              <div style="clear:both; height:1.5em;"></div>
+
+              <section class="titulo" style="padding-top:0px; margin-top:0px;"><div> <input id="sel-domicilio" type="checkbox"><label for="sel-domicilio"> + Mas Información.</label></div></section> 
+
+          </section> 
+                                        
+          <section id="viz-domicilio-x" class="form-intern" style="max-width:1120px; margin-top:0px; display: none">              
+              
+              <input type="hidden" name="ban_dom_fiscal" id="ban_dom_fiscal" value="0">
+
+              <section class="titulo" style="padding-top:0px; margin-top:0px;"><div> DOMICILIO FISCAL </div></section> 
+
+              <section class="sectionCampos">
+                <label>Telefono *:
+                </label>
+                <input type="text" id="txtFax" name="txtFax">
+              </section> 
+              <section class="sectionCampos">
+                <label>Calle *:
+                </label>
+                <input type="text" id="txtCalle" name="txtCalle">
+              </section>
+              <section class="sectionCampos">
+                <label>Número Exterior *:
+                </label>
+                <input type="text" id="txtNum_exterior" name="txtNum_exterior">
+              </section>
+              <section class="sectionCampos">
+                    <label>Número Interior:</label>
+                    <input type="text" id="txtNum_interior" name="txtNum_interior">
+              </section>
+              <section class="sectionCampos">
+                <label>Colonia *:
+                </label>
+                <input type="text" id="txtColonia" name="txtColonia">
+              </section>
+              <section class="sectionCampos">
+                <label>Código Postal *:
+                </label>
+                <input type="text" id="txtCod_pos" name="txtCod_pos">
+              </section>   
+              <section class="sectionCampos">
+                  <label>Localidad *:
+                  </label>
+                  <input type="text" id="txtLocalidad" name="txtLocalidad">
+              </section>    
+              <section class="sectionCampos">
+                    <label>Municipio:</label>
+                    <input type="text" id="txtMunicipio" name="txtMunicipio">
+              </section>                     
+              <section class="sectionCampos">
+                  <label for="Pais">Pais *: </label>
+                  <select id="selectId_pais" name="selectId_pais">
+                    <option value="" selected="">Seleccione el Pais</option>
+                    <option selected="" value="1">MEXICO</option>                               
+                  </select>          
+              </section>  
+              <section class="sectionCampos">
+                <label>Estado *:
+                </label>
+                <select id="selectId_estado" name="selectId_estado"><option value="" selected="">Seleccione Estado</option><option value="1">Aguascalientes</option><option value="2">Baja California</option><option value="3">Baja California Sur</option><option value="4">Campeche</option><option value="7">Chiapas</option><option value="8">Chihuahua</option><option value="9">Ciudad de Mexico</option><option value="5">Coahuila</option><option value="6">Colima</option><option value="10">Durango</option><option value="15">Estado de Mexico</option><option value="11">Guanajuato</option><option value="12">Guerrero</option><option value="13">Hidalgo</option><option value="34">Indefinido</option><option value="14">Jalisco</option><option value="16">Michoacan</option><option value="17">Morelos</option><option value="18">Nayarit</option><option value="19">Nuevo Leon</option><option value="20">Oaxaca</option><option value="21">Puebla</option><option value="22">Queretaro</option><option value="23">Quintana Roo</option><option value="24">San Luis Potosi</option><option value="25">Sinaloa</option><option value="26">Sonora</option><option value="27">Tabasco</option><option value="28">Tamaulipas</option><option value="29">Tlaxcala</option><option value="30">Veracruz</option><option value="31">Yucatan</option><option value="32">Zacatecas</option></select>
+              </section>
+              <div style="display:none">       
+                  <section class="sectionCampos">
+                    <label>Referencia:
+                    </label>
+                    <input type="text" id="txtReferencia" name="txtReferencia">
+                  </section>              
+
+              </div>                             
+          </section>
+                      
+          <section class="form-intern contenedor-cmd" style="max-width:1120px; margin-top:0px; display:inline-block;">
+               <section class="titulo" style="padding-top:0px; margin-top:0px;"><div> PREFERENCIAS DE FACTURACIÓN </div></section> 
+          </section>
+
+          <section class="form-intern" style="max-width:1120px; margin-top:0px; display:inline-block;">
+              <section class="sectionCampos">
+                  <table cellpadding="0" cellspacing="0">
+                      <tbody><tr><td colspan="2" style="padding-bottom: 5px"><label for="formaPago01" style="color: black;">Forma de pago</label></td></tr>
+                      <tr>
+                          <td><div class="campoSat" data-value="" data-tipo="FormaPago" id="formaPago01"><i>Clic para obtener ayuda ..</i></div></td>
+                          <td><button title="Ayuda de catálogo de forma de pago" data-tipo="FormaPago" data-id="formaPago01" class="ayudaCatSat">
+                            <span class="fa fa-search"></span>
+                          </button></td>
+                      </tr>
+                  </tbody></table>
+              </section>
+              <input type="hidden" name="formaPago01" value="">
+
+              <section class="sectionCampos">
+                  <table cellpadding="0" cellspacing="0">
+                      <tbody><tr><td colspan="2" style="padding-bottom: 5px"><label for="usoCfdi1" style="color: black;">Uso de CFDI</label></td></tr>
+                      <tr>
+                          <td><div class="campoSat" data-value="" data-tipo="UsoCFDI" id="usoCfdi1"><i>Clic para obtener ayuda ..</i></div></td>
+                          <td><button title="Ayuda de catálogo de uso de CFDI" data-tipo="UsoCFDI" data-id="usoCfdi1" class="ayudaCatSat">
+                             <span class="fa fa-search"></span>
+                          </button></td>
+                       </tr>
+                  </tbody></table>  
+              </section>
+              <input type="hidden" name="usoCfdi1" value="">
+
+              <div id="divAyudaSat" style="display: none;"></div>
+              <div id="divAuxSat" style="display: none;"></div>
+              <input type="hidden" id="idCatSatSel" value="">
+              <input type="hidden" id="idObjSel" value="">     
+              
+              <div style="clear:both; height:1.5em;"></div>
+              <section class="titulo" style="padding-top:0px; margin-top:0px;"><div> <input type="checkbox" name="ResExtrang" id="ResExtrang"><label for="ResExtrang">Residente en el extranjero</label></div></section>           
+
+              <div id="cuadoREsExtr" style="opacity: 0.4;">
+                    <section class="sectionCampos">
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody><tr><td>Número de registro de identidad fiscal</td></tr>
+                            <tr>
+                                <td><input type="text" name="numIdenFiscal" id="numIdenFiscal" style="width: 100%" disabled=""></td>
+                            </tr>
+                        </tbody></table>
+                    </section>
+
+                    <section class="sectionCampos" id="cargaPaisExtr" style="display: none;">
+                          <table cellpadding="0" cellspacing="0">
+                              <tbody><tr><td colspan="2" style="padding-bottom: 5px"><label for="selPais01" style="color: black;">País (Residencia fiscal)</label></td></tr>
+                              <tr>
+                                  <td><div class="campoSat" data-value="" data-tipo="CatPaises" id="selPais01"><i>Clic para obtener ayuda ..</i></div></td>
+                                  <td><button title="Ayuda de catálogo de Paises" data-tipo="CatPaises" data-id="selPais01" class="ayudaCatSat"><span class="fa fa-search"></span></button></td>
+                              </tr>
+                          </tbody></table>  
+                    </section>
+                    <input type="hidden" name="ObjselPais01" id="ObjselPais01" value="">                    
+              </div> 
+
+          </section>              
+
+
+           <br>
+           
+           <center>           
+           <a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/index.php" class="btn_gris">Cancelar</a><input id="btnenviar" type="button" class="btn_gris" value="Agregar">      
+           </center>
+           
+      </form>
+
+      <div id="block" style="display:none">
+  </div>
+
+<div id="preloader" class="preloader"></div> <div id="preloader2" class="centrar"> <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status"> <span class="sr-only">Cargando...</span> </div> </div> <div id="panelMensajeOk"></div> <div id="panelMensajeErr"></div></section><br><br><br><br><br><br> </body></html>

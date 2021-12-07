@@ -1,0 +1,1041 @@
+@charset "utf-8";
+/* CSS Document */
+body,html{
+    margin: 0em;
+    padding: 0em;
+	background-color: #ECF0F5;
+}
+
+.header-program{
+	background-color: #F4F3F3;
+	color: #505050;
+	position: fixed;	
+	display: block;
+	width: 100%;
+	z-index:3;
+}
+
+#logotipo{		
+	margin: 8px 0px 8px 50px;		
+	display: inline-block;
+	vertical-align: bottom;
+	float: left;
+}
+#logotipo:hover{
+	opacity:0.4;
+	cursor:pointer;
+}
+#logotipo img{
+	width: 100px;
+}
+#v-sis{
+	float: left;
+	color: #075D9E;	
+	margin-top: 1.8em;
+	margin-left: 10px;
+}
+#ContenedorDatosUsuario{
+	float: right;
+	margin-right: 40px;
+}
+.opt-cont-user{
+	width: auto;
+	display: inline-block;
+	height: 60px;
+	margin: 0px;
+	float: left;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #075D9E;
+	margin-right: 15px;
+}
+.opt-cont-user:hover, .opt-cont-user label:hover{
+	cursor: pointer;
+	color: #07ACC9;
+}
+.opt-cont-user label{
+	float: right;
+	display: inline-block;
+	padding-top: 16px;
+}
+
+.opt-cont-user-select{
+	color: #07ACC9 !important;
+}
+
+#imgLogo img{
+	height:2.5em;
+	padding-top: 15px;
+}
+
+.barr-herramientas{
+	position: fixed;
+	background-color: #07ACC9; 
+	left: 0px;
+	width: 55px;
+	height: 100%;
+	top: 99px;
+	z-index:1;
+	padding-top: 30px;
+}
+
+.panelBusqueda{
+	padding: 0em;
+	width:100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0em;
+	min-height: 2.8em;
+	z-index: 100000;
+	height: auto;
+	position: fixed;
+	top: 60px;
+	z-index:3;
+}
+
+#separator-header{
+	clear: both;
+	height: 110px;
+}
+
+#cuerpo-container-app{
+	padding-left: 58px;
+	width: 100%;
+}
+
+#mnu-movile{ display: none; }
+
+.barr-herramientas span,.barr-herramientas a{
+	color: white;	
+}
+.barr-herramientas a{
+	padding:15px;
+	float: left;
+}	
+.barr-herramientas a:hover, .barr-herramientas span:hover{
+	opacity: 1;
+	cursor: pointer;
+	color: #075D9E;
+}
+
+#lbl-cerrar{ display: inline-block; }
+
+.formulario{
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 10px;
+	padding: 20px;
+}
+.sectionCampos{
+	width: 48%;
+	float: left;
+	min-height: 80px;
+	padding: 1%;
+}
+.sectionCampos label{
+	display: block;
+}
+.sectionCampos input,.sectionCampos textarea,.sectionCampos select{
+	width: 100%;
+	padding: 5px 10px;
+	font-size: 1.2em;
+}
+.sectionCampos select{ padding: 7px 10px; }	
+
+.sectionCampos.col100{
+	width: 96%;
+}
+
+/*--- Dos columnas ---*/
+.sectionCampos.Col2{
+	padding-top: 0px;
+	min-height: 50px;
+	padding-bottom: 5px;
+}
+
+.sectionCampos.Col2 label{
+	display: inline-block;
+	width: 29%;
+	text-align: left;
+}
+.sectionCampos.Col2 input,.sectionCampos.Col2 textarea,.sectionCampos.Col2 select{
+	width: 59%;
+	display: inline-block;
+}
+
+/*--------------------*/
+.content-header h1{
+	color: #075D9E;
+}
+
+.cuadroNewCFDI{
+    background-color: #d0e5e9;
+    display: inline-block;
+    border: 2px solid #075D9E;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    width: 98%;
+    margin-left: 1%;
+}
+
+
+.btn_gris{
+	background-color: #075D9E;
+	color: white;
+	font-size: 1.2em;
+	padding: 5px 20px;
+	height: 40px;
+	display: inline-block;
+	border: none;
+	box-shadow:none;
+	margin: 10px;
+}
+.btn_gris:hover{
+	background-color: #07ACC9;
+	cursor: pointer;
+	color: white;
+}	
+
+input.btn_gris{
+	background-color: #06528b;
+	font-weight: bold;
+}
+
+.formulario input[type="checkbox"]{
+	margin-right: 5px;
+}
+.formulario input[type="checkbox"] + label {
+	color: #9A9696;
+	font-size: 1.1em;
+}
+.formulario input[type="checkbox"]:checked + label {
+	color: rgb(21, 22, 22);
+	font-weight: bold;
+}
+.nav-link{
+	color: #7d7e7e;
+}
+.content-header{
+	border-bottom:1px solid #DDDADA
+}
+
+.opt-import-total{
+	float: right;
+	display: block;
+	clear: both;
+}
+.opt-import-total label{
+	width: 100px;
+	text-align: right;
+	margin-right: 5px;
+}
+.opt-import-total input{
+	text-align: right;
+	font-size: 1.3em;
+	width: 150px;
+}	
+
+.cont-sucursal{
+	margin: 15px 0px;
+	display: block;
+}
+.cont-sucursal select{
+	font-size: 1.1em;
+	padding: 3px 10px;
+}
+
+.form-intern{
+	width: 98%;
+	height: auto;
+	padding: 20px 15px;
+	display: block;
+	margin: 10px;
+	background-color: #d0e5e9;
+	border: 1px solid #075D9E;
+	display: inline-block;
+	overflow: auto;
+}
+.barrCmd{
+	background: none;
+	padding: 0px;
+	border: none;
+}
+.linkTab{
+	float: left;
+	color: grey;	
+	padding: 6px 22px;
+	margin-right: 10px;
+	font-size: 1.2em;
+	opacity: 0.8;
+}
+.linkTab:hover{	
+	cursor: pointer;
+	opacity: 1;
+}
+.active-tab{
+	background-color: #07ACC9;
+	color: white !important;
+	font-weight: bold;
+	opacity: 1;
+}
+.op-sel-fecha{
+	display:inline-block;
+	margin:0px 10px;
+  }
+  .op-sel-fecha select,.op-sel-fecha input[type='date']{
+	font-size:1.2em;
+	padding:5px;
+	min-width:100px;
+  }
+
+/*------------------------------------------------------------------------------------------------------------------*/
+
+#ImagenUsuario{
+	display:inline-block;
+	height:90px;
+	width:90px;
+	border:solid 1px #CCCCCC;
+	border-radius: 150px;	
+	-webkit-border-radius: 150px; 
+	-moz-border-radius: 150px; 
+	-o-border-radius:150px;
+	z-index:97;
+	opacity:1;
+}
+
+section#DatosUsuario{
+	display:block;
+	background-color:#FFF;
+	color:#333;
+	max-width:100%;
+	min-height:30px;
+	font-family:Verdana, Geneva, sans-serif;
+	font-style:italic;
+	font-size:0.75em;
+	padding:1px;
+	
+}
+#DatosUsuario h3{
+	color:#30C8FA;
+	font-size:0.75em;
+	font-family:Arial, Helvetica, sans-serif;
+	font-style:italic;
+	padding:0;
+	margin:0;
+	
+}
+#DatosUsuario a { text-decoration:none !important; font-style:normal; color:#66CC66; opacity:0.7; font-size:0.90em !important;}
+#DatosUsuario a:Hover { text-decoration:none !important; color:#3C0; opacity:1; font-size:1.2em; font-style:italic !important;}
+
+.tooltip {
+    display:inline-block;
+    position: relative;
+  }
+.tooltip:hover:after {
+    bottom: 26px;
+    content: attr(title); /* este es el texto que será mostrado */
+    left: -40%;
+    position: absolute;
+    z-index: 98;
+    /* el formato gráfico */
+    background: rgba(255,255,255, 0.2); /* el color de fondo */
+    border-radius: 5px;
+    color: #FFF; /* el color del texto */
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 0.80em;
+	font-style:italic;
+    padding: 5px 15px;
+    text-align: center;
+    text-shadow: 1px 1px 1px #000;
+    width: 150px;
+ }
+  .tooltip:hover:before {
+    bottom: 20px;
+    content: "";
+    left: -40%;
+    position: absolute;
+    z-index: 99;
+    /* el triángulo inferior */
+    border: solid;
+    border-color: rgba(255,255,255, 0.2) transparent;
+    border-width: 6px 6px 0 6px;
+  }
+
+
+  .BoMovX2{
+	display: none;
+	background-color: #585858;
+	color: white;
+	width: 100px;
+	height: 1.4em;
+	text-align: center;
+	padding: 0.3em;
+	border-radius: 0px 0px 6px 6px;
+	margin-right: 1em;
+	/*position: fixed;*/
+	z-index: 10000001;
+	filter:alpha(opacity=50); 
+	opacity:0.5;
+	left: 0px;
+ }
+ .BoMovX2:Hover{
+	cursor: pointer;
+	background-color: black; 
+	filter:alpha(opacity=50); 
+	opacity:0.5;       
+ }
+
+ #PanelInfoTimbrado{
+	float: right; 
+	display:inline-block; 
+	width:24em;
+	border: none;
+	margin-right: 15%;
+	margin-top: 2em;
+	background-color: #19BD9B;
+	border:none;
+}
+
+#PanelInfoTimbrado img{
+	max-width: 4em;
+	margin-top: 2em;
+	margin-left: 1em;
+	margin-bottom: 3em;
+	float: left;
+	box-shadow: 2px 2px 7px #999;
+}
+
+#PanelInfoTimbrado label{
+	width: 10em;
+	color: #0B3B0B;
+	float: left;
+	margin-top: 0.5em;
+	margin-left: 1em;
+}
+#PanelInfoTimbrado div{
+	display: inline-block;
+	margin-top: 0.5em;
+	color:white;
+}	
+
+/*Estilo para el contenedor Principal del Sistema*/
+
+#Contenido{
+  min-height:590px;
+  max-width:95%;
+  margin:0 auto;
+  text-align:left;
+  padding:20px;
+}
+
+.ContenedorMenuNotificaciones a{
+  display:inline-block;
+  color:white !important;
+  width:15%;
+  min-height:15px;
+  background:#585858;
+  margin:0.5% 0%;
+  padding:10px;
+  text-align:center;
+  text-decoration:none; 
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:1em;
+  z-index:1;
+  box-shadow: 2px 2px 5px #999;
+  font-style: bold;
+}
+.ContenedorMenuNotificaciones a:hover{
+  background:#086A87 !important;
+  color:white !important;
+  cursor:pointer;
+  font-style:italic;
+  z-index:1;  
+}
+ 
+
+.Notificacion{
+  background:#F00;
+  border:solid 2px #FFFFFF;
+  color:#FFF;
+  display:inline-block;
+  position:absolute;
+  width:10px;
+  height:11px;
+  padding: 10px 10px;
+  margin:-0.3% -3.5%;
+  z-index:2;
+  text-align:center;
+  font-family:Arial, Helvetica, sans-serif;
+  font-style:italic;
+  font-size:0.85em;
+  border-radius: 150px; 
+  -webkit-border-radius: 150px; 
+  -moz-border-radius: 150px; 
+  -o-border-radius:150px;
+}
+
+.resultXhoja{
+	margin-right: 4em;
+ }
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+		#panelInfox2{
+			float: right;
+			display: block;
+			padding: 0.5em;
+			background-color: #17A086;	
+			color: white;
+			margin-bottom:0.5em;
+			margin-right: 0.5em;
+			margin-top: 0.5em;		
+		}
+
+		#panelInfox2:hover{
+			cursor: pointer;
+		}	
+
+
+		.panelInfo{				
+			padding: 0.5em; 
+			padding-top: 1em;
+			border: #08298A solid 0.2em;
+			background-color: none;
+			color: #A4A4A4;
+			display: block;
+			position: absolute;
+			width: 18em;
+			height: 9em;	
+			top: 44%;	
+			line-height:27px;	
+			font-weight: 100;
+			z-index: 1;
+		}
+		.panelInfo:hover{
+			cursor: pointer;
+		}
+		#panel1{
+			text-align: right;
+		}
+		#panel2{
+			text-align: left;
+			margin-left: 0.5em;
+			color: #151515;
+		}
+
+
+/*--------------------------------------------------------------------------------------------------------------------------*/
+/*                                             RESOLUCION DEL IPAD - TABLET GRANDE                                          */
+/*--------------------------------------------------------------------------------------------------------------------------*/
+@media(max-width:900px)
+{
+
+		#Contenido{
+			min-height:590px;
+			max-width:95%;
+			margin:0 auto;
+			text-align:center;
+			padding:20px;
+		}		
+		#ImagenUsuario{
+			display:inline-block;
+			height:85px;
+			width:85px;
+		}	
+
+		section.Titulos{
+			color:#333333;
+			max-width:100%;
+			min-height:22px;
+			margin:0.2% auto;
+			font-family:Arial, Helvetica, sans-serif;
+			font-size:1.3em;
+			font-style:italic;
+			display:block;
+			text-align:center;
+			padding:7px 7px 7px 7px;
+		}
+		.SubTitulos{
+			background:#FFFFFF;
+			border:solid 1px #CCCCCC;
+			color:#333;
+			display:block;
+			font-family:Verdana, Geneva, sans-serif;
+			font-size:1em;
+			font-style:italic;
+			min-width:97%;
+			min-height:18px;
+			margin:0% 0%;
+			padding:8px;
+			text-align:center;
+		}
+
+		/*Cambio aspecto del panel de busqueda*/
+		.panelCubre{
+		   border-left: 1px solid white;
+		   font-style: italic;
+		   width: 50% !important;
+		   margin-left: 0px !important;
+		   border-bottom: 1px solid white;
+		   display: none;
+		} 
+		.panelBusqueda{
+		   position: block;
+		   min-height:0.4em;
+		}
+		#mnu-movile{ display: inline-block; }
+		/*Cambio de acpecto en el menú desplegable*/
+		.SubmenuX2>a{
+			margin: 5px 0px 5px 0px;
+			font-size: 1.5em;
+		}
+			
+		.SubmenuX2>b{
+			font-size: 1.5em;
+		} 
+		
+		.SubmenuX2{
+			  position: fixed;
+		}     
+		
+		/*---------------------- Librerias GRIDDATA, COMANDOSHEAD y AODC ------------------------------*/
+	   
+	   .panelBusqueda2{
+		   width:700px;
+	   }  	
+	   .optBusqueda{
+			width: 87%;
+	   } 
+
+	   .BoMovX2{
+		   display: inline-block;
+	   }
+	   .menuLateral{
+		   display: none !important;
+	   }
+	   #PanelInfoTimbrado{
+		   width: 70%;
+		   margin-left: 10%;
+	   }   
+
+
+	   .barr-herramientas{
+			bottom: 0;
+			width:100%;
+			text-align:justify;
+			padding:10px;
+			height: 50px;
+			top: auto;
+			background-color: #E8E7E7;
+			text-align: center;			
+	    }
+		.barr-herramientas span,.barr-herramientas a{
+			color: #075D9E;				
+		}	
+		
+		.barr-herramientas a{
+			padding: 10px 20px;
+			float: none;
+		}
+		.barr-herramientas a:hover,.barr-herramientas span:hover{
+			color: #07ACC9;
+		}	
+
+		#cuerpo-container-app{
+			padding-left: 0px;
+		}	
+		#separator-header{
+			height: 80px;
+		}
+
+		#new-cte,#lbl-cerrar{ display: none !important; }
+
+		#panelMensajeErr,#panelMensajeOk{
+			bottom: 50px;
+		}			
+}
+ 	
+
+@media  (max-width: 790px) 
+{
+	#imgLogo,#v-sis{ display: none; }
+
+	#logotipo{		
+		margin-left: 10px;
+	}
+	.opt-cont-user{
+		margin-right: 5px;
+	}
+	.opt-cont-user label{
+		padding-top: 25px;
+	}	
+	.formulario{
+		width: 100%;
+		margin-left: 0px;
+		padding: 5px;
+	}
+	.sectionCampos{
+		width: 98% !important;
+		padding: 1% !important;
+	}
+	.cuadroNewCFDI{
+		width: 96%;
+	}
+    .contenedor-cmd .sectionCampos .btn_gris{
+		margin-left: 35%;
+	 }
+				  
+}	
+
+/*--------------------------------------------------------------------------------------------------------------------------*/
+/*                                             RESOLUCION DEL IPAD - TABLET CHICA                                          */
+/*--------------------------------------------------------------------------------------------------------------------------*/
+
+
+@media  (max-width: 680px) 
+{
+
+		/*------------- Menu Notificaciones-------------*/
+		.ContenedorMenuNotificaciones a{
+			display:inline-block;
+			color:#FFFFFF !important;
+			width:55%;			
+			min-height:15px;
+			background:#414141;
+			margin:1% auto;
+			margin-left: 20%;
+			padding:10px;
+			text-align:center;
+			text-decoration:none;	
+			font-family:Arial, Helvetica, sans-serif;
+			font-size:1em;
+			z-index:1;
+		}
+		.ContenedorMenuNotificaciones a:hover{
+			background:#FFFFFF !important;
+			color:#333 !important;
+			cursor:pointer;
+			border:solid 1px #30C8FA;
+			font-style:italic;
+			z-index:1;	
+		}
+
+		.Notificacion{
+			background:#F00;
+			border:solid 2px #FFFFFF;
+			color:#FFF;
+			display:inline-block;
+			position:absolute;
+			width:10px;
+			height:11px;
+			padding: 10px 10px;
+			margin:-5% -10%;
+			z-index:2;
+			text-align:center;
+			font-family:Arial, Helvetica, sans-serif;
+			font-style:italic;
+			font-size:0.85em;
+			border-radius: 150px;	
+			-webkit-border-radius: 150px; 
+			-moz-border-radius: 150px; 
+			-o-border-radius:150px;
+		}
+
+		/*---------------------- Librerias GRIDDATA, COMANDOSHEAD y AODC ------------------------------*/
+		   .panelBusqueda2{
+				 width:270px;
+		   }  
+			.imgsiguiente{
+				  margin-right: 1.5em;
+			}
+			.imganterior{
+				  margin-right: 1.5em;
+			}
+			.imgprimero{
+				  margin-right: 1.5em;
+			}
+			.elementosEncontrados{
+				 margin-left:0em;   
+				 margin-right: 0em;  
+				 width:200px;
+				 text-align: left;
+			}
+ 			
+			.OptOpt{
+				  width: 20em;
+			}
+			.optBusqueda{
+				  width: 61%;
+			} 
+			.operador{
+			  margin-left:90px; 
+			}
+			.texto{
+			  margin-left:90px; 
+			}			
+		
+			/*Cambio aspecto del panel de busqueda*/
+			.panelBusqueda{
+				 position: block;
+			}
+		
+			/*Cambio de acpecto en el menú desplegable*/
+			.SubmenuX2>a{
+				margin: 5px 0px 5px 0px;
+				font-size: 1.5em;
+			}
+			
+			.SubmenuX2>b{
+				font-size: 1.5em;
+			} 
+		    
+			.panelInfo{
+				display: none;
+			}
+	  
+	   #PanelInfoTimbrado img{
+		   display: none;
+	   }	   
+
+	   .opt-cont-user{
+			padding-left: 3px;
+			padding-right: 5px;
+	   }
+	   #ContenedorDatosUsuario{
+		    margin-right: 10px;
+	   }	
+
+		/*--- Dos columnas ---*/
+		.sectionCampos.Col2 label{
+			display: block;
+			width: 100%;
+		}
+		.sectionCampos.Col2 input,.sectionCampos.Col2 textarea,.sectionCampos.Col2 select{
+			width: 100%;
+			display: block;
+		}	   
+		.op-sel-fecha{ width:100%; text-align:left; }
+		.op-sel-fecha label{ width: 20%; }
+		.op-sel-fecha label.col100{ width: auto; }
+		.op-sel-fecha select,.op-sel-fecha input[type='date']{ width: 60%;  }
+		.contenedor-cmd .sectionCampos .btn_gris{
+			margin-left:0px;
+			float: none;
+			text-align: center;
+		}
+	
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------------*/
+/*                                                 RESOLUCION DEL CELULAR                                                   */
+/*--------------------------------------------------------------------------------------------------------------------------*/
+@media(max-width:360px)
+{
+
+		#Contenido{
+			min-height:350px;
+			max-width:90%;
+			margin:0 auto;
+		}		
+		/*------------- Menu Notificaciones-------------*/
+		.ContenedorMenuNotificaciones a{
+			display:inline-block;
+			color:#FFFFFF !important;
+			width:90%;
+			min-height:15px;
+			background:#414141;
+			margin:1% auto;
+			padding:10px;
+			text-align:center;
+			text-decoration:none;	
+			font-family:Arial, Helvetica, sans-serif;
+			font-size:1em;
+			z-index:1;
+		}
+		.ContenedorMenuNotificaciones a:hover{
+			background:#FFFFFF !important;
+			color:#333 !important;
+			cursor:pointer;
+			border:solid 1px #30C8FA;
+			font-style:italic;
+			z-index:1;	
+		}
+
+		.Notificacion{
+			background:#F00;
+			border:solid 2px #FFFFFF;
+			color:#FFF;
+			display:inline-block;
+			position:absolute;
+			width:10px;
+			height:11px;
+			padding: 10px 10px;
+			margin:-5% -10%;
+			z-index:2;
+			text-align:center;
+			font-family:Arial, Helvetica, sans-serif;
+			font-style:italic;
+			font-size:0.85em;
+			border-radius: 150px;	
+			-webkit-border-radius: 150px; 
+			-moz-border-radius: 150px; 
+			-o-border-radius:150px;
+		}
+
+
+		/*------------------------- Encabezado y pie de páginas generales -------------------------- */					   
+		#ImagenUsuario{
+			display:inline-block;
+			height:55px;
+			width:55px;
+			border:solid 1px #CCCCCC;
+			border-radius: 150px;	
+			-webkit-border-radius: 150px; 
+			-moz-border-radius: 150px; 
+			-o-border-radius:150px;
+			z-index:1;
+		}
+		
+		section#DatosUsuario{
+			display:block;
+			background-color:#FFF;
+			color:#333;
+			max-width:100%;
+			min-height:30px;
+			font-family:Verdana, Geneva, sans-serif;
+			font-style:italic;
+			font-size:0.75em;
+			padding:1px;			
+		}
+		
+		.tooltip {
+			display:inline-block;
+			position: relative;
+		  }
+		.tooltip:hover:after {
+			bottom: 26px;
+			content: attr(title); /* este es el texto que será mostrado */
+			left: -110%;
+			position: absolute;
+			z-index: 2;
+			/* el formato gráfico */
+			background: rgba(255,255,255, 0.2); /* el color de fondo */
+			border-radius: 5px;
+			color: #FFFFFF; /* el color del texto */
+			font-family:Arial, Helvetica, sans-serif;
+			font-size: 0.85em;
+			font-style:italic;
+			padding: 5px 15px;
+			text-align: center;
+			min-width: 80px;				
+		  }
+		  .tooltip:hover:before {
+			bottom: 20px;
+			content: "";
+			left: -110%;
+			position: absolute;
+			z-index: 3;
+			/* el triángulo inferior */
+			border: solid;
+			border-color: rgba(255,255,255, 0.2) transparent;
+			border-width: 6px 6px 0 6px;
+		
+		  }
+
+			.Titulos{
+				background:#FFF;
+				color:#333333;
+				width:100% !important;
+				min-height:15px;
+				margin:0% auto;
+				/*-moz-border-radius:8px 8px 8px 8px;
+				-o-border-radius:8px 8px 8px 8px;
+				-webkit-border-radius:8px 8px 8px 8px;
+				border-radius:8px 8px 8px 8px;*/
+				font-family:Arial, Helvetica, sans-serif;
+				font-size:1em !important;
+				font-style:normal !important;				
+				display:block;
+				text-align:center;
+				vertical-align:top;
+				padding:7px 7px 7px 7px;
+			}
+			.SubTitulos{
+				background:#FFFFFF;
+				border:solid 1px #CCCCCC;
+				/*-moz-border-radius:0px 0px 8px 8px;
+				-o-border-radius:0px 0px 8px 8px;
+				-webkit-border-radius:0px 0px 8px 8px;
+				border-radius:0px 0px 8px 8px;*/	
+				color:#333;
+				display:block;
+				font-family:Verdana, Geneva, sans-serif;
+				font-size:0.85em;
+				font-style:italic;
+				width:75%;
+				min-height:18px;
+				margin:0% -1%;
+				padding:7px 7px 7px 7px;
+				text-align:center;
+			}
+			.Error{
+				background:#FFF;
+				color:#F00;
+				display:inline-block;
+				font-size:0.75em;
+				font-family:Verdana, Geneva, sans-serif;
+				font-style:italic;
+				margin-left:0.1%;
+				max-height:25px;
+				min-width:78%;
+						
+			}
+
+		 /*---------------------- Librerias GRIDDATA, COMANDOSHEAD y AODC ------------------------------*/
+
+		   .panelBusqueda2{
+				 width:400px;
+		   }  
+			.imgsiguiente{
+				  margin-right: 1.5em;
+			}
+			.imganterior{
+				  margin-right: 1.5em;
+			}
+			.imgprimero{
+				  margin-right: 1.5em;
+			}
+			.elementosEncontrados{
+				 margin-left:auto;   
+				 margin-right: auto;  
+				 width:250px;
+				 text-align: center;
+			}
+			.OptOpt{
+				  width: 20em;
+			}
+			.optBusqueda{
+				  width: 42%;
+			} 
+			.operador{
+			  margin-left:90px; 
+			}
+			.texto{
+			  margin-left:90px; 
+			}
+		
+			/*Cambio de acpecto en el menú desplegable*/
+			.SubmenuX2>a{
+				margin: 5px 0px 5px 0px;
+				font-size: 1.5em;
+			}
+			
+			.SubmenuX2>b{
+				font-size: 1.5em;
+			} 
+			  
+			.panelInfo{
+				display: none;
+			}	
+			
+}

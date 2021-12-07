@@ -1,0 +1,324 @@
+ function ClearError(){
+                    $('input[type=text],select').each(function(){
+                      $(this).css("background-color","white");
+                      $(this).css("border","1px #D8D8D8 solid");
+                    });
+                  
+  }   
+
+  function ValidaRfc(rfcStr) {
+                    var strCorrecta;
+                    strCorrecta = rfcStr; 
+                    if (rfcStr.length == 12){
+                    var valid = '^(([A-Z]|[a-z]|[&]|[Ñ]|[ñ]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                    }else{
+                    var valid = '^(([A-Z]|[a-z]|[&]|[Ñ]|[ñ]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                    }
+                    var validRfc=new RegExp(valid);
+                    var matchArray=strCorrecta.match(validRfc);
+                    if (matchArray==null) {
+                      return false;
+                    }else{
+                      return true;
+                    }
+    
+  }
+
+  function validarEmail( email ) {
+                expr = /^([a-zA-Z0-9_\Ñ\ñ\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if ( !expr.test(email) ){
+                  return false;      
+                } else {
+                  return true;      
+                }
+          
+  }
+
+  function EnabResExtranjero(){
+        if( $("#ResExtrang").is(":checked") ){
+            $("#cuadoREsExtr").css("opacity","1");
+            $("#numIdenFiscal").prop("disabled",false);
+            $("#cargaPaisExtr").css("display","inline-block");
+        } else {
+            $("#cuadoREsExtr").css("opacity","0.4");  
+            $("#numIdenFiscal").prop("disabled",true);
+            $("#cargaPaisExtr").css("display","none");
+        }
+  }
+
+  function addError(id_obj) {
+       $("#" + id_obj).css("border","1px red solid");
+       $("#" + id_obj).css("background-color","#FBEFEF");
+       $("#" + id_obj).focus();
+  }
+
+  function MarkError(id_obj) {
+    id_obj.css("background-color","white"); 
+    id_obj.css("border","1px #D8D8D8 solid");
+  }
+
+// JavaScript Document
+$(document).ready(function(){
+
+	$("#txtRfc").focus();
+	$("#fact_numTarjeta").mask("9999");  
+	$("#txtCod_pos").mask("99999"); 
+    $("#txtFax").mask("(999) 999-9999");
+
+    $("input").keydown(function(e){ MarkError($(this)); });      
+    $("select").change(function(e){ MarkError($(this)); });      
+
+$("#btnenviar").click(function(){
+
+                   ClearError();
+
+                   var msg="";
+
+                   $("#txtEmail").val( $("#txtEmail").val().replace(",",";") );
+
+                   var rfc=$("#txtRfc").val();
+                   var cliente=$("#txtCliente").val();
+                   var razon_social=$("#txtRazon_social").val();
+                   var calle=$("#txtCalle").val();
+                   var num_ex=$("#txtNum_exterior").val();
+                   var colonia=$("#txtColonia").val();
+                   var localidad=$("#txtLocalidad").val();
+                   var municipio=$("#txtMunicipio").val();
+                   var id_pais=$("#selectId_pais").val();
+                   var id_estado=$("#selectId_estado").val();
+                   var cod_postal=$("#txtCod_pos").val();
+                   var email=$("#txtEmail").val();
+
+                    rfc=rfc.trim();
+                    cliente=cliente.trim();
+                    razon_social=razon_social.trim();
+                    calle=calle.trim();
+                    num_ex=num_ex.trim();
+                    colonia=colonia.trim();
+                    localidad=localidad.trim();
+                    municipio=municipio.trim();
+                    id_pais=id_pais.trim();
+                    id_estado=id_estado.trim();
+                    cod_postal=cod_postal.trim();
+                    email=email.trim();
+
+                    if(ValidaRfc(rfc) == false){
+                       addError("txtRfc");
+                       msg=msg+"El formato del RFC es incorrecto.<br>";
+                    }                    
+
+  
+                    if(rfc.length==0){
+                       addError("txtRfc");
+                       msg=msg+"Falta el RFC.<br>";                       
+                    }
+
+                    if(razon_social.length==0){
+                       addError("txtRazon_social");
+                       msg=msg+"Falta la razon social.<br>";
+                    } 
+
+                    if($("#ban_dom_fiscal").val()=="1"){
+                        if( $("#txtFax").val().trim()==''){
+                            addError("txtFax");
+                            msg=msg+"Falta el teléfono.<br>";                                
+                        }
+                        if( $("#txtCalle").val().trim()==''){
+                            addError("txtCalle");
+                            msg=msg+"Falta la calle.<br>";                                
+                        }                        
+                        if( $("#txtNum_exterior").val().trim()==''){
+                            addError("txtNum_exterior");
+                            msg=msg+"Falta el número exterior.<br>";                                
+                        }
+                        if( $("#txtColonia").val().trim()==''){
+                            addError("txtColonia");
+                            msg=msg+"Falta la colonia.<br>";                                
+                        }                        
+                        if( $("#txtCod_pos").val().trim()==''){
+                            addError("txtCod_pos");
+                            msg=msg+"Falta el código postal.<br>";                                
+                        }
+                        if( $("#txtLocalidad").val().trim()==''){
+                            addError("txtLocalidad");
+                            msg=msg+"Falta la localidad.<br>";                                
+                        }
+                        if( $("#selectId_pais").val().trim()==''){
+                            addError("selectId_pais");
+                            msg=msg+"Falta el pais.<br>";                                
+                        } 
+                        if( $("#selectId_estado").val().trim()==''){
+                            addError("selectId_estado");
+                            msg=msg+"Falta el estado.<br>";                                
+                        }                                                        
+                    }
+
+
+                    if(email.length > 0){ 
+
+                      var vecEmail=email.split(";");
+                      var e;
+
+                      for(e=0;e<=vecEmail.length;e++){
+                         if( vecEmail[e] != "" && vecEmail[e] != undefined ){
+                            if(validarEmail( vecEmail[e].trim() )==false){
+                                $("#txtEmail").css("border","1px red solid");
+                                $("#txtEmail").css("background-color","#FBEFEF");
+                                $("#txtEmail").focus();
+                                msg=msg+"La dirección de E-Mail: " + vecEmail[e].trim() + " es incorrecta <br>";                      
+                            }
+                         }                         
+                      }                   
+                    }    
+
+                    //Residente en el extranjero
+                    if($("#ResExtrang").is(":checked")){
+                        if( $("#numIdenFiscal").val().trim()=="" ){
+                           $("#numIdenFiscal").css("border","1px red solid");
+                           $("#numIdenFiscal").css("background-color","#FBEFEF");
+                           $("#numIdenFiscal").focus();
+                           msg=msg+"Falta Registro de identidad fiscal.<br>";                            
+                        }
+                        if( $("#ObjselPais01").val().trim()=="" ){
+                           $("#selPais01").click();
+                           msg=msg+"Falta residencia fiscal.<br>";                            
+                        }                        
+                    }
+
+                     /*--------Detecta si hay errores-------*/ 
+
+                    if (msg.length >0 ){
+                        msg="<b>PORFAVOR VERIFIQUE LOS SIGUIENTES DATOS:</b>" + "<br>" + msg;
+                        $("#panelMensajeErr").html(msg);                
+                         $("#panelMensajeErr").fadeIn(500,function(){
+                             $("#panelMensajeErr").fadeOut(10000);
+                        });
+                    } else {
+
+                          if(email.length==0){
+                            
+                                $("#txtEmail").css("border","1px red solid");
+                                $("#txtEmail").css("background-color","#FBEFEF");                                                    
+
+                                $("#block").html(" Falta el E-Mail, ¿Desea Continuar? ");
+
+                                var buttons = {};
+                                buttons["No"] = function() {$(this).dialog("close"); $("#txtEmail").focus(); };
+                                buttons["Si"] = function() {
+                                  $(this).dialog("close");
+                                  $('#FormDatosClientes').submit();
+                                }; 
+
+                                $("#block").dialog({
+                                autoOpen: true,
+                                modal: true,
+                                resizable: false,
+                                width: 270,
+                                height:200,
+                                top:5,
+                                title:"", 
+                                position: 'top',
+                                buttons: buttons       
+                                });
+
+                          } else {
+                               $('#FormDatosClientes').submit();
+                          }  
+
+                    }
+
+  });
+
+
+  $("#num_tarjeta").click(function(e){
+      if($(this).is(':checked')){
+          if($("#fact_tipoPago").val()=="Efectivo"){
+              e.preventDefault();
+              $("#num_tarjeta").attr('checked', 'false');
+          } else {  
+            $("#fact_numTarjeta").css("display","inline");
+            $("#fact_numTarjeta").focus();
+        }   
+      } else {
+          $("#fact_numTarjeta").css("display","none");
+          $("#fact_tipoPago").val("Efectivo");
+          $("#fact_numTarjeta").val("No identificado");         
+      } 
+     });     
+
+  $("#tipo_cambio").click(function(){
+      if($(this).is(':checked')){
+          $("#fact_tipoCambio").css("display","inline");
+           $("#panel_tipoPago").css("display","none"); 
+          $("#fact_tipoCambio").focus();
+      } else {
+          $("#fact_tipoCambio").css("display","none");
+      } 
+     }); 
+
+  $("#forma_pago").click(function(){
+      if($(this).is(':checked')){
+          $("#fact_formaPago").css("display","inline");
+           $("#panel_tipoPago").css("display","none"); 
+          $("#fact_formaPago").focus();
+      } else {
+          $("#fact_formaPago").css("display","none");
+      } 
+     }); 
+
+  $("#cond_pago").click(function(){
+      if($(this).is(':checked')){
+          $("#fact_condPago").css("display","inline");
+           $("#panel_tipoPago").css("display","none"); 
+          $("#fact_condPago").focus();
+      } else {
+          $("#fact_condPago").css("display","none");
+      } 
+     }); 
+
+
+    $("#ban_pjustes_all").click(function(){
+    	  $("#panel_tipoPago").css("display","none");
+
+          if($(this).is(':checked')){
+              $("#opcionesConfig").css("display","block");
+               $("#panel_tipoPago").css("display","none"); 
+                $("#config").val("1");
+          } else {
+              $("#opcionesConfig").css("display","none");
+              $("#config").val("0");
+          } 
+     });  
+
+    /*------------------TIPO DE PAGO------------------------*/
+	$("#tipo_pago").click(function(){
+		  if($(this).is(':checked')){
+		  	  $("#fact_tipoPago").css("display","inline");
+		  	  $("#fact_tipoPago").focus();
+		  } else {
+		  	  $("#fact_tipoPago").css("display","none");
+		  	  $("#panel_tipoPago").css("display","none");
+		  }	
+     });    
+
+    $("#fact_tipoPago").focusin(function(){
+    	    var pos=$("#fact_tipoPago").offset();
+    	    $("#panel_tipoPago").css("top",pos.top + "px")
+    	    $("#panel_tipoPago").css("left",(pos.left+280) + "px")
+    		$("#panel_tipoPago").css("display","inline");
+
+    });
+
+
+	/*------------ fin tipo de pago-----------------------*/		
+
+   //Residencia en el extranjero
+   EnabResExtranjero();  	
+   $("#ResExtrang").change(function(){ EnabResExtranjero(); });
+   $("body").on("click",".tabFila,.btnCancelValSat",function(e){
+          if( $("#idObjSel").val() == "selPais01"){
+              $("#ObjselPais01").val( $(this).attr("data-id") );
+          }
+   });     
+	
+});

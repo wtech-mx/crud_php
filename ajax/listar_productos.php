@@ -7,10 +7,10 @@ $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['a
 if($action == 'ajax'){
 	$query = mysqli_real_escape_string($con,(strip_tags($_REQUEST['query'], ENT_QUOTES)));
  
-	$tables="tblprod";
+	$tables="cporte_tvehiculos";
 	$campos="*";
-	$sWhere=" tblprod.prod_name LIKE '%".$query."%'";
-	$sWhere.=" order by tblprod.prod_name";
+	$sWhere=" cporte_tvehiculos.placa LIKE '%".$query."%'";
+	$sWhere.=" order by cporte_tvehiculos.placa";
 	
 	
 	include 'pagination.php'; //include pagination file
@@ -64,7 +64,7 @@ if($action == 'ajax'){
 						while($row = mysqli_fetch_array($query)){	
 							$product_id=$row['id'];
 							$prod_code=$row['prod_code'];
-							$prod_name=$row['prod_name'];
+							$placa=$row['placa'];
 							$prod_ctry=$row['prod_ctry'];
 							$prod_qty=$row['prod_qty'];
 							$price=$row['price'];						
@@ -72,12 +72,12 @@ if($action == 'ajax'){
 						?>	
 						<tr class="<?php echo $text_class;?>">
 							<td class='text-center'><?php echo $prod_code;?></td>
-							<td ><?php echo $prod_name;?></td>
+							<td ><?php echo $placa;?></td>
 							<td ><?php echo $prod_ctry;?></td>
 							<td class='text-center' ><?php echo $prod_qty;?></td>
 							<td class='text-right'><?php echo number_format($price,2);?></td>
 							<td>
-								<a href="#"  data-target="#editProductModal" class="edit" data-toggle="modal" data-code='<?php echo $prod_code;?>' data-name="<?php echo $prod_name?>" data-category="<?php echo $prod_ctry?>" data-stock="<?php echo $prod_qty?>" data-price="<?php echo $price;?>" data-id="<?php echo $product_id; ?>"><i class="material-icons" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
+								<a href="#"  data-target="#editProductModal" class="edit" data-toggle="modal" data-code='<?php echo $prod_code;?>' data-name="<?php echo $placa?>" data-category="<?php echo $prod_ctry?>" data-stock="<?php echo $prod_qty?>" data-price="<?php echo $price;?>" data-id="<?php echo $product_id; ?>"><i class="material-icons" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
 								<a href="#deleteProductModal" class="delete" data-toggle="modal" data-id="<?php echo $product_id;?>"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
                     		</td>
 						</tr>

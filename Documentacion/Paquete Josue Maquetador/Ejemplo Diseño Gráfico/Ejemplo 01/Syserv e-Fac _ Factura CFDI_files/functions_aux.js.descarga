@@ -1,0 +1,238 @@
+var timProct;
+
+function procesaTable(){
+	    var acumFil="";
+		var filas = $('#textTableListArt').val().split("\n");
+		var nArt=0;
+
+		for(var y=0 ; y < filas.length ; y++){
+			if(filas[y].trim() != ""){
+				nArt++;
+				var columna=filas[y].split("\t");
+
+				var pasaOk=true;
+				var fill="<tr>";
+				var contaCol=0;
+				for(var colu=0; colu < columna.length; colu++ ){
+					contaCol++;
+					if( contaCol <=3 ){
+						
+						var nArtic="articulo_" + nArt;	
+
+						switch (contaCol) {
+						  case 1:  //Procesa ID ARTICULO
+						        var datTipo="id";						  		
+						  		nArtic+=" aligCent"
+						  		if(isNaN(parseInt(columna[colu])) || parseInt(columna[colu]) <= 0 ){ pasaOk=false; }
+
+						  		if( $("#idArtList").val()=="" ){
+						  			columna[colu]=parseInt(columna[colu]);
+						  		} else {
+						  			columna[colu]=parseInt($("#idArtList").val());	
+						  		}
+						  		
+						    break;
+						  case 2:  //Procesa DESCRIPCION
+						        var datTipo="descr";
+						  		columna[colu]=columna[colu].replace("'","").replace('"',"");
+						  		if(columna[colu].trim() == "" ){ pasaOk=false; }						  		
+						    break;
+						  case 3:  //Procesa IMPORTE
+						        var datTipo="imp";						        
+						        nArtic+=" aligRight"
+						        if(isNaN(parseFloat(columna[colu])) || parseFloat(columna[colu]) <= 0.0  ){ pasaOk=false; }
+						        columna[colu]=parseFloat(columna[colu]);
+						    break;						    						    
+						}
+
+						fill+= "<td><label data-tipo='" + datTipo + "' class='" + nArtic + "'>" + columna[colu] + "</label></td>" ;	
+					}					
+				}
+
+				if(pasaOk){
+					fill+="</tr>";
+					acumFil+=fill;					
+				}
+
+			}
+		}
+		
+		if(acumFil != ""){
+			$("#textTableListArt").css("display","none");
+			cleantable();
+			$("#tableDesglArt").append(acumFil);
+			$("#btnOkTab").css("display","inline-block");
+			$("#tableDesglArt").attr("data-cant",nArt);
+		} else {
+			$("#btnCleanTab").click();			
+			setTimeout(function(){ alert("No existe contenido."); }, 100);	
+		}
+
+
+}
+
+//Limpia conceptos
+function CleanListCtos(){
+		$.ajax({
+		    url: "recursos/php/CleanListCtos.php",
+		    type:"POST",
+		    contentType:false,
+		    processData:false,
+		    cache:false,
+		    timeout: 60000,                 
+		    error: function(objeto, quepaso, otroobj){
+		    },
+		    beforeSend: function(objeto){
+		    }
+	    }).done(function (msg){  	
+	    	ConsultaA(0); 
+		});
+}
+
+//Lee lista de  ID de artículos
+function GetListArtic(){
+
+		$.ajax({
+		    url: "recursos/php/GetListArtic.php",
+		    type:"POST",
+		    contentType:false,
+		    processData:false,
+		    cache:false,
+		    timeout: 60000,                 
+		    error: function(objeto, quepaso, otroobj){
+		    	$("#idArtList").html('<option value="">Valor del excel</option>');
+		    },
+		    beforeSend: function(objeto){
+		    	$("#idArtList").html('<option value="">Valor del excel</option>');
+		    }
+	    }).done(function (msg){  	
+	    	$("#idArtList").html(msg);
+		});			
+
+}
+
+//Limpiar tabla
+function cleantable(){
+	$("#tableDesglArt").html('<tr><th>ID ARTICULO</th><th>DESCRIPCIÓN</th><th>IMPORTE</th></tr>');	
+}
+
+$(document).ready(function(){
+
+	GetListArtic(); 
+
+	$("#btnCancel").click(function(){
+		$("#addProdTabl").dialog("close");
+	});
+
+	$("#newProd").click(function(e){
+		e.preventDefault();
+		$("#addProdTabl").dialog({
+		    autoOpen: true,
+		    modal: true,
+		    resizable: false,
+			width: 650,
+			height: 650,
+		    top:5,
+		    title: "Pegar tabla de Excell", 
+			position: 'top'   
+		});    
+
+		$("#btnCleanTab").click();       
+	});	
+
+
+	//Al pegar el contenido de la tabla extrae los valores
+    $("#textTableListArt").bind('paste', function(e) {    	 
+    	clearTimeout(timProct);
+    	timProct=setTimeout(function(){ procesaTable(); }, 100);	
+    });	
+
+    //Limpia lo que se pego, para iniciar de nuevo
+    $("#btnCleanTab").click(function(){
+    	cleantable();
+    	$("#textTableListArt").val("").css("display","block").focus();
+    	$("#btnOkTab").css("display","none");
+    });
+
+    $("#idArtList").change(function(){
+        if($("#textTableListArt").val().trim() != ""){
+        	procesaTable();
+        }
+    });
+
+    $("#btnLimpiaCtos").click(function(){
+    	$("#mostrarProductos").css("display","none");
+    	CleanListCtos();
+    });
+
+    //Inserta registro
+    $("#btnOkTab").click(function(){                   
+
+    	//Obtiene la lista de conceptos a insertar
+    	var cantT=parseInt($("#tableDesglArt").attr("data-cant"));
+    	var vecDat=new Array();
+
+    	for(var i=1; i<=cantT;i++){
+    		 var params={};
+    		 $(".articulo_" + i).each(function(){
+				switch ( $(this).attr("data-tipo") ) {
+				  case "id":  //Procesa ID ARTICULO
+				  		params.id=$(this).html();
+				    break;
+				  case "descr":  //Procesa DESCRIPCION
+				  		params.descr=$(this).html();
+				    break;
+				  case "imp":  //Procesa IMPORTE
+				  		params.imp=$(this).html();	
+				    break;						    						    
+				}
+    		 });
+    		 vecDat.push(params);
+    	}
+
+
+		var data= new FormData();
+		data.append("folio", $("#txtSerie").val() + "-" + $("#txtFolio").val() );
+		data.append("tasa", "0.16" );
+		data.append("vecDat", JSON.stringify(vecDat) );
+		data.append("ivaInclud", $("#ivaInclud").val() );
+		
+
+		$.ajax({
+			url: "recursos/php/insertaProductoMasivo.php",
+			type:"POST",
+			data:data,
+			contentType:false,
+			processData:false,
+			cache:false,
+			timeout: 60000,                 
+			error: function(objeto, quepaso, otroobj){
+				$("#panelMensajeErr").html("Ocurrio un error al guardar");                
+				$("#panelMensajeErr").fadeIn(500,function(){
+				     $("#panelMensajeErr").fadeOut(10000);
+				});      	
+				$("#preloader,#preloader2").css("display","none");
+			},
+			beforeSend: function(objeto){
+				$("#preloader,#preloader2").css("display","inline-block");								
+			}
+		}).done(function (msg){  	
+			msg=msg.trim();    
+
+			if(msg=="1"){     
+			    $("#addProdTabl").dialog("close");	                                                
+			    ConsultaA(0);  
+			} else {
+                $("#panelMensajeErr").html(msg);                
+                $("#panelMensajeErr").fadeIn(500,function(){
+                    $("#panelMensajeErr").fadeOut(10000);
+                });  
+			}
+			$("#preloader,#preloader2").css("display","none");
+
+		});	
+
+
+    });
+
+});	

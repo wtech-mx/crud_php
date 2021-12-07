@@ -1,0 +1,69 @@
+
+
+$(document).ready(function(){
+
+/*
+$( "#DCantidad" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+	{tecla.preventDefault();}   	
+});
+
+$( "#DImporte" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+	{tecla.preventDefault();}   	
+});
+
+$( "#txtSubtotal" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+	{tecla.preventDefault();}   	
+});
+
+$( "#txtDescuentos" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+	{tecla.preventDefault();}   	
+});
+
+$( "#txtIva" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+	{tecla.preventDefault();}   	
+});
+
+$( "#txtTotal" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+	{tecla.preventDefault();}   	
+});
+
+$( "#txtImpTras" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+	{tecla.preventDefault();}   	
+});
+
+$( "#txtImpRet" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+	{tecla.preventDefault();}   	
+});
+
+$( "#fact_numTarjeta" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode);	
+   if( (isNaN(teclap)==true || $( "#fact_numTarjeta" ).val().length >= 4) && tecla.which != 46 && tecla.which != 8 )
+	{tecla.preventDefault();}   	
+});
+
+$( "#txtDesctoGral" ).keydown(function(tecla) {
+   teclap = String.fromCharCode(tecla.keyCode); 
+   if( isNaN(teclap)==true && tecla.which != 46 && tecla.which != 8 && tecla.keyCode != 190)
+   {tecla.preventDefault();}     
+});
+
+*/
+
+
+});

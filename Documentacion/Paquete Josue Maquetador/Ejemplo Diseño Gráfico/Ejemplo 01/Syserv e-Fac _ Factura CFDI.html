@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<!-- saved from url=(0090)https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php -->
+<html lang="es_MX"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <title>Syserv e-Fac | Factura CFDI</title> <!---------- SISTEMA ------> <!-- Estilos --> <link rel="stylesheet" href="./Syserv e-Fac _ Factura CFDI_files/css"> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/bootstrap.min.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/adminlte.min.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/paginasAdmin.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/styleCabeceraPieSistema.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/all.min.css" rel="stylesheet"> <!-- Libreria Framework --> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/jquery-1.10.2.min.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/bootstrap.min.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/funcionesSistema.js.descarga"></script> <!---------- UTILIDADES ------> <!-- Estilos --> <link rel="stylesheet" href="./Syserv e-Fac _ Factura CFDI_files/jquery-ui.css"> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/atooltip.css" rel="stylesheet" media="screen"> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/glDatePicker.default.css" rel="stylesheet"> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/superfish.css" rel="stylesheet" media="screen"> <!-- JavaScript --> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/hoverIntent.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/superfish.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/jquery.atooltip.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/glDatePicker.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/mask.min.js.descarga"></script> <script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/jquery.validate.js.descarga"></script> <!-- Funciones especiales (Utilidades) --> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.core.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.widget.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.mouse.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.button.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.draggable.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.position.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.resizable.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.button.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.dialog.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.effect.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.ui.datepicker.js.descarga"></script> <script src="./Syserv e-Fac _ Factura CFDI_files/jquery.scrollTo-1.4.2-min.js.descarga"></script> <link type="text/css" href="./Syserv e-Fac _ Factura CFDI_files/style_gen_cfdi.css" rel="stylesheet"><script type="text/javascript" language="javascript" src="./Syserv e-Fac _ Factura CFDI_files/functions.js.descarga"></script><script type="text/javascript" language="javascript" src="./Syserv e-Fac _ Factura CFDI_files/functions_aux.js.descarga"></script><script type="text/javascript" language="javascript" src="./Syserv e-Fac _ Factura CFDI_files/ValidacionFormDatosFactura.js.descarga"></script><script type="text/javascript" src="./Syserv e-Fac _ Factura CFDI_files/jquery-ui-1.10.4.custom.min.js.descarga"></script><script> /*Validacion de text*/ (function(a){a.fn.validCampo=function(b){a(this).on({keypress:function(a){var c=a.which,d=a.keyCode,e=String.fromCharCode(c).toLowerCase(),f=b;(-1!=f.indexOf(e)||9==d||37!=c&&37==d||39==d&&39!=c||8==d||46==d&&46!=c)&&161!=c||a.preventDefault()}})}})(jQuery); function vacia_info(orderBy,ind,indice,resXho,varAction,contenedor,archivo,ConSQL,forza,nombreGrid){ params={}; params.indice=ind; params.indiceSelected=indice; params.resXho=resXho; params.action=varAction; params.orderBy=orderBy; params.ConSQL=ConSQL; params.BanConSQL=forza; params.nombreGrid=nombreGrid; $("#preloader,#preloader2").css("display","inline-block"); $("#"+contenedor).load(archivo, params,function(cont){ $("#preloader,#preloader2").css("display","none"); $("body").css("overflow-y","auto"); }) } function pag(npagina,nombreAdod,nombreGrid){ var resXho= parseInt( $("#resXho"+nombreAdod).attr("value") ); $("#indice"+nombreAdod).attr("value", ((npagina * resXho)-resXho) ); muestra_pagina(nombreGrid,nombreAdod,"refreshGrid","content","index.php",0); } function ChecKpaginacion(nombreAdod,nombreGrid){ var margen=1; var paginacion=""; var nelem; var x; var centro=$("#npagina"+nombreAdod).val(); var npag=$("#numpag"+nombreAdod).val(); if(npag>0) { var par1= '"' + nombreAdod + '"'; var par2= '"' + nombreGrid + '"'; /*--------Recorre a la derecha -------*/ nelem=1; x = parseInt(centro)+1; while ( x < parseInt(npag) ) { if(nelem <= margen){ paginacion=paginacion + "<a href='javascript:pag(" + x + "," + par1 + "," + par2 + ")'>" + x + "</a>&nbsp;&nbsp;"; if( (nelem+1) > margen ){ if((x-1) != parseInt(npag)){ paginacion= paginacion +".."; } } } nelem=nelem+1; x=x+1; } paginacion= centro + "&nbsp;&nbsp;" + paginacion; /*--------Recorre a la Izquierda -------*/ nelem=1; x = parseInt(centro)-1; while ( x > 1 ) { if(nelem <= margen){ paginacion= "<a href='javascript:pag(" + x + "," + par1 + "," + par2 + ")'>" + x + "</a>&nbsp;&nbsp;" + paginacion; if( (nelem+1) > margen ){ if((x-1) != 1){ paginacion=".." +paginacion ; } } } nelem=nelem+1; x=x-1; } /*--------- Coloca primer elemento y ultimo -------*/ if(parseInt(centro)!=1) { paginacion= "<a href='javascript:pag(1," + par1 + "," + par2 + ")'>1</a>&nbsp;&nbsp;" + paginacion; } if(parseInt(centro)!= parseInt(npag)) { paginacion= paginacion + "&nbsp;&nbsp;" + "<a href='javascript:pag(" + npag + "," + par1 + "," + par2 + ")'>" + npag + "</a>&nbsp;&nbsp;" ; } $("#paginacion"+nombreAdod).html(paginacion); } else { $("#paginacion"+nombreAdod).html(""); } } function enabled_indice(indice,totReg,nombreAdod,nombreGrid){ ChecKpaginacion( nombreAdod , nombreGrid ); if(totReg <= 1){ $("#primero"+nombreAdod).addClass("imgprimero_des"); $("#anterior"+nombreAdod).addClass("imganterior_des"); $("#siguiente"+nombreAdod).addClass("imgsiguiente_des"); $("#ultimo"+nombreAdod).addClass("imgultimo_des"); } else { if(indice==0) { $("#primero"+nombreAdod).addClass("imgprimero_des"); $("#anterior"+nombreAdod).addClass("imganterior_des"); $("#siguiente"+nombreAdod).removeClass("imgsiguiente_des"); $("#ultimo"+nombreAdod).removeClass("imgultimo_des"); } else { if((indice+1)==totReg) { $("#primero"+nombreAdod).removeClass("imgprimero_des"); $("#anterior"+nombreAdod).removeClass("imganterior_des"); $("#siguiente"+nombreAdod).addClass("imgsiguiente_des"); $("#ultimo"+nombreAdod).addClass("imgultimo_des"); } else { $("#primero"+nombreAdod).removeClass("imgprimero_des"); $("#anterior"+nombreAdod).removeClass("imganterior_des"); $("#siguiente"+nombreAdod).removeClass("imgsiguiente_des"); $("#ultimo"+nombreAdod).removeClass("imgultimo_des"); } } } } function muestra_pagina(nombreGrid,nombreAdod,varAction,contenedor,archivo, forza){ /*--- Lee todos los valores ---*/ var indice= parseInt( $("#indice"+nombreAdod).attr("value") ); var totReg= parseInt( $("#totReg"+nombreAdod).attr("value") ); var totPag= parseInt( $("#totPag"+nombreAdod).attr("value") ); var PagAct= parseInt( $("#PagAct"+nombreAdod).attr("value") ); var resXho= parseInt( $("#resXho"+nombreAdod).attr("value") ); var ConSQL= $("#ConSQL"+nombreAdod).attr("value"); if(totPag==0){totPag=1;} /*Calcula la hoja a partir del indice*/ for(i=1;i<=totPag;i++){ var ind=((i*resXho)-resXho); var ind1=((i*resXho)-1); if(indice>=ind && indice<=ind1){ enabled_indice(indice,totReg,nombreAdod,nombreGrid); if((PagAct != i) || forza >= 1){ $("#PagAct"+nombreAdod).attr("value",i); $("#npagina"+nombreAdod).attr("value",i); var orderBy=$("#"+nombreAdod).data("orden"); vacia_info(orderBy,ind,indice,resXho,varAction,contenedor,archivo,ConSQL,forza,nombreGrid); } else { $(".imgfondoitem").removeClass("imgfondoitem_sel"); $("#indiceBody" + nombreGrid + indice).addClass("imgfondoitem_sel"); $("#Body" + nombreGrid).scrollTo("#celdaBody"+nombreGrid + indice,100); } ChecKpaginacion( nombreAdod , nombreGrid ); return; } } ChecKpaginacion( nombreAdod , nombreGrid ); } $(document).ready(function(){ $("#panelMensajeOk,#panelMensajeErr").mouseenter(function(){ $(this).stop().animate({opacity:"100"}); }); $("#panelMensajeOk,#panelMensajeErr").mouseleave(function(){ $(this).fadeOut(10000); }); $("#panelMensajeOk,#panelMensajeErr").click(function(){ $(this).css("display","none"); }); }); /*----------Funciones para subir archivos--------*/ function NombreFile(Ruta){ var x=Ruta.length; var rt=x; var a; while (x >= 1) { a=Ruta.substring(x-1,x); if(a.charCodeAt()==92){ return Ruta.substring(x,rt); } x=x-1; } return Ruta; } function ExtFile(Ruta){ var x=Ruta.length; var rt=x; var a; while (x >= 1) { a=Ruta.substring(x-1,x); if(a=="."){ return Ruta.substring(x,rt); } x=x-1; } return Ruta; } function validaExtx(condicion,ext){ var elem = condicion.split("/"); for(i=0; i< elem.length;i++){ if(elem[i]==ext){ return 1; } } return 0; } function QuitaAllExt(NombreObjeto){ $("#icono" + NombreObjeto).removeClass("doc"); $("#icono" + NombreObjeto).removeClass("xls"); $("#icono" + NombreObjeto).removeClass("htm"); $("#icono" + NombreObjeto).removeClass("default"); $("#icono" + NombreObjeto).removeClass("jpg"); $("#icono" + NombreObjeto).removeClass("pdf"); $("#icono" + NombreObjeto).removeClass("ppt"); $("#icono" + NombreObjeto).removeClass("avi"); $("#icono" + NombreObjeto).removeClass("rar"); $("#icono" + NombreObjeto).removeClass("mp3"); } function roundf(numero, lugares_decimales){ var p = Math.pow(10, lugares_decimales); return Math.round(numero * p) / p; } function format(numero){ var num=numero + ""; var vec=num.split("."); var x=vec.length; if(x==1){ban=1; var dec=".00"; } else {ban=0; var dec=""; } var contador=1; longi=num.length-1; var retorno=""; while( longi >= 0 ){ car=num.substr(longi, 1); /* alert("numero:" + num + " car:" + car + " acum:" + retorno); */ if(ban==1){ if( (contador % 3)==0 && longi > 0 ){ retorno="," + car + retorno; } else { retorno= car + retorno; } contador=contador+1; } if(car=="."){ban=1; dec=(num.substr(longi, 3));} longi=longi-1; } if(dec.length==2){dec=dec+"0";} return retorno + dec; } /* Quita Signos Decimales a un nÃºmero */ function num(numero){ var number = numero.toString(10); var posComa = number.indexOf(","); var posPunto = number.indexOf("."); if(posComa > -1 && posPunto==-1){ number = number.replace(",", "."); } longi=number.length-1; var car=""; var retorna=""; while( longi >= 0 ){ car=number.substr(longi, 1); if(car != ","){ retorna= car + retorna } longi=longi-1; } if(isNaN(parseFloat(retorna))){retorna=0;} return parseFloat(retorna); } </script> </head> <body style=""> <div id="msg_mod_test">Modo evaluación</div> <section class="barr-herramientas"> <a title="Menú Principal" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion"><span class="fa fa-th fa-lg"></span></a> <a title="Nueva Factura" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura"><span class="fas fa-plus fa-lg"></span></a> <a title="Nueva remisión" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/remisiones"><span class="fa fa-sticky-note fa-lg"></span></a> <a title="Registro de CFDI" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/registro_cfdi"><span class="fa fa-folder-open fa-lg"></span></a> <a id="new-cte" title="Nuevo Cliente" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/nuevo.php"><span class="fa fa-user-plus fa-lg"></span></a> <a title="Configuraciones" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/infofiscal/nuevo.php"><span class="fa fa-cog fa-lg"></span></a> </section><section class="header-program"> <a id="logotipo" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion"><img src="./Syserv e-Fac _ Factura CFDI_files/LOGO-01.png"></a> <label id="v-sis"> eFac v1.0 </label> <section id="ContenedorDatosUsuario"> <div id="imgLogo" class="opt-cont-user"> <img src="./Syserv e-Fac _ Factura CFDI_files/logo.jpg"> </div> <a title="Contraseña y Pin de Usuario" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/config_accesos/" class="opt-cont-user"> <label><span class="fas fa-user-alt fa-lg"></span> test </label> </a> <a title="Cerrar Sesión" href="https://www.sistemasyservicios.mx/efac/recursos/php/cerrarSesion.php" class="opt-cont-user"> <label><span class="fa fa-power-off fa-lg"></span>&nbsp;<div id="lbl-cerrar">Cerrar</div></label> </a> <a id="mnu-movile" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php#" class="opt-cont-user"> <label><span class="fas fa-align-justify fa-lg"></span></label> </a> <div style="clear:both"></div> </section> <div style="clear:both"></div> </section> <script> function msg_system(msg,type){ $("#panelMensaje" + type).html(msg); $("#panelMensaje" + type).fadeIn(500,function(){ setTimeout(function(){ $("#panelMensaje" + type ).css("display","none"); }, 4000); }); } function MsgError(Mensaje){ msg_system(Mensaje,"Err"); } function MsgExito(Mensaje){ msg_system(Mensaje,"Ok"); } $(document).ready(function() { function DesSelectMnu(){ if($("#var1Menu1").val()=="0"){ $(".SubmenuX2").css("display","none"); $(".panelCubre").css("background-color","#075D9E"); }$("#MenMenu14").css("background-color","#07ACC9");} $(".SubmenuX2").css("border-color","#075D9E"); $("html").click(function(){ DesSelectMnu(); }); $("body").keyup(function(e){ if(e.which==27){ DesSelectMnu(); } }); $( window ).scroll(function(){ DesSelectMnu(); }); $( window ).resize(function(){ DesSelectMnu(); }); $("#MenuX2Menu1").on("click","#MenMenu10",function(event){ document.location.href ="https://www.sistemasyservicios.mx/efac/modulos/facturacion/index.php"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu10",function(event){ $("#MenMenu10").css("background-color","#07ACC9"); $("#MenMenu10").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu10",function(event){ $("#MenMenu10").css("background-color","#075D9E"); $("#MenMenu10").css("cursor","normal"); $("#MenMenu14").css("background-color","#07ACC9"); }); $("#MenuX2Menu1").on("click","#MenMenu11",function(event){ document.location.href ="#"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu11",function(event){ $("#MenMenu11").css("background-color","#07ACC9"); $("#MenMenu11").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu11",function(event){ if($("#smnuCatalogos").css("display")=="none"){ $("#MenMenu11").css("background-color","#075D9E"); $("#MenMenu11").css("cursor","normal"); } $("#MenMenu14").css("background-color","#07ACC9"); }); $("#MenuX2Menu1").on("click","#MenMenu12",function(event){ document.location.href ="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/registro_cfdi/index.php"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu12",function(event){ $("#MenMenu12").css("background-color","#07ACC9"); $("#MenMenu12").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu12",function(event){ $("#MenMenu12").css("background-color","#075D9E"); $("#MenMenu12").css("cursor","normal"); $("#MenMenu14").css("background-color","#07ACC9"); }); $("#MenuX2Menu1").on("click","#MenMenu13",function(event){ document.location.href ="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/remisiones/index.php"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu13",function(event){ $("#MenMenu13").css("background-color","#07ACC9"); $("#MenMenu13").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu13",function(event){ $("#MenMenu13").css("background-color","#075D9E"); $("#MenMenu13").css("cursor","normal"); $("#MenMenu14").css("background-color","#07ACC9"); }); $("#MenuX2Menu1").on("click","#MenMenu14",function(event){ document.location.href ="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu14",function(event){ $("#MenMenu14").css("background-color","#07ACC9"); $("#MenMenu14").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu14",function(event){ $("#MenMenu14").css("background-color","#075D9E"); $("#MenMenu14").css("cursor","normal"); $("#MenMenu14").css("background-color","#07ACC9"); }); $("#MenuX2Menu1").on("click","#MenMenu15",function(event){ document.location.href ="#"; }); $("#MenuX2Menu1").on("mouseover","#MenMenu15",function(event){ $("#MenMenu15").css("background-color","#07ACC9"); $("#MenMenu15").css("cursor","pointer"); }); $("#MenuX2Menu1").on("mouseleave","#MenMenu15",function(event){ if($("#smnuMiCuenta").css("display")=="none"){ $("#MenMenu15").css("background-color","#075D9E"); $("#MenMenu15").css("cursor","normal"); } $("#MenMenu14").css("background-color","#07ACC9"); }); $(".procSubMnu").click(function(e){ e.preventDefault(); var subMnux = $(this).attr("data-subMnux"); var NombreMenuX = $(this).attr("data-name"); var anchoSubmn = $(this).attr("data-width"); if( subMnux != "" ){ $("#var1" + NombreMenuX).attr("value","1"); var pos=$("#MenuX2" + NombreMenuX); if($("#" + subMnux).css("display") != "none"){ $("#" + subMnux).css("display","none"); $(this).css("background-color","#075D9E"); } else { $(".SubmenuX2").css("display","none"); $(".panelCubre").css("background-color","#075D9E"); $(this).css("background-color","#07ACC9"); if ($("#Men" + NombreMenuX + "0").css("font-style")=="italic" ){ $("#" + subMnux).css("left","0px"); $("#" + subMnux).css("width","100%"); $("#" + subMnux).css("top",(pos.position().top + parseFloat(pos.css("height")) ) + "px" ); } else { $("#" + subMnux).css("left", $(this).offset().left + "px" ); $("#" + subMnux).css("width", anchoSubmn ); $("#" + subMnux).css("top",(pos.offset().top + parseFloat(pos.css("height")) ) + "px" ); } $("#" + subMnux).css("display","inline-block"); } /*Neutraliza quitar el menu por click en body*/ var timeoutId = setTimeout(function(){ $("#var1" + NombreMenuX).attr("value","0"); },300); } return false; }); $("#mnu-movile").click(function(e){ e.preventDefault(); if( $(this).hasClass("opt-cont-user-select") ){ $(this).removeClass("opt-cont-user-select"); $(".panelCubre").css("display","none"); $("#separator-header").css({"height":""}); } else { $(this).addClass("opt-cont-user-select"); $(".panelCubre").css("display","inline-block"); $("#separator-header").css("height", (parseFloat($("#MenuX2Menu1").css("height")) + 40) + "px" ); } }); $( window ).resize(function() { if( $( window ).width() > 900 && $("#mnu-movile").css("display")=="none" ) $(".panelCubre").css({"display":""}); }); }); </script>  <div id="MenuX2Menu1" style="background-color:#075D9E; color:white; margin-top:0px; " class="panelBusqueda"> <a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/index.php" id="MenMenu10" data-width="15em" data-name="Menu1" data-submnux="" style="background-color:#075D9E; width:23px; margin-left:5.5em; " class="panelCubre" title=""><div class="imgMenux" id="img0" style="background:url(https://www.sistemasyservicios.mx/efac/imagenes/home.png) no-repeat"></div><div style="clear:both"></div></a><div id="MenMenu11" data-width="15em" data-name="Menu1" data-submnux="smnuCatalogos" style="background-color:#075D9E; width:120px; margin-left:1.5em; " class="panelCubre procSubMnu" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Catálogos</div><div class="imgabajo">&nbsp;</div><div style="clear:both"></div></div><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/registro_cfdi/index.php" id="MenMenu12" data-width="15em" data-name="Menu1" data-submnux="" style="background-color:#075D9E; width:155px; margin-left:1em; " class="panelCubre" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Registro de CFDI</div><div style="clear:both"></div></a><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/remisiones/index.php" id="MenMenu13" data-width="15em" data-name="Menu1" data-submnux="" style="background-color:#075D9E; width:115px; margin-left:1em; " class="panelCubre" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Remisiones</div><div style="clear:both"></div></a><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php" id="MenMenu14" data-width="15em" data-name="Menu1" data-submnux="" style="background-color: rgb(7, 172, 201); width: 130px; margin-left: 1em; cursor: pointer;" class="panelCubre" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Factura CFDI</div><div style="clear:both"></div></a><div id="MenMenu15" data-width="15em" data-name="Menu1" data-submnux="smnuMiCuenta" style="background-color:#075D9E; width:110px; margin-left:1.5em; " class="panelCubre procSubMnu" title=""><div style="display:inline; margin-left:1em; float:left; padding-top:0.7em; height: 1.8em;">Mi Cuenta</div><div class="imgabajo">&nbsp;</div><div style="clear:both"></div></div> <div style="clear:both;"></div> </div> <div id="smnuCatalogos" class="SubmenuX2" style="border-color: rgb(7, 93, 158); display: none;"><a class="normalTip exampleTip" title="Registro de clientes" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/clientes/index.php"> Cartera de Clientes</a><a class="normalTip exampleTip" title="" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/catalogos/productos/index.php"> Conceptos de venta</a><a class="normalTip exampleTip" title="" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/catalogos/resumen/index.php"> Resumen de ventas</a><a class="normalTip exampleTip" title="" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/catalogos/precios/index.php"> Lista de Precios</a><br></div><div id="smnuMiCuenta" class="SubmenuX2" style="border-color: rgb(7, 93, 158); display: none;"><a class="normalTip exampleTip" title="Configuración de información de empresa" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/infofiscal/nuevo.php"> Configuraciones</a><a class="normalTip exampleTip" title="Configuración de sucursales o cuentas" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/sucursales/index.php"> Sucursales &amp; Cuentas</a><a style="color:#D8D8D8;" class="normalTip exampleTip" title="Solicitud de facturación de sus pagos" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php#"> Mis Pagos</a><br></div><input id="var1Menu1" type="hidden" value="0">						
+
+<div id="separator-header"></div>
+<section id="cuerpo-container-app"> <script> $(document).ready(function(){ $("body").on("focusout",".ValidaNumero",function(){ var idObj=$(this).attr("id"); if(isNaN(num($("#" + idObj).val()))==true){ $("#" + idObj).val("0.00"); } else { var numero=num($("#" + idObj).val()); $("#" + idObj).val(format(numero)); } }); $("body").on("focusin",".ValidaNumero",function(){ var idObj=$(this).attr("id"); var numero=num($("#" + idObj).val()); if(isNaN(numero)==true){ $("#" + idObj).val("0"); } else { $("#" + idObj).val(numero); } this.select(); }); }); </script>
+<style>
+    #moz-filtr-rp,.viz-opt-cp{ display:none; }
+    #mas-filtr-rp,#mas-det-cp{
+        font-size:0.8em;
+        text-align:right;
+        color:#21618C;
+    }
+    #resBusCFDI table tr td,#resBusCFDI table tr th{ font-size:0.6em !important; }
+    .importesFactHab{ background-color: #FEF9E7 !important; color:#21618C !important; }
+    .opt-import-total input{
+        color:black;
+        background-color: #F7F9F9;
+    }
+</style>
+
+<section class="content-header navbar-light">
+    <div class="container-fluid">
+      <div class="row mb-2">
+          <div class="col-sm-6"> 
+              <h1> Factura CFDI </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/">Inicio</a></li>
+                  <li class="breadcrumb-item active">Factura CFDI</li>
+            </ol>
+          </div>
+      </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+
+<section style="text-align:center">    
+    <br>
+    <section class="form-intern barrCmd" style="max-width:1120px; margin-top:0px;">
+            <section class="op-sel-fecha">
+                    <label>Tipo:</label>
+                    <select id="selectTipoCfd" name="selectTipoCfd">
+                          <option selected="" value="Factura  CFDI">Factura  CFDI</option>
+                          <option value="Nota de Credito">Nota de Credito</option>
+                          <option value="Pago">Pago</option>
+                    </select> 
+            </section>
+            <section class="op-sel-fecha">
+                    <label>Fecha:</label>
+                    <input type="date" id="txtFecha" value="2021-12-06" name="txtFecha"> 
+            </section>
+
+    </section>
+
+    <div style="clear:both; height:1em"></div>
+
+    <section class="form-intern" style="max-width:1120px; margin-top:0px; display:inline-block;">
+            <section class="titulo" style="padding-top:0px; margin-top:0px;"><div>E M I S O R</div></section> 
+
+            <section class="sectionCampos Col2">
+                   <label>Sucursal:</label>
+                   <select id="SelectSucursales"><option selected="" value="114">PRINCIPAL</option><option value="116">prueba Ótra y</option><option value="117">xxx</option><option value="118">bbbbb</option><option value="119">a</option><option value="120">b</option><option value="121">c</option></select>            </section>            
+            <section class="sectionCampos Col2">
+                   <label>RFC:</label>
+                   <input type="text" disabled="" id="txtRfc" value="EKU9003173C9" name="txtRfc">
+            </section>
+            <section class="sectionCampos Col2">
+                   <label>Razon Social:</label>
+                   <input type="text" disabled="" id="txtRazonSocial" value="SÍSTEM GRÉY S.A DE C.V." name="txtRazonSocial">
+            </section>
+            <section class="sectionCampos Col2">
+                   <label>Serie:</label>
+                   <input type="text" disabled="" id="txtSerie" name="txtSerie">
+            </section>
+            <section class="sectionCampos Col2">
+                   <label>Folio:</label>
+                   <input type="text" disabled="" id="txtFolio" name="txtFolio">
+            </section>
+            <section style="display:none;" class="sectionCampos Col2">
+                   <label>Régimen:</label>
+                   <select id="selectRegimen" name="selectRegimen">
+                          <option selected="" value="1">601-General de Ley Personas Morales</option> 
+                        </select>                    
+            </section>                                                                   
+
+    </section>
+
+
+    <div style="clear:both; height:1em"></div>
+
+    <section class="form-intern" style="max-width:1120px; margin-top:0px;">
+            
+            <section class="titulo" style="padding-top:0px; margin-top:0px;">
+                <div>R E C E P T O R</div> <div id="espera" style="display: none;" class="imagenUp_espera"></div>                
+            </section> 
+                        
+            <div class="btn-group">
+                <button id="op_busqueda" title="Buscar cliente" type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+                <button id="newCte" title="Añadir Nuevo Cliente" type="button" class="btn btn-default"><i class="fa fa-user-plus"></i></button>
+                <button id="obs_cte" title="Un click para editar" type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
+            </div>    
+
+            <div style="clear:both; height:1em;"></div>
+
+            <div id="panel-seach-cte">                
+                <section class="sectionCampos Col2">
+                    <label>Cliente:</label>
+                    <input autocomplete="off" placeholder="Razón social o RFC o ID" id="txtRazonSocialx" type="text">
+                </section> 
+
+                <section class="sectionCampos Col2">
+                    <button id="buscaRazon" style="margin:0px;" class="btn_gris" type="button">Buscar</button>                            
+                </section> 
+
+                <div style="clear:both"></div>            
+            </div>    
+
+            <div id="mostrarClientes" style="display: none;">
+                   <article id="contenido"></article> 
+            </div>                        
+
+
+           <section id="DivdatosClientes" style="display:none;">                 
+
+                <section class="sectionCampos Col2">
+                    <label>RFC:</label>
+                    <input type="text" readonly="readonly" id="txtRfcCte" name="txtRfcCte">
+                </section>
+                <section class="sectionCampos Col2">
+                    <label>ID Cliente:</label>
+                    <input type="text" readonly="readonly" id="txtIdCte" name="txtIdCte">
+                </section>
+                <section class="sectionCampos Col2">
+                    <label>Razon Social:</label>   
+                    <input type="text" readonly="readonly" id="txtRazonSocialCte" name="txtRazonSocialCte">         
+                </section>       
+
+            </section>     
+            <div style="clear:both"></div>
+    </section>
+
+    <div style="clear:both; height:1em"></div>
+
+    <section class="form-intern panelRecepcionPagos" style="max-width: 1120px; margin-top: 0px; display: none;">
+
+            <section class="titulo" style="padding-top:0px; margin-top:0px;">
+                <div>Documentos Relacionados</div>                
+            </section> 
+
+            <div class="btn-group">
+                <button id="addDocRelacionados" title="Agregar documento." type="button" class="btn btn-default"><i class="fa fa-plus"></i></button>
+            </div>     
+            
+            <div style="clear:both; height:1em"></div>
+                    
+            <div style="display: inline-block; width: 100%; overflow: auto; padding: 10px;">
+                 <article id="listaDocumentosRelacionados">
+            <table cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                  <th>UUID</th>
+                  <th>Folio</th>
+                  <th>Receptor</th>
+                  <th style="text-align:right">Importe</th>
+                  <th></th>
+                  <th style="text-align:center">Editar</th>
+                  <th style="text-align:center">Cancelar</th>
+                </tr>
+                <tr></tr><tr><td colspan="7"><center>* No existen documentos relacionados.</center></td></tr><tr></tr>
+            </tbody></table>
+
+            <script>
+               $(document).ready(function(){
+                    $("#cpag_monto").val(format("0.00"));
+                    $("#cpag_monto").change();
+               });     
+            </script></article>
+            </div>
+
+            <input type="hidden" id="idRegUUIDRel" value="">
+            <input type="hidden" id="importe_orig_fact" value="">
+            
+        
+            <div id="tablaEditDetallesPago" style="display: none;">                        
+                    <section class="sectionCampos Col2">
+                        <label>Id del CFDI:</label> 
+                        <input readonly="" type="text" id="edit_dpag_id_documento">  
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>Serie:</label>   
+                        <input type="text" id="edit_dpag_serie">
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>Folio:</label>   
+                        <input type="text" id="edit_dpag_folio">
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>Moneda:</label>   
+                        <select id="edit_dpag_moneda"><option value="">-- Seleccione --</option><option value="MXN">MXN | Peso Mexicano</option><option value="USD">USD | Dolar americano</option><option disabled="">──────────────────────────────</option><option value="AFN">AFN | Afghani</option><option value="ANG">ANG | Antillano neerlandés</option><option value="MGA">MGA | Ariary malgache</option><option value="AWG">AWG | Aruba Florin</option><option value="AZN">AZN | Azerbaijanian Manat</option><option value="THB">THB | Baht</option><option value="PAB">PAB | Balboa</option><option value="ETB">ETB | Birr etiope</option><option value="VEF">VEF | Bolívar</option><option value="BOB">BOB | Boliviano</option><option value="BIF">BIF | Burundi Franc</option><option value="CVE">CVE | Cabo Verde Escudo</option><option value="GHS">GHS | Cedi de Ghana</option><option value="KES">KES | Chelá keniano</option><option value="SOS">SOS | Chelán somalí</option><option value="XTS">XTS | Códigos reservados específicamente para propósitos de prueba</option><option value="CRC">CRC | Colán costarricense</option><option value="SVC">SVC | Colon El Salvador</option><option value="BAM">BAM | Convertibles marca</option><option value="NIO">NIO | Córdoba Oro</option><option value="KPW">KPW | Corea del Norte</option><option value="CZK">CZK | Corona checa</option><option value="DKK">DKK | Corona danesa</option><option value="ISK">ISK | Corona islandesa</option><option value="NOK">NOK | Corona noruega</option><option value="SEK">SEK | Corona sueca</option><option value="GMD">GMD | Dalasi</option><option value="XDR">XDR | DEG (Derechos Especiales de Giro)</option><option value="MKD">MKD | Denar</option><option value="DZD">DZD | Dinar argelino</option><option value="BHD">BHD | Dinar de Bahrein</option><option value="IQD">IQD | Dinar iraquí</option><option value="JOD">JOD | Dinar jordano</option><option value="KWD">KWD | Dinar kuwaití</option><option value="LYD">LYD | Dinar libio</option><option value="RSD">RSD | Dinar serbio</option><option value="TND">TND | Dinar tunecino</option><option value="AED">AED | Dirham de EAU</option><option value="MAD">MAD | Dirham marroquí</option><option value="STD">STD | Dobra</option><option value="AUD">AUD | Dólar Australiano</option><option value="CAD">CAD | Dolar Canadiense</option><option value="BBD">BBD | Dólar de Barbados</option><option value="BZD">BZD | Dólar de Belice</option><option value="BMD">BMD | Dólar de Bermudas</option><option value="BND">BND | Dólar de Brunei</option><option value="FJD">FJD | Dólar de Fiji</option><option value="HKD">HKD | Dolar De Hong Kong</option><option value="BSD">BSD | Dólar de las Bahamas</option><option value="KYD">KYD | Dólar de las Islas Caimán</option><option value="SBD">SBD | Dólar de las Islas Salomón</option><option value="NAD">NAD | Dólar de Namibia</option><option value="NZD">NZD | Dólar de Nueva Zelanda</option><option value="SGD">SGD | Dolar De Singapur</option><option value="SRD">SRD | Dólar de Suriname</option><option value="TTD">TTD | Dólar de Trinidad y Tobago</option><option value="XCD">XCD | Dólar del Caribe Oriental</option><option value="USN">USN | Dólar estadounidense (día siguiente)</option><option value="GYD">GYD | Dólar guyanás</option><option value="JMD">JMD | Dólar Jamaiquino</option><option value="LRD">LRD | Dólar liberiano</option><option value="VND">VND | Dong</option><option value="AMD">AMD | Dram armenio</option><option value="EUR">EUR | Euro</option><option value="HUF">HUF | Florá</option><option value="CHW">CHW | Franc WIR</option><option value="XOF">XOF | Franco CFA BCEAO</option><option value="XAF">XAF | Franco CFA BEAC</option><option value="XPF">XPF | Franco CFP</option><option value="KMF">KMF | Franco Comoro</option><option value="CDF">CDF | Franco congoleño</option><option value="DJF">DJF | Franco de Djibouti</option><option value="GNF">GNF | Franco guineano</option><option value="RWF">RWF | Franco ruandés</option><option value="CHF">CHF | Franco Suizo</option><option value="HTG">HTG | Gourde</option><option value="PYG">PYG | Guaraní</option><option value="UAH">UAH | Hryvnia</option><option value="PGK">PGK | Kina</option><option value="LAK">LAK | Kip</option><option value="HRK">HRK | Kuna</option><option value="MWK">MWK | Kwacha</option><option value="ZMW">ZMW | Kwacha zambiano</option><option value="AOA">AOA | Kwanza</option><option value="MMK">MMK | Kyat</option><option value="GEL">GEL | Lari</option><option value="ALL">ALL | Lek</option><option value="HNL">HNL | Lempira</option><option value="SLL">SLL | Leona</option><option value="MDL">MDL | Leu moldavo</option><option value="RON">RON | Leu rumano</option><option value="BGN">BGN | Lev bálgaro</option><option value="GIP">GIP | Libra de Gibraltar</option><option value="SHP">SHP | Libra de Santa Helena</option><option value="EGP">EGP | Libra egipcia</option><option value="GBP">GBP | Libra Esterlina</option><option value="LBP">LBP | Libra libanesa</option><option value="FKP">FKP | Libra malvinense</option><option value="SYP">SYP | Libra Siria</option><option value="SDG">SDG | Libra sudanesa</option><option value="SSP">SSP | Libra sudanesa Sur</option><option value="SZL">SZL | Lilangeni</option><option value="TRY">TRY | Lira turca</option><option value="XXX">XXX | Los códigos asignados para las transacciones en que intervenga ninguna moneda</option><option value="LSL">LSL | Loti</option><option value="XBD">XBD | Mercados de Bonos Unidad Europea unidad de cuenta a 17 (UCE-17)</option><option value="XBC">XBC | Mercados de Bonos Unidad Europea unidad de cuenta a 9 (UCE-9)</option><option value="MXV">MXV | México Unidad de Inversión (UDI)</option><option value="MZN">MZN | Mozambique Metical</option><option value="BOV">BOV | Mvdol</option><option value="NGN">NGN | Naira</option><option value="ERN">ERN | Nakfa</option><option value="BTN">BTN | Ngultrum</option><option value="TWD">TWD | Nuevo dólar de Taiwán</option><option value="ILS">ILS | Nuevo Shekel Israelí</option><option value="PEN">PEN | Nuevo Sol</option><option value="XAU">XAU | Oro</option><option value="MRO">MRO | Ouguiya</option><option value="TOP">TOP | Pa anga</option><option value="XPD">XPD | Paladio</option><option value="MOP">MOP | Pataca</option><option value="ARS">ARS | Peso Argentino</option><option value="CLP">CLP | Peso chileno</option><option value="COP">COP | Peso Colombiano</option><option value="CUC">CUC | Peso Convertible</option><option value="CUP">CUP | Peso Cubano</option><option value="DOP">DOP | Peso Dominicano</option><option value="PHP">PHP | Peso filipino</option><option value="UYI">UYI | Peso Uruguay en Unidades Indexadas (URUIURUI)</option><option value="UYU">UYU | Peso Uruguayo</option><option value="XAG">XAG | Plata</option><option value="XPT">XPT | Platino</option><option value="BWP">BWP | Pula</option><option value="QAR">QAR | Qatar Rial</option><option value="GTQ">GTQ | Quetzal</option><option value="ZAR">ZAR | Rand</option><option value="BRL">BRL | Real brasileño</option><option value="IRR">IRR | Rial iraní</option><option value="OMR">OMR | Rial omaní</option><option value="YER">YER | Rial yemení</option><option value="KHR">KHR | Riel</option><option value="MYR">MYR | Ringgit malayo</option><option value="SAR">SAR | Riyal saudá</option><option value="BYR">BYR | Rublo bielorruso</option><option value="RUB">RUB | Rublo ruso</option><option value="IDR">IDR | Rupia</option><option value="MVR">MVR | Rupia</option><option value="MUR">MUR | Rupia de Mauricio</option><option value="PKR">PKR | Rupia de Pakistán</option><option value="SCR">SCR | Rupia de Seychelles</option><option value="LKR">LKR | Rupia de Sri Lanka</option><option value="INR">INR | Rupia india</option><option value="NPR">NPR | Rupia nepalí</option><option value="UGX">UGX | Shilling de Uganda</option><option value="TZS">TZS | Shilling tanzano</option><option value="KGS">KGS | Som</option><option value="TJS">TJS | Somoni</option><option value="XSU">XSU | Sucre</option><option value="BDT">BDT | Taka</option><option value="WST">WST | Tala</option><option value="KZT">KZT | Tenge</option><option value="MNT">MNT | Tugrik</option><option value="TMT">TMT | Turkmenistán nuevo manat</option><option value="XUA">XUA | Unidad ADB de Cuenta</option><option value="CLF">CLF | Unidad de Fomento</option><option value="XBA">XBA | Unidad de Mercados de Bonos Unidad Europea Composite (EURCO)</option><option value="COU">COU | Unidad de Valor real</option><option value="XBB">XBB | Unidad Monetaria de Bonos de Mercados Unidad Europea (UEM-6)</option><option value="UZS">UZS | Uzbekistán Sum</option><option value="VUV">VUV | Vatu</option><option value="CHE">CHE | WIR Euro</option><option value="KRW">KRW | Won</option><option value="JPY">JPY | Yen</option><option value="CNY">CNY | Yuan Renminbi</option><option value="ZWL">ZWL | Zimbabwe Dólar</option><option value="PLN">PLN | Zloty</option></select>
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>Tipo de Cambio:</label>   
+                        <input type="text" id="edit_dpag_tipo_cambio" disabled="">
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>Método de Pago:</label>  
+                        <select id="edit_dpag_metodo_pago" disabled="" style="background-color: rgb(236, 240, 241);"><option value="">-- Seleccione --</option><option value="PPD" selected="selected">PPD | Pago en parcialidades o diferido</option><option value="PUE">PUE | Pago en una sola exhibición</option></select> 
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>#Parcialidad:</label>
+                        <select id="edit_dpag_num_parcialidad">
+                            <option value="">-- SELECCIONE --</option>';
+                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option>                        </select>   
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>Saldo Anterior:</label> 
+                        <input class="ValidaNumero" type="text" id="edit_dpag_imp_saldo_anterior" value="0.00">  
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>Importe Pagado:</label>  
+                        <input type="text" class="ValidaNumero" id="edit_dpag_imp_pagado" value="0.00"> 
+                    </section>  
+                    <section class="sectionCampos Col2">
+                        <label>Saldo Insoluto:</label>  
+                        <input readonly="" style="background-color: #ECF0F1;" class="ValidaNumero" type="text" id="edit_dpag_imp_saldo_insoluto" value="0.00"> 
+                    </section>  
+                    <section class="sectionCampos col100">
+                        <button id="sav_edit_dpag" class="btn_gris" type="button">ACTUALIZAR</button>
+                    </section>              
+            </div>     
+    </section>
+
+    <div style="clear:both; height:1em"></div>
+
+    <section class="form-intern panelRecepcionPagos" style="max-width: 1120px; margin-top: 0px; display: none;">
+
+            <section class="titulo" style="padding-top:0px; margin-top:0px;">
+                <div>Complemento Recepción de Pagos</div>                
+            </section> 
+
+            <div id="tablaRecPagos">                
+                <section class="sectionCampos Col2">
+                    <label>Fecha de Pago*:</label>
+                    <input readonly="" type="text" class="funcionFecha hasDatepicker" id="cpag_fecha_pago" value="2021-12-06"> 
+                </section> 
+                <section class="sectionCampos Col2">
+                    <label>Forma de Pago*:</label>
+                    <select id="cpag_forma_pago"><option value="">-- Seleccione --</option><option data-bancarizado="No" value="01">01 | Efectivo</option><option data-bancarizado="Sí" value="02">02 | Cheque nominativo</option><option data-bancarizado="Sí" value="03">03 | Transferencia electrónica de fondos</option><option data-bancarizado="Sí" value="04">04 | Tarjeta de crédito</option><option data-bancarizado="Sí" value="05">05 | Monedero electrónico</option><option data-bancarizado="Sí" value="06">06 | Dinero electrónico</option><option data-bancarizado="NO" value="08">08 | Vales de despensa</option><option data-bancarizado="No" value="12">12 | Dación en pago</option><option data-bancarizado="No" value="13">13 | Pago por subrogación</option><option data-bancarizado="No" value="14">14 | Pago por consignación</option><option data-bancarizado="No" value="15">15 | Condonación</option><option data-bancarizado="No" value="17">17 | Compensación</option><option data-bancarizado="No" value="23">23 | Novación</option><option data-bancarizado="No" value="24">24 | Confusión</option><option data-bancarizado="No" value="25">25 | Remisión de deuda</option><option data-bancarizado="No" value="26">26 | Prescripción o caducidad</option><option data-bancarizado="No" value="27">27 | A satisfacción del acreedor</option><option data-bancarizado="Sí" value="28">28 | Tarjeta de débito</option><option data-bancarizado="Sí" value="29">29 | Tarjeta de servicios</option></select>  
+                </section> 
+                <section class="sectionCampos Col2">
+                    <label>Moneda*:</label>
+                    <select id="cpag_moneda"><option value="">-- Seleccione --</option><option value="MXN">MXN | Peso Mexicano</option><option value="USD">USD | Dolar americano</option><option disabled="">──────────────────────────────</option><option value="AFN">AFN | Afghani</option><option value="ANG">ANG | Antillano neerlandés</option><option value="MGA">MGA | Ariary malgache</option><option value="AWG">AWG | Aruba Florin</option><option value="AZN">AZN | Azerbaijanian Manat</option><option value="THB">THB | Baht</option><option value="PAB">PAB | Balboa</option><option value="ETB">ETB | Birr etiope</option><option value="VEF">VEF | Bolívar</option><option value="BOB">BOB | Boliviano</option><option value="BIF">BIF | Burundi Franc</option><option value="CVE">CVE | Cabo Verde Escudo</option><option value="GHS">GHS | Cedi de Ghana</option><option value="KES">KES | Chelá keniano</option><option value="SOS">SOS | Chelán somalí</option><option value="XTS">XTS | Códigos reservados específicamente para propósitos de prueba</option><option value="CRC">CRC | Colán costarricense</option><option value="SVC">SVC | Colon El Salvador</option><option value="BAM">BAM | Convertibles marca</option><option value="NIO">NIO | Córdoba Oro</option><option value="KPW">KPW | Corea del Norte</option><option value="CZK">CZK | Corona checa</option><option value="DKK">DKK | Corona danesa</option><option value="ISK">ISK | Corona islandesa</option><option value="NOK">NOK | Corona noruega</option><option value="SEK">SEK | Corona sueca</option><option value="GMD">GMD | Dalasi</option><option value="XDR">XDR | DEG (Derechos Especiales de Giro)</option><option value="MKD">MKD | Denar</option><option value="DZD">DZD | Dinar argelino</option><option value="BHD">BHD | Dinar de Bahrein</option><option value="IQD">IQD | Dinar iraquí</option><option value="JOD">JOD | Dinar jordano</option><option value="KWD">KWD | Dinar kuwaití</option><option value="LYD">LYD | Dinar libio</option><option value="RSD">RSD | Dinar serbio</option><option value="TND">TND | Dinar tunecino</option><option value="AED">AED | Dirham de EAU</option><option value="MAD">MAD | Dirham marroquí</option><option value="STD">STD | Dobra</option><option value="AUD">AUD | Dólar Australiano</option><option value="CAD">CAD | Dolar Canadiense</option><option value="BBD">BBD | Dólar de Barbados</option><option value="BZD">BZD | Dólar de Belice</option><option value="BMD">BMD | Dólar de Bermudas</option><option value="BND">BND | Dólar de Brunei</option><option value="FJD">FJD | Dólar de Fiji</option><option value="HKD">HKD | Dolar De Hong Kong</option><option value="BSD">BSD | Dólar de las Bahamas</option><option value="KYD">KYD | Dólar de las Islas Caimán</option><option value="SBD">SBD | Dólar de las Islas Salomón</option><option value="NAD">NAD | Dólar de Namibia</option><option value="NZD">NZD | Dólar de Nueva Zelanda</option><option value="SGD">SGD | Dolar De Singapur</option><option value="SRD">SRD | Dólar de Suriname</option><option value="TTD">TTD | Dólar de Trinidad y Tobago</option><option value="XCD">XCD | Dólar del Caribe Oriental</option><option value="USN">USN | Dólar estadounidense (día siguiente)</option><option value="GYD">GYD | Dólar guyanás</option><option value="JMD">JMD | Dólar Jamaiquino</option><option value="LRD">LRD | Dólar liberiano</option><option value="VND">VND | Dong</option><option value="AMD">AMD | Dram armenio</option><option value="EUR">EUR | Euro</option><option value="HUF">HUF | Florá</option><option value="CHW">CHW | Franc WIR</option><option value="XOF">XOF | Franco CFA BCEAO</option><option value="XAF">XAF | Franco CFA BEAC</option><option value="XPF">XPF | Franco CFP</option><option value="KMF">KMF | Franco Comoro</option><option value="CDF">CDF | Franco congoleño</option><option value="DJF">DJF | Franco de Djibouti</option><option value="GNF">GNF | Franco guineano</option><option value="RWF">RWF | Franco ruandés</option><option value="CHF">CHF | Franco Suizo</option><option value="HTG">HTG | Gourde</option><option value="PYG">PYG | Guaraní</option><option value="UAH">UAH | Hryvnia</option><option value="PGK">PGK | Kina</option><option value="LAK">LAK | Kip</option><option value="HRK">HRK | Kuna</option><option value="MWK">MWK | Kwacha</option><option value="ZMW">ZMW | Kwacha zambiano</option><option value="AOA">AOA | Kwanza</option><option value="MMK">MMK | Kyat</option><option value="GEL">GEL | Lari</option><option value="ALL">ALL | Lek</option><option value="HNL">HNL | Lempira</option><option value="SLL">SLL | Leona</option><option value="MDL">MDL | Leu moldavo</option><option value="RON">RON | Leu rumano</option><option value="BGN">BGN | Lev bálgaro</option><option value="GIP">GIP | Libra de Gibraltar</option><option value="SHP">SHP | Libra de Santa Helena</option><option value="EGP">EGP | Libra egipcia</option><option value="GBP">GBP | Libra Esterlina</option><option value="LBP">LBP | Libra libanesa</option><option value="FKP">FKP | Libra malvinense</option><option value="SYP">SYP | Libra Siria</option><option value="SDG">SDG | Libra sudanesa</option><option value="SSP">SSP | Libra sudanesa Sur</option><option value="SZL">SZL | Lilangeni</option><option value="TRY">TRY | Lira turca</option><option value="XXX">XXX | Los códigos asignados para las transacciones en que intervenga ninguna moneda</option><option value="LSL">LSL | Loti</option><option value="XBD">XBD | Mercados de Bonos Unidad Europea unidad de cuenta a 17 (UCE-17)</option><option value="XBC">XBC | Mercados de Bonos Unidad Europea unidad de cuenta a 9 (UCE-9)</option><option value="MXV">MXV | México Unidad de Inversión (UDI)</option><option value="MZN">MZN | Mozambique Metical</option><option value="BOV">BOV | Mvdol</option><option value="NGN">NGN | Naira</option><option value="ERN">ERN | Nakfa</option><option value="BTN">BTN | Ngultrum</option><option value="TWD">TWD | Nuevo dólar de Taiwán</option><option value="ILS">ILS | Nuevo Shekel Israelí</option><option value="PEN">PEN | Nuevo Sol</option><option value="XAU">XAU | Oro</option><option value="MRO">MRO | Ouguiya</option><option value="TOP">TOP | Pa anga</option><option value="XPD">XPD | Paladio</option><option value="MOP">MOP | Pataca</option><option value="ARS">ARS | Peso Argentino</option><option value="CLP">CLP | Peso chileno</option><option value="COP">COP | Peso Colombiano</option><option value="CUC">CUC | Peso Convertible</option><option value="CUP">CUP | Peso Cubano</option><option value="DOP">DOP | Peso Dominicano</option><option value="PHP">PHP | Peso filipino</option><option value="UYI">UYI | Peso Uruguay en Unidades Indexadas (URUIURUI)</option><option value="UYU">UYU | Peso Uruguayo</option><option value="XAG">XAG | Plata</option><option value="XPT">XPT | Platino</option><option value="BWP">BWP | Pula</option><option value="QAR">QAR | Qatar Rial</option><option value="GTQ">GTQ | Quetzal</option><option value="ZAR">ZAR | Rand</option><option value="BRL">BRL | Real brasileño</option><option value="IRR">IRR | Rial iraní</option><option value="OMR">OMR | Rial omaní</option><option value="YER">YER | Rial yemení</option><option value="KHR">KHR | Riel</option><option value="MYR">MYR | Ringgit malayo</option><option value="SAR">SAR | Riyal saudá</option><option value="BYR">BYR | Rublo bielorruso</option><option value="RUB">RUB | Rublo ruso</option><option value="IDR">IDR | Rupia</option><option value="MVR">MVR | Rupia</option><option value="MUR">MUR | Rupia de Mauricio</option><option value="PKR">PKR | Rupia de Pakistán</option><option value="SCR">SCR | Rupia de Seychelles</option><option value="LKR">LKR | Rupia de Sri Lanka</option><option value="INR">INR | Rupia india</option><option value="NPR">NPR | Rupia nepalí</option><option value="UGX">UGX | Shilling de Uganda</option><option value="TZS">TZS | Shilling tanzano</option><option value="KGS">KGS | Som</option><option value="TJS">TJS | Somoni</option><option value="XSU">XSU | Sucre</option><option value="BDT">BDT | Taka</option><option value="WST">WST | Tala</option><option value="KZT">KZT | Tenge</option><option value="MNT">MNT | Tugrik</option><option value="TMT">TMT | Turkmenistán nuevo manat</option><option value="XUA">XUA | Unidad ADB de Cuenta</option><option value="CLF">CLF | Unidad de Fomento</option><option value="XBA">XBA | Unidad de Mercados de Bonos Unidad Europea Composite (EURCO)</option><option value="COU">COU | Unidad de Valor real</option><option value="XBB">XBB | Unidad Monetaria de Bonos de Mercados Unidad Europea (UEM-6)</option><option value="UZS">UZS | Uzbekistán Sum</option><option value="VUV">VUV | Vatu</option><option value="CHE">CHE | WIR Euro</option><option value="KRW">KRW | Won</option><option value="JPY">JPY | Yen</option><option value="CNY">CNY | Yuan Renminbi</option><option value="ZWL">ZWL | Zimbabwe Dólar</option><option value="PLN">PLN | Zloty</option></select> 
+                </section> 
+                <section class="sectionCampos Col2" title="Tipo de Cambio">
+                    <label>TC:</label>
+                    <input type="text" id="cpag_tipo_cambio" disabled="">  
+                </section> 
+                <section class="sectionCampos Col2">
+                    <label>Monto*:</label>
+                    <input type="text" class="ValidaNumero" id="cpag_monto" value="0.00">  
+                </section> 
+                
+                <section class="sectionCampos Col2 viz-opt-cp">
+                    <label>#Operación:</label>
+                    <input type="text" id="cpag_num_operacion">  
+                </section> 
+                <section class="sectionCampos Col2 viz-opt-cp">
+                    <label>RFC cta. origen:</label>
+                    <input type="text" placeholder="RFC" id="cpag_rfc_emisor_cta">  
+                </section> 
+                <section class="sectionCampos Col2 viz-opt-cp">
+                    <label>Banco:</label>
+                    <input type="text" id="cpag_nombre_banco">  
+                </section> 
+                <section class="sectionCampos Col2 viz-opt-cp">
+                    <label>Cuenta Ordenante:</label>
+                    <input type="text" id="cpag_cta_ordenante">  
+                </section> 
+                <section class="sectionCampos Col2 viz-opt-cp">
+                    <label>RFC cta. beneficiaria:</label>
+                    <input type="text" placeholder="RFC" id="cpag_rfc_cta_beneficiaria">  
+                </section> 
+                <section class="sectionCampos Col2 viz-opt-cp">
+                    <label>Cuenta Beneficiario:</label>
+                    <input type="text" id="cpag_cta_beneficiario"> 
+                </section>  
+
+                <section class="sectionCampos col100">
+                    <a data-viz="0" id="mas-det-cp" style="font-size:1em;" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php#">+ Mas Datos</a>
+                </section>                 
+                                                                                                                         
+            </div>
+
+                    <input type="text" readonly="" id="cantLetraCP" value="CERO PESOS 00/100 M.N.">                
+
+    </section>
+
+    <div style="clear:both; height:1em"></div>
+
+    <div class="form-intern panelCFDI-ing" style="max-width:1120px; margin-top:0px; text-align:left;">
+
+        <section class="titulo" style="padding-top:0px; margin-top:0px;">
+            <div> C F D I </div> 
+        </section> 
+
+        <section class="sectionCampos">
+              <table cellpadding="0" cellspacing="0">
+                 <tbody><tr><td colspan="2" style="padding-bottom: 5px"><label for="usoCfdi1">Uso de CFDI</label></td></tr>
+                 <tr>
+                    <td><div class="campoSat" data-value="G03" data-tipo="UsoCFDI" id="usoCfdi1" title="Gastos en general"><b>G03</b> | Gastos en general</div></td>
+                    <td><button id="btn_usoCfdi1" title="Ayuda de catálogo de uso de CFDI" data-tipo="UsoCFDI" data-id="usoCfdi1" class="ayudaCatSat"><span class="fa fa-search"></span></button></td>
+                 </tr>
+              </tbody></table>
+        </section>
+
+        <section class="sectionCampos">
+            <table cellpadding="0" cellspacing="0">
+                <tbody><tr><td colspan="2" style="padding-bottom: 5px"><label for="formaPago01">Forma de pago</label></td></tr>
+                <tr>
+                    <td><div class="campoSat" data-value="01" data-tipo="FormaPago" id="formaPago01" title="Efectivo"><b>01</b> | Efectivo</div></td>
+                    <td><button id="btn_formaPago01" title="Ayuda de catálogo de forma de pago" data-tipo="FormaPago" data-id="formaPago01" class="ayudaCatSat"><span class="fa fa-search"></span></button></td>
+                </tr>
+            </tbody></table>
+        </section>      
+
+        <section class="sectionCampos">
+            <table cellpadding="0" cellspacing="0">
+                <tbody><tr><td colspan="2" style="padding-bottom: 5px"><label for="metodopago01">Método de págo</label></td></tr>
+                <tr>
+                    <td><div class="campoSat" data-value="PUE" data-tipo="MetodoPago" id="metodopago01" title="Pago en una sola exhibición"><b>PUE</b> | Pago en una sola exhibición</div></td>
+                    <td><button id="btn_metodopago01" title="Ayuda de catálogo de SAT" data-tipo="MetodoPago" data-id="metodopago01" class="ayudaCatSat"><span class="fa fa-search"></span></button></td>
+                </tr>
+            </tbody></table>                
+        </section> 
+
+        <section class="sectionCampos">
+            <table cellpadding="0" cellspacing="0">
+                <tbody><tr><td colspan="2" style="padding-bottom: 5px"><label for="moneda01">Moneda</label></td></tr>
+                <tr>
+                    <td><div class="campoSat" data-value="MXN" data-tipo="Moneda" id="moneda01" title="Peso Mexicano"><b>MXN</b> | Peso Mexicano</div></td>
+                    <td><button id="ayudaBtnMoneda01" title="Ayuda de catálogo Monedas" data-tipo="Moneda" data-id="moneda01" class="ayudaCatSat"><span class="fa fa-search"></span></button></td>
+                </tr>
+                <tr>
+                    <td>TC: <input disabled="" type="text" name="" data-ant="1" id="fact_tipoCambio" value="1" style="width: 14em; margin-left: 1.2em"></td>
+                </tr>                
+            </tbody></table>                
+        </section>
+
+        <div style="clear:both"></div>
+        
+        <section id="cont-op-special" style="text-align:center; display:block;">
+            <section style="display:inline-block;" class="op-sel-fecha">
+                <input id="num_tarjeta" type="checkbox"><label for="num_tarjeta">&nbsp;#Tarjeta</label>
+                <input value="" type="text" style="display:none;" id="fact_numTarjeta">                                                       
+            </section>
+            <section style="display:inline-block;" class="op-sel-fecha">
+                <input id="ivaExento" type="checkbox"><label class="col100" for="ivaExento">&nbsp;Iva Exento</label>
+            </section>    
+        </section>    
+                                   
+    </div> 
+
+    <div style="clear:both; height:1em"></div>
+
+    <section class="form-intern contenedor-cmd panelCFDI-ing" style="max-width:1120px; margin-top:0px;">
+
+           <section class="titulo" style="padding-top:0px; margin-top:0px;">
+                <div> C O N C E P T O S </div> 
+           </section> 
+
+           <div class="btn-group">
+                <button id="btnLimpiaCtos" title="Limpiar Conceptos" type="button" class="btn btn-default"><i class="fa fa-trash"></i></button>
+                <button id="newProd" style="display:inline-block" title="Importar de Excell" type="button" class="btn btn-default"><i class="fa fa-magic"></i></button>
+           </div>
+
+           <div style="clear:both; height:1.5em;"></div>
+        
+           <section class="sectionCampos Col2">
+                <label>Descripción:</label>
+                <input autocomplete="off" placeholder="Indicio de búsqueda" id="txtProductoX" type="text">
+           </section> 
+
+           <section class="sectionCampos Col2" style="">
+                <button id="buscaProducto" class="btn_gris" type="button">Buscar</button>
+                <button style="margin-left: 5px; display: none;" data-vp="0" class="btn_gris EmitirCfdi" type="button">TIMBRAR</button>                
+                <img id="espera2" src="./Syserv e-Fac _ Factura CFDI_files/ajax-loader.gif" style="display: none;">
+           </section> 
+
+            <div style="clear:both"></div>
+
+            <div id="mostrarProductos">
+                <article id="contenido_productos"></article> 
+            </div>                        
+
+    </section>
+
+</section>
+
+<div class="panelCFDI-ing" style="display:inline-block; width:100%; overflow:auto; text-align:center; padding: 10px; ">
+         
+         <div id="cont-regCfdi" style="width: auto; display:inline-block;">  
+
+            <div style="display:none;">
+                <input value="1" id="checkdescuento" type="checkbox">
+                <label for="descto">Descuento General: </label>
+                <input type="text" style="color:black; display:none" id="txtDesctoGral" name="txtDesctoGral" value="">                                        
+                <input style="display:none" id="ActualizarDto" type="submit" value="Actualizar">
+            </div>                         
+
+            <div id="content" style="width: auto; display:inline-block;">
+                  <script> $(document).ready(function() { /*Selecciona el índice*/ $(".imgfondoitem").removeClass("imgfondoitem_sel"); $("#indiceBodygriDNfacturas0").addClass("imgfondoitem_sel"); /*---Establece valores iniciales---*/ $("#indiceadoDNfacturas").attr("value","0"); $("#totRegadoDNfacturas").attr("value","0"); $("#ConSQLadoDNfacturas").attr("value","{#griDNfacturas#}"); /*--- Lee todos los valores ---*/ var indice= parseInt( $("#indiceadoDNfacturas").attr("value") ); var totReg= parseInt( $("#totRegadoDNfacturas").attr("value") ); var totPag= parseInt( $("#totPagadoDNfacturas").attr("value") ); var PagAct= parseInt( $("#PagActadoDNfacturas").attr("value") ); var resXho= parseInt( $("#resXhoadoDNfacturas").attr("value") ); /*--- Calcula nuevos valores ---*/ totPag= String(totReg / resXho); var arr = totPag.split("."); totPag=parseInt(arr[0]); if( (totReg % resXho) > 0 ){ totPag=totPag+1; } /*---Guarda los Nuevos Valores---*/ /*Total de Paginas*/ $("#totPagadoDNfacturas").attr("value",totPag); $("#PagActadoDNfacturas").attr("value","1"); $("#numpagadoDNfacturas").attr("value",totPag); /*Número de elementos*/ $("#nelementosadoDNfacturas").html( totReg + " encontrados"); /*En caso de cero registros*/ if(totReg > 0){ $("#npaginaadoDNfacturas").attr("value","1"); $("#panelResultadoDNfacturas").css("display","none"); } else { $("#npaginaadoDNfacturas").attr("value","0"); /*Desabilita controles de avance*/ $("#primeroadoDNfacturas").addClass("imgprimero_des"); $("#anterioradoDNfacturas").addClass("imganterior_des"); $("#siguienteadoDNfacturas").addClass("imgsiguiente_des"); $("#ultimoadoDNfacturas").addClass("imgultimo_des"); $("#panelResultadoDNfacturas").css("display","inline-block"); } enabled_indice(indice,totReg,"adoDNfacturas", "griDNfacturas"); }); </script><div id="griDNfacturas" style="overflow-y:hidden; "><div style="background-color:#ebe7e7; border-top:0px solid black; border-left:0px solid black; border-right:0px solid black; display:block; width:1099px; height:auto"> <table id="HeadgriDNfacturas" class="catalogo"> <tbody><tr class="imgfondoencabezado"> <td style="border:0em; scope=" col'="" width="40">&nbsp;</td><td style="border:0em; scope=" col'="" width="44"><center>Editar</center></td> <td style="border:0em; scope=" col'="" width="20"></td> <td class="seccionEncabezado" style="border:0em;" id="t2cantidad_enc" scope="col" width="90" title="Ordenar por cantidad"> <table class="sinborde" align="right" id="t2cantidad"> <tbody><tr> <td scope="col" width="70" align="center">Cant.</td><td scope="col" width="20" id="t2cantidad_ord" class="imgordenar"></td></tr><tr> </tr></tbody></table> </td> <script> $(document).ready(function() { $("#t2cantidad").mouseup(function(evento){ if(parseInt($("#totRegadoDNfacturas").attr("value")) <=0 ) return; var a=$("#adoDNfacturas").data("orden"); if((a!="t2.cantidad asc") && (a!="t2.cantidad desc")) { a="t2.cantidad asc"; } else { if((a=="t2.cantidad asc") ) { a="t2.cantidad desc"; } else { a="t2.cantidad asc"; } } $("#adoDNfacturas").data("orden",a); muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",1); }); }); </script> <td class="seccionEncabezado" style="border:0em;" id="t1unidad_enc" scope="col" width="110" title="Ordenar por unidad de medida"> <table class="sinborde" align="right" id="t1unidad"> <tbody><tr> <td scope="col" width="90" align="center">Unidad</td><td scope="col" width="20" id="t1unidad_ord" class="imgordenar"></td></tr><tr> </tr></tbody></table> </td> <script> $(document).ready(function() { $("#t1unidad").mouseup(function(evento){ if(parseInt($("#totRegadoDNfacturas").attr("value")) <=0 ) return; var a=$("#adoDNfacturas").data("orden"); if((a!="t1.unidad asc") && (a!="t1.unidad desc")) { a="t1.unidad asc"; } else { if((a=="t1.unidad asc") ) { a="t1.unidad desc"; } else { a="t1.unidad asc"; } } $("#adoDNfacturas").data("orden",a); muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",1); }); }); </script> <td class="seccionEncabezado" style="border:0em;" id="t1descripcion_enc" scope="col" width="490" title="Ordenar por Impuestos descripcion"> <table class="sinborde" align="right" id="t1descripcion"> <tbody><tr> <td scope="col" width="470" align="center">Descripción</td><td scope="col" width="20" id="t1descripcion_ord" class="imgordenar"></td></tr><tr> </tr></tbody></table> </td> <script> $(document).ready(function() { $("#t1descripcion").mouseup(function(evento){ if(parseInt($("#totRegadoDNfacturas").attr("value")) <=0 ) return; var a=$("#adoDNfacturas").data("orden"); if((a!="t1.descripcion asc") && (a!="t1.descripcion desc")) { a="t1.descripcion asc"; } else { if((a=="t1.descripcion asc") ) { a="t1.descripcion desc"; } else { a="t1.descripcion asc"; } } $("#adoDNfacturas").data("orden",a); muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",1); }); }); </script> <td class="seccionEncabezado" style="border:0em;" id="t2precio_unit_enc" scope="col" width="140" title="Ordenar por precio unitario"> <table class="sinborde" align="right" id="t2precio_unit"> <tbody><tr> <td scope="col" width="120" align="center">Precio Unitario</td><td scope="col" width="20" id="t2precio_unit_ord" class="imgordenar"></td></tr><tr> </tr></tbody></table> </td> <script> $(document).ready(function() { $("#t2precio_unit").mouseup(function(evento){ if(parseInt($("#totRegadoDNfacturas").attr("value")) <=0 ) return; var a=$("#adoDNfacturas").data("orden"); if((a!="t2.precio_unit asc") && (a!="t2.precio_unit desc")) { a="t2.precio_unit asc"; } else { if((a=="t2.precio_unit asc") ) { a="t2.precio_unit desc"; } else { a="t2.precio_unit asc"; } } $("#adoDNfacturas").data("orden",a); muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",1); }); }); </script> <td class="seccionEncabezado" style="border:0em;" id="t2importe_enc" scope="col" width="140" title="Ordenar por importe"> <table class="sinborde" align="right" id="t2importe"> <tbody><tr> <td scope="col" width="120" align="center">Importe</td><td scope="col" width="20" id="t2importe_ord" class="imgordenar"></td></tr><tr> </tr></tbody></table> </td> <script> $(document).ready(function() { $("#t2importe").mouseup(function(evento){ if(parseInt($("#totRegadoDNfacturas").attr("value")) <=0 ) return; var a=$("#adoDNfacturas").data("orden"); if((a!="t2.importe asc") && (a!="t2.importe desc")) { a="t2.importe asc"; } else { if((a=="t2.importe asc") ) { a="t2.importe desc"; } else { a="t2.importe asc"; } } $("#adoDNfacturas").data("orden",a); muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",1); }); }); </script></tr></tbody></table></div><div id="BodygriDNfacturas" class="bodyGridDat" style="width:1099px; height:250px"> <table id="BodygriDNfacturas" class="catalogo"><tbody><tr><td id="panelResultadoDNfacturas" class="panelResult" style="display: inline-block;">* No existen resultados para mostrar</td></tr> <script> $(document).ready(function() { $(".imgeditar").mouseenter(function(evento){ $(this).addClass("imgeditar_sel"); }); $(".imgeditar").mouseleave(function(evento){ $(this).removeClass("imgeditar_sel"); }); $(".imgeditar").mouseup(function(evento){}); $(".imgview").mouseenter(function(evento){ $(this).addClass("imgview_sel"); }); $(".imgview").mouseleave(function(evento){ $(this).removeClass("imgview_sel"); }); $(".imgview").mouseup(function(evento){}); $(".imgcancelar").mouseenter(function(evento){ $(this).addClass("imgcancelar_sel"); }); $(".imgcancelar").mouseleave(function(evento){ $(this).removeClass("imgcancelar_sel"); }); $(".coloritem2, .coloritem").mouseenter(function(evento){ $(this).addClass("itemSelected"); }); $(".coloritem2, .coloritem").mouseleave(function(evento){ $(this).removeClass("itemSelected"); }); $(".coloritem2, .coloritem").click(function(evento){ $(".imgfondoitem").removeClass("imgfondoitem_sel"); $(".imgfondoitem",this).addClass("imgfondoitem_sel"); var datax= $(this).data("indice"); $("#indiceadoDNfacturas").attr("value",datax); enabled_indice(parseInt( $("#indiceadoDNfacturas").attr("value") ),parseInt( $("#totRegadoDNfacturas").attr("value") ),"adoDNfacturas","griDNfacturas"); }); $(".coloritem2, .coloritem").keyup(function(e){ e.preventDefault(); /*Arriba*/ if(e.which==38){ $("#anterioradoDNfacturas").mouseup(); } /*Abajo*/ if(e.which==40){ $("#siguienteadoDNfacturas").mouseup(); } /*Izquierda*/ if(e.which==37){ $("#primeroadoDNfacturas").mouseup(); } /*Derecha*/ if(e.which==39){ $("#ultimoadoDNfacturas").mouseup(); } /*Enter*/ if(e.which==13){ } /*Escape*/ if(e.which==27){ } }); }); </script></tbody></table></div></div>
+
+	   <script>
+			$(document).ready(function(){
+					$("#txtSubtotal").val("0.00");
+					$("#txtDescuentos").val("0.00");
+					$("#txtImpTras").val("0.00");
+					$("#txtImpRet").val("0.00");
+					$("#txtIva").val("0.00");
+					$("#txtTotal").val("0.00");
+				    $(".EmitirCfdi").css("display","none");
+					
+					$("#txtSerie").val("A");
+					$("#txtFolio").val("253");
+
+					$("#fact_iva1").val("0.00");
+					$("#fact_iva2").val("0.00");
+					$("#fact_isr").val("0.00");
+					$("#fact_ieps").val("0.00");
+					$("#txtImportLetra").val("CERO PESOS 00/100 M.N.");
+					
+			}); 
+	   </script>            </div>
+
+            <div id="adodc">
+                  <script> $(document).ready(function() { $("#adoDNfacturas").data("orden","t2.id asc"); /* << */ $("#primeroadoDNfacturas").mouseup(function(evento){ if(!$("#primeroadoDNfacturas").hasClass("imgprimero_des")){ $("#indiceadoDNfacturas").attr("value","0"); muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",0); } }); /* < */ $("#anterioradoDNfacturas").mouseup(function(evento){ if(!$("#anterioradoDNfacturas").hasClass("imganterior_des")){ /*--- Lee todos los valores ---*/ var indice= parseInt( $("#indiceadoDNfacturas").attr("value") ); var totReg= parseInt( $("#totRegadoDNfacturas").attr("value") ); if(indice - 1 >= 0 ){ indice=indice-1; $("#indiceadoDNfacturas").attr("value",indice); } muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",0); } }); /* > */ $("#siguienteadoDNfacturas").mouseup(function(evento){ if(!$("#siguienteadoDNfacturas").hasClass("imgsiguiente_des")){ /*--- Lee todos los valores ---*/ var indice= parseInt( $("#indiceadoDNfacturas").attr("value") ); var totReg= parseInt( $("#totRegadoDNfacturas").attr("value") ); if(indice + 1 <= totReg ){ indice=indice+1; $("#indiceadoDNfacturas").attr("value",indice); } muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",0); } }); /* >> */ $("#ultimoadoDNfacturas").mouseup(function(evento){ if(!$("#ultimoadoDNfacturas").hasClass("imgultimo_des")){ var indice= parseInt( $("#indiceadoDNfacturas").attr("value") ); var totReg= parseInt( $("#totRegadoDNfacturas").attr("value") ); $("#indiceadoDNfacturas").attr("value",(totReg-1)); muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",0); } }); /*Cambiar la opcion de resultados por página*/ $("#num_resultadoDNfacturas").change(function(evento){ var resXho= parseInt($("#num_resultadoDNfacturas").val()); $("#resXhoadoDNfacturas").attr("value",resXho); /*--- Lee todos los valores ---*/ var indice= parseInt( $("#indiceadoDNfacturas").attr("value") ); var totReg= parseInt( $("#totRegadoDNfacturas").attr("value") ); var totPag= parseInt( $("#totPagadoDNfacturas").attr("value") ); var PagAct= parseInt( $("#PagActadoDNfacturas").attr("value") ); /*--- Calcula total de paginas ---*/ totPag= String(totReg / resXho); var arr = totPag.split("."); totPag=parseInt(arr[0]); if( (totReg % resXho) > 0 ){ totPag=totPag+1; } $("#totPagadoDNfacturas").attr("value",totPag); $("#PagActadoDNfacturas").attr("value","0"); $("#numpagadoDNfacturas").attr("value",totPag); /*En caso de cero registros*/ if(totReg > 0){ $("#panelResultadoDNfacturas").css("display","none"); muestra_pagina("griDNfacturas","adoDNfacturas","refreshGrid","content","index.php",0); } else { $("#npaginaadoDNfacturas").attr("value","0"); /*Desabilita controles de avance*/ $("#primeroadoDNfacturas").addClass("imgprimero_des"); $("#anterioradoDNfacturas").addClass("imganterior_des"); $("#siguienteadoDNfacturas").addClass("imgsiguiente_des"); $("#ultimoadoDNfacturas").addClass("imgultimo_des"); } }); enabled_indice(parseInt( $("#indiceadoDNfacturas").attr("value") ),parseInt( $("#totRegadoDNfacturas").attr("value")),"adoDNfacturas","griDNfacturas"); }); </script> <div class="imgfondocontrol" id="adoDNfacturas"> <div id="nelementosadoDNfacturas" class="elementosEncontrados">0 encontrados</div> <div class="imgultimo imgultimo_des" title="Ir al ultimo registro." id="ultimoadoDNfacturas"> </div> <div class="imgsiguiente imgsiguiente_des" title="Ir al registro siguiente." id="siguienteadoDNfacturas"> </div> <div class="imganterior imganterior_des" title="Ir al registro anterior." id="anterioradoDNfacturas"> </div> <div class="imgprimero imgprimero_des" title="Ir al primer registro." id="primeroadoDNfacturas"> </div> <div style="display:block; width: 14em; height:1.5em; margin-top:0.3em; float: right;" class="resultXhoja"> <select class="manita" id="num_resultadoDNfacturas" name="select" style=" float:right; width: 40px; font-size: 15px; border:0px; color: blue;" title="Numero de resultados por pagina."><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option selected="">16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option></select> <input type="hidden" id="numpagadoDNfacturas" value="0"> <input type="hidden" id="npaginaadoDNfacturas" value="0"> <div id="paginacionadoDNfacturas" style="color: #6E6E6E; font-size: 15px; display:block; width: 12em; height:20px; margin-top:.2em; float: left;"></div></div> <input type="hidden" id="indiceadoDNfacturas" value="0"> <input type="hidden" id="totRegadoDNfacturas" value="0"> <input type="hidden" id="totPagadoDNfacturas" value="0"> <input type="hidden" id="PagActadoDNfacturas" value="1"> <input type="hidden" id="resXhoadoDNfacturas" value="16"> <input type="hidden" id="ConSQLadoDNfacturas" value="{#griDNfacturas#}"> <input type="hidden" id="bandeadoDNfacturas" value="0"> <input type="hidden" id="Handel" value="16"> </div>   
+            </div>             
+        
+        </div>                         
+</div>
+
+
+<section class="panelCFDI-ing" style="text-align:center"> 
+      <section class="form-intern contenedor-cmd" style="max-width:1120px; margin-top:0px; margin:0px !important;">
+         
+         <input type="text" readonly="readonly" id="txtImportLetra" name="txtImportLetra">                                
+
+         <form id="FormDatosFactura" style="float:right">
+            <div id="msgFactura" style="display:none"></div>                                   
+
+             <div class="opt-import-total">
+                  <label>Subtotal:</label>
+                  <input readonly="readonly" type="text" class="importesFact" id="txtSubtotal" name="txtSubtotal">
+              </div>  
+              <div class="opt-import-total">
+                  <label>Descuentos:</label>
+                  <input readonly="readonly" type="text" class="importesFact" id="txtDescuentos" name="txtDescuentos">      
+              </div>                  
+              <div class="opt-import-total">
+                  <label>IVA:</label>
+                  <input readonly="readonly" type="text" onkeypress="return onlyNumber(event)" class="importesFact" id="txtIva" name="txtIva">      
+               </div>  
+               <div class="opt-import-total">
+                   <label>TOTAL: </label>
+                   <input readonly="readonly" type="text" style="font-weigh:bold;" onkeypress="return onlyNumber(event)" class="importesFact" id="txtTotal" name="txtTotal">
+               </div>  
+
+               <div style="clear:both; height:2em;"></div>
+
+               <div class="opt-import-total">
+                   <label>Trasladados: </label>
+                   <input readonly="readonly" type="text" class="importesFact" id="txtImpTras" name="txtImpTras">
+                   <input value="" type="hidden" id="txtNotaImpTras">
+               </div>  
+               <div class="opt-import-total">
+                   <label>Retenciones: </label>
+                   <input readonly="readonly" type="text" class="importesFact" id="txtImpRet" name="txtImpRet">
+                   <input value="" type="hidden" id="txtNotaImpRet">
+               </div> 
+
+               <div id="chkAjustCifras" style="display:inline-block;" class="opt-import-total">
+                    <input id="AjusteManual" type="checkbox" style="width: auto; display: none;">
+                    <label id="lblAjusteManual" style="display:none" for="AjusteManual">Ajustar cifras manualmente</label>                     
+               </div> 
+                  
+          </form>
+
+      </section>
+</section>
+
+<section style="text-align:center"> 
+      <section class="form-intern contenedor-cmd" style="max-width:1120px; margin-top:0px;">
+            <div style="clear:both; height:2em;"></div>
+            <button style="margin-left: 5px; display: none;" data-vp="1" class="btn_gris EmitirCfdi" type="button"> 
+                <span class="fa fa-eye"></span>
+                &nbsp;Vista Previa
+            </button>
+            <input style="display:none" type="submit" data-vp="0" class="btn_gris EmitirCfdi" value="TIMBRAR">            
+      </section>
+</section>      
+
+
+      <script> 
+
+                      $.datepicker.regional['es'] = {
+                       closeText: 'Cerrar',
+                       prevText: '<Ant',
+                       nextText: 'Sig>',
+                       currentText: 'Hoy',
+                       monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                       monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                       dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                       dayNamesShort: ['Dom','Lun','Mar','Mie','Juv','Vie','Sab'],
+                       dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+                       weekHeader: 'Sm',
+                       dateFormat: 'yy-mm-dd',
+                       firstDay: 1,
+                       isRTL: false,
+                       showMonthAfterYear: false,
+                       yearSuffix: ''
+                       };
+                       $.datepicker.setDefaults($.datepicker.regional['es']);    
+
+                       function ejecutaFuncion(nombreFuncion){if(nombreFuncion=="Config_Gral"){  }if(nombreFuncion=="IEPS_retenido"){ var cant=$("#VAL_CANTIDAD").val();
+var alias=$("#VAL_DESCRIPCION").val().trim();
+var precio=$("#VAL_PRECIO").val();
+var importe=$("#VAL_IMPORTE").val();
+
+var iaux=1;
+for(iaux=1; iaux<=10; iaux++) alias=alias.replace("  "," ");
+
+if(alias=="PREMIUM" || alias=="MERMA_PREMIUM" || alias=="MERMAPREMIUM"){
+  //var IEPS= parseFloat($("#VALOR_IEPS_PREMIUM").val());
+  var IEPS=0.550852;
+}
+if(alias=="MAGNA" || alias=="MERMA_MAGNA" || alias=="MERMAMAGNA"){
+  //var IEPS=parseFloat($("#VALOR_IEPS_MAGNA").val());
+  var IEPS=0.451449;
+}
+if(alias=="DIESEL" || alias=="MERMA_DIESEL" || alias=="DIESEL UBA (ULSD)" || alias=="MERMADIESEL" || alias=="DIESEL (ULSD)"){
+  //var IEPS=parseFloat($("#VALOR_IEPS_DIESEL").val());
+ var IEPS=0.374675;
+} 
+
+if( IEPS <=0.0 || isNaN(IEPS) ){
+      alert("ADVERTENCIA: El valor del IEPS para  " + alias + " es CERO, puede que la tabla del impuesto no este actualizada, por favor comuniquelo al encargado de sistemas.");
+}
+
+  if( parseFloat(importe) >0)
+  {     
+     var LTS_VENDIDOS=parseFloat(importe)/parseFloat(precio);
+     LTS_VENDIDOS=LTS_VENDIDOS.toFixed(6);
+     var banLts=false;
+  } else {
+     var LTS_VENDIDOS=parseFloat(cant);
+     var banLts=true;
+  }
+
+     var TOT_IEPS=parseFloat(IEPS) * parseFloat(LTS_VENDIDOS);
+     var PRE_SIN_IEPS=parseFloat(precio) - IEPS;
+     var PRE_SIN_IEPS_IVA= PRE_SIN_IEPS / 1.16;
+     PRE_SIN_IEPS_IVA= PRE_SIN_IEPS_IVA.toFixed(6);
+
+     var PRE_UNITARIO= parseFloat(PRE_SIN_IEPS_IVA) + parseFloat(IEPS);
+     PRE_UNITARIO=PRE_UNITARIO.toFixed(6);
+
+     var SUBTOTAL=parseFloat(PRE_UNITARIO) * parseFloat(LTS_VENDIDOS); 
+     SUBTOTAL=SUBTOTAL.toFixed(4);
+
+     var FACTOR_IVA=((1)-(parseFloat(PRE_UNITARIO)/ parseFloat(precio)));
+     FACTOR_IVA=FACTOR_IVA.toFixed(8); 
+
+     var IVA= parseFloat(precio) * parseFloat(FACTOR_IVA) * parseFloat(LTS_VENDIDOS);
+     IVA=IVA.toFixed(4); 
+
+     var TOTAL= parseFloat(SUBTOTAL) + parseFloat(IVA);
+     var PRECIO= parseFloat(PRE_SIN_IEPS_IVA) + parseFloat(IEPS); 
+
+     /*----Redondear cantidades---*/
+      IVA=roundf(IVA,2); 
+      PRECIO=roundf(PRECIO,6);    
+      SUBTOTAL=roundf(SUBTOTAL,2);
+
+     /*---- Correccion CFDI 3.3 ----*/
+     if(banLts){ LTS_VENDIDOS=SUBTOTAL/PRECIO; }
+     var inc=0.0001;
+while ( (LTS_VENDIDOS * PRECIO) <  SUBTOTAL && ((LTS_VENDIDOS + inc) * PRECIO)<= SUBTOTAL) {
+           LTS_VENDIDOS+=inc;
+          }         
+      
+     $("#VAL_CANTIDAD").attr("value",LTS_VENDIDOS);
+     $("#VAL_PRECIO").attr("value",PRECIO);
+     $("#VAL_IMPORTE").attr("value",SUBTOTAL);
+     $("#VAL_TRASLADADO").attr("value",IVA );
+     $("#VAL_IVA").attr("value",IVA);
+     $("#VAL_TASA").attr("value","0.160000"); }if(nombreFuncion=="IVA_retenido"){ var cant=$("#VAL_CANTIDAD").val();
+var alias=$("#VAL_DESCRIPCION").val();
+var precio=$("#VAL_PRECIO").val();
+var importe=$("#VAL_IMPORTE").val();
+
+if( !$("#ivaExento").is(":checked") ){
+
+    $("#VAL_TASA").attr("value","0.160000");
+
+    if(parseFloat(importe) >0){
+       cant=parseFloat(importe)/parseFloat(precio);
+       cant=cant.toFixed(4);
+       cant=roundf(cant,2);
+
+       var PRE_SIN_IVA=parseFloat(precio)/1.16;
+       PRE_SIN_IVA=PRE_SIN_IVA.toFixed(6);    
+
+       var importe_temp= parseFloat(cant) * parseFloat(PRE_SIN_IVA);
+       importe_temp=importe_temp.toFixed(4);
+       importe_temp=roundf(importe_temp,2);
+
+       var IVA=parseFloat(importe) - parseFloat(importe_temp);
+
+       var subtotal= roundf(importe_temp,2);   
+       precio=PRE_SIN_IVA;
+    } else {
+       var PRE_SIN_IVA=parseFloat(precio)/1.16;
+       precio=roundf(PRE_SIN_IVA,2);    
+
+       var subtotal=parseFloat(cant) * parseFloat(precio);
+       subtotal=roundf(subtotal,2);
+
+       var IVA=parseFloat(subtotal) * 0.16;
+       IVA=roundf(IVA,2);
+   }
+
+} else {
+   $("#VAL_TASA").attr("value","0.000000");
+
+    if(parseFloat(importe) >0){
+       cant=parseFloat(importe)/parseFloat(precio);
+       cant=cant.toFixed(6);
+
+       var subtotal= roundf(parseFloat(cant) * parseFloat(precio),2);
+       var IVA=0.0;
+
+    } else {  
+       var subtotal=roundf(parseFloat(cant) * parseFloat(precio),2);
+       var IVA=0.0;
+   }
+}
+     /*---- Correccion CFDI 3.3 ----*/
+     var inc=0.0001;
+     while ( (cant * precio) <  subtotal && ((cant + inc) * precio)<= subtotal) {
+         cant+=inc;
+     } 
+
+$("#VAL_CANTIDAD").attr("value",cant);
+$("#VAL_PRECIO").attr("value",precio);
+$("#VAL_IMPORTE").attr("value",subtotal);
+$("#VAL_IVA").attr("value",IVA);
+$("#VAL_TRASLADADO").attr("value",IVA); }if(nombreFuncion=="IVA TASA 0_retenido"){ var cant=$("#VAL_CANTIDAD").val();
+var alias=$("#VAL_DESCRIPCION").val();
+var precio=$("#VAL_PRECIO").val();
+var importe=$("#VAL_IMPORTE").val();
+
+    if(parseFloat(importe) >0){
+       cant=parseFloat(importe)/parseFloat(precio);
+       cant=cant.toFixed(6);
+
+       var subtotal= roundf(parseFloat(cant) * parseFloat(precio),2);
+       var IVA=0.0;
+
+    } else {  
+
+       var subtotal=roundf(parseFloat(cant) * parseFloat(precio),2);
+       var IVA=0.0;
+
+   }
+
+     /*---- Correccion CFDI 3.3 ----*/
+     var inc=0.0001;
+     while ( (cant * precio) <  subtotal && ((cant + inc) * precio)<= subtotal) {
+         cant+=inc;
+     } 
+
+$("#VAL_CANTIDAD").attr("value",cant);
+$("#VAL_PRECIO").attr("value",precio);
+$("#VAL_IMPORTE").attr("value",subtotal);
+$("#VAL_IVA").attr("value",IVA);
+$("#VAL_TRASLADADO").attr("value",IVA);
+$("#VAL_TASA").attr("value","0.000000"); }if(nombreFuncion=="FLETES_retenido"){ var cant=$("#VAL_CANTIDAD").val();
+var alias=$("#VAL_DESCRIPCION").val();
+var precio=$("#VAL_PRECIO").val();
+var importe=$("#VAL_IMPORTE").val();
+
+$("#VAL_TASA").attr("value","0.160000");
+$("#VAL_TASA1").attr("value","0.040000");
+
+if(parseFloat(importe) >0){
+
+    cant = parseFloat(importe) / parseFloat(precio);
+    cant=cant.toFixed(4);
+    cant=roundf(cant,2);
+
+   var TOT_SIN_IMP = parseFloat(importe) / 1.12;
+   var PRECIO_SIN_IMP = TOT_SIN_IMP / cant;
+   precio=PRECIO_SIN_IMP.toFixed(4);
+   precio=roundf(precio,2);
+
+   var subtotal = precio * cant;
+   subtotal=subtotal.toFixed(2);
+
+   var IVA = subtotal * 0.16;
+   IVA=IVA.toFixed(4);
+   IVA=roundf(IVA,2);
+
+   var retenido = parseFloat(subtotal) * 0.04;
+
+} else {
+
+   var subtotal = parseFloat(precio) * parseFloat(cant);
+   subtotal=subtotal.toFixed(2);
+
+   var IVA = parseFloat(subtotal) * 0.16;
+   IVA=IVA.toFixed(4);
+   IVA=roundf(IVA,2);
+
+   var retenido = parseFloat(subtotal) * 0.04;
+   retenido=retenido.toFixed(4);
+   retenido=roundf(retenido,2);
+
+}
+
+$("#VAL_CANTIDAD").attr("value",cant);
+$("#VAL_PRECIO").attr("value",precio);
+$("#VAL_IMPORTE").attr("value",subtotal);
+$("#VAL_IVA").attr("value",IVA);
+$("#VAL_TRASLADADO").attr("value",IVA);
+$("#VAL_IVA1").attr("value",retenido);
+$("#VAL_RETENIDO").attr("value",retenido); }}
+           function Timer(){          
+
+                    timeoutId = setTimeout(function(){
+                      
+                            $.ajax({
+                                    url: "recursos/php/refrescaSesion.php",
+                                    type:"POST",
+                                    contentType:false,
+                                    processData:false,
+                                    cache:false,
+                                    timeout: 60000,                 
+                                    error: function(objeto, quepaso, otroobj){
+								        document.location.href = "../../../../recursos/php/cerrarSesion.php";									
+                                    },
+                                    beforeSend: function(objeto){
+                                    }
+                            }).done(function (msg){
+							     if(msg != "1"){
+								    document.location.href = "../../../../recursos/php/cerrarSesion.php";
+								 }
+                            });                        
+
+                      Timer();      
+                      /*Refresca sesion cada 10 Minutos*/  
+                    },(((300)*60)*3)*10);
+           }
+
+           $(document).ready(function(){
+                                getFormaPagoSat();
+                getMonedaSat();
+                getMetodoPagoSat();
+                getDocsRelacionados(true);
+                Timer();
+
+                $(document).keydown(function (e) { 
+                     if(e.which == 27 || e.keyCode == 27){  $("#panel_tipoPago").css("display","none"); $("#tipo_pago").focus();  }
+                }); 
+
+                $("#mas-det-cp").click(function(e){
+                    e.preventDefault(); 
+                    if($(this).attr("data-viz")=='0' ){
+                        $(this).attr("data-viz","1");
+                        $(".viz-opt-cp").css("display","inline-block");
+                        $("#mas-det-cp").html("- Menos Datos");
+                    } else {
+                        $(this).attr("data-viz","0");
+                        $(".viz-opt-cp").css("display","none");
+                        $("#mas-det-cp").html("+ Mas Datos");
+                    }
+                });  
+                
+                $("#ivaExento").change(function(){
+                     var icont=0;
+                     $(".imgcancelar").each(function(){ icont++; });
+                     if(icont > 0) $("#btnLimpiaCtos").click();
+                });
+                      
+
+           }); 
+       </script> 
+
+
+
+  <input type="hidden" id="VAL_TRASLADADO" value="0">
+  <input type="hidden" id="VAL_RETENIDO" value="0">      
+  <input type="hidden" id="VAL_UNIDAD" value="0">     
+  <input type="hidden" id="VAL_CANTIDAD" value="0">
+  <input type="hidden" id="VAL_DESCRIPCION" value="0">
+  <input type="hidden" id="VAL_PRECIO" value="0">              
+  <input type="hidden" id="VAL_IVA" value="0">   
+  <input type="hidden" id="VAL_DESCUENTO" value="0">   
+  <input type="hidden" id="VAL_IMPORTE" value="0">   
+  <input type="hidden" id="VAL_TOTAL" value="0">   
+  <input type="hidden" id="VAL_IVA1" value="0">
+  <input type="hidden" id="VAL_IVA2" value="0">
+  <input type="hidden" id="VAL_ISR" value="0">
+  <input type="hidden" id="VAL_ADN_NUMERO" value="0">
+  <input type="hidden" id="VAL_ADN_FECHA" value="">
+  <input type="hidden" id="VAL_ADN_ADUANA" value="">
+  <input type="hidden" id="VAL_IEPS" value="">
+  <input type="hidden" id="VAL_TASA" value="">
+  <input type="hidden" id="VAL_TASA1" value="">
+  <input type="hidden" id="VAL_TASA2" value="">
+  <input type="hidden" id="ID_PROD_MOD" value="">
+  <input type="hidden" id="panelBusqueda" value="1">      
+  <input type="hidden" id="RECALCULO" value="0">
+  <input type="hidden" id="banModCte" value="0">      
+  <input type="hidden" id="xfolio" value="0">      
+  <input type="hidden" id="xnumfolio" value="0">      
+  <input type="hidden" id="banCheclEmail" value="0">     
+  <input type="hidden" id="VALOR_IEPS_PREMIUM" value="">           
+  <input type="hidden" id="VALOR_IEPS_MAGNA" value="">           
+  <input type="hidden" id="VALOR_IEPS_DIESEL" value=""> 
+  <input type="hidden" id="fechaNow" value="2021-12-06">
+
+
+  <!-- Receptor -->
+  <input type="hidden" id="cte_calle" value=""> 
+  <input type="hidden" id="cte_numin" value=""> 
+  <input type="hidden" id="cte_numex" value=""> 
+  <input type="hidden" id="cte_col" value=""> 
+  <input type="hidden" id="cte_muni" value=""> 
+  <input type="hidden" id="cte_local" value=""> 
+  <input type="hidden" id="cte_edo" value=""> 
+  <input type="hidden" id="cte_cp" value=""> 
+  <input type="hidden" id="txtEmail">
+  <input type="hidden" id="txtNumIdent">
+  <input type="hidden" id="txtPaisRes">           
+
+  <!-- Detalles de la factura -->               
+  <input type="hidden" id="fact_notasDto" value="">
+  <input type="hidden" id="fact_iva1" value="0.00">
+  <input type="hidden" id="fact_iva2" value="0.00">
+  <input type="hidden" id="fact_isr" value="0.00">
+  <input type="hidden" id="fact_ieps" value="0.00">
+  <input type="hidden" id="ban_prodxSuc" value="1"> 
+  <input type="hidden" id="ban_modoDep" value="1"> 
+  <input type="hidden" id="ban_calculoInv" value="none"> 
+  <input type="hidden" id="temp_id" value="">                                                                                                                               
+  <input type="hidden" id="temp_impuestos" value="">
+  <input type="hidden" id="temp_unidad" value="">
+  <input type="hidden" id="temp_alias" value="">
+  <input type="hidden" id="temp_total" value="">
+  <input type="hidden" id="txtSucursal" name="txtSucursal" value="PRINCIPAL">
+
+  <!-- Otros -->               
+  <input type="hidden" id="idCatSatSel" value="">
+  <input type="hidden" id="idObjSel" value="">               
+  <input type="hidden" name="fact_tipoPago" id="fact_tipoPago" value="">
+  <input type="hidden" name="fact_condPago" id="fact_condPago" value="">
+  <input type="hidden" name="" id="fact_formaPago" value="">          
+  <input type="hidden" id="banClick" value="0">
+  <input type="hidden" id="etiqueta_prod" value="AGREGAR PRODUCTOS"> 
+
+  <!-- Dialogos -->
+  <div id="divAyudaSat" style="display: none;"></div>
+  <div id="divAuxSat" style="display: none;">moneda01 || Peso Mexicano || <b>MXN</b> | Peso Mexicano || MXN || </div>
+  <div id="divAuxTmp" style="display: none;"></div>
+  <div id="block"></div>
+  <div id="NuevoProd" style="display:none"></div> 
+  <div id="MsgTimb" style="display:none"></div>   
+  <div id="MensajesC" style="display:none"></div>
+  <div id="MensajesC2" style="display:none"></div>
+
+  <div id="divBuscaCFDI" style="display: none;">
+        <section class="sectionCampos col100"> 
+            <label>RFC:</label>
+            <input type="text" id="busca_rfc">
+        </section>    
+        <div id="moz-filtr-rp">
+            <section class="sectionCampos col100"> 
+                <label>Razón Social:</label>
+                <input type="text" id="busca_razon_social">
+            </section>    
+            <section class="sectionCampos col100"> 
+                <label>Folio CFDI:</label>
+                <input type="text" id="busca_folio_cfdi">
+            </section>    
+            <section class="sectionCampos col100"> 
+                <label>UUID:</label>
+                <input type="text" id="busca_uuid">
+            </section>    
+            <section class="sectionCampos col100"> 
+                <label>Fecha:</label>
+                <input class="funcionFecha hasDatepicker" type="text" id="busca_fecha">
+            </section>   
+        </div>   
+        
+        <div style="clear:both;"></div>
+
+        <a id="mas-filtr-rp" href="https://www.sistemasyservicios.mx/efac/modulos/facturacion/modulos/nueva_factura/index.php#">+ Mas filtros</a>
+
+        <section class="sectionCampos col100"> 
+            <button id="buscaCFDIR" style="float: right;" class="btn_gris" type="button">Buscar</button>
+        </section>                                    
+        
+        <div style="clear:both; height:1em;"></div>
+
+        <article id="resBusCFDI">
+            <table cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <th>Fecha</th>
+                    <th>Folio</th>
+                    <th>Receptor</th>
+                    <th>Importe</th>
+                </tr>
+                <tr><td colspan="4"><font size="3">* No existen resultados</font></td></tr>
+            </tbody></table> 
+        </article>                   
+  </div>
+
+  <div id="addProdTabl" style="display:none">
+
+             <section class="sectionCampos Col2">
+                <label style="width:50%">IVA incluido?</label>
+                <select id="ivaInclud"><option selected="" value="1">Si</option><option value="0">No</option></select>
+             </section> 
+
+             <section class="sectionCampos Col2">
+                <label style="width:50%">ID Artículo:</label>
+                <select id="idArtList"><option selected="" value=""> -- Valor del excel --</option><option value="1198">ARRENDAMIENTO DE SÓFTWARE</option><option value="1203">FLETES DE VIAJES</option><option value="1197">TRANSPORTE DE MATERIAL PELIGROSO</option><option value="1196">VENTA</option></select>
+             </section>              
+
+             <div style="clear:both; height:1em;"></div>
+
+             <div style="border: 1px solid #BDBDBD; height: 340px; width:100%; overflow: auto;">
+                 <table data-cant="" id="tableDesglArt" cellspacing="0" cellpadding="0" style="width: 100%;">
+                    <tbody><tr>
+                         <th>ID ARTICULO</th>
+                         <th>DESCRIPCIÓN</th>
+                         <th>IMPORTE</th>
+                    </tr>
+                 </tbody></table>
+                 <textarea id="textTableListArt" placeholder="Pegar aquí el contenido del excel, sin los encabezados."></textarea>
+             </div>
+             
+             <br><br>
+
+             <button class="btn_gris" id="btnCancel" style="padding: 5px 15px;">
+                 Cerrar
+             </button>     
+
+             <button id="btnOkTab" class="btn_gris" style="display: none; padding: 5px 15px;">
+                 <span class="fa fa-check"></span>
+                 Añadir conceptos
+             </button> 
+
+             <button class="btn_gris" id="btnCleanTab" style="padding: 5px 15px;">
+                 <span class="fa fa-trash"></span>
+                 Limpiar
+             </button>                                
+    </div>
+
+    <div id="dialogo" style="display:none">
+
+            <div style="float: right; margin-bottom:1.4em; color: #BDBDBD"> 
+                <div style="display:none"> <input id="RedondeoBan" type="checkbox" disabled=""> <label for="RedondeoBan">Redondear Total</label></div>
+                <input style="margin-left:2em;" id="CalculoInv" type="checkbox"> <label for="CalculoInv">Calculo Inverso</label>                         
+            </div>
+
+            <section id="DIVprecio" class="sectionCampos col100">  
+                <label>Precio de Venta:</label>
+                <input type="text" class="ValidaNumero" id="temp_precio" value="">
+            </section>
+
+            <div style="clear:both; height:1.5em;"></div>
+
+            <section id="DIVcantidad" class="sectionCampos col100" style="display:inline-block;">  
+                <label>Cantidad <div id="dunidad" style="display:inline-block"></div>:</label>
+                <input type="text" class="ValidaNumero" id="DCantidad" value="1.00"> 
+            </section>
+
+            <section id="DIVimporte" style="display:none;" class="sectionCampos col100">  
+                <label>Importe:</label>
+                <input type="text" class="ValidaNumero" id="DImporte">
+            </section>            
+ 
+    </div>
+
+    <div id="divDatosCtes" style="display:none;">   
+        <section class="sectionCampos col100">  
+            <label>RFC:</label>
+            <input type="text" id="mos_rfc">
+        </section>
+        <section class="sectionCampos col100">  
+            <label>RAZON SOCIAL:</label>
+            <input type="text" id="mos_rz">
+        </section>
+        <section class="sectionCampos col100">  
+            <label>C.P.:</label>
+            <input type="text" id="mos_cp">
+        </section>    
+        <section class="sectionCampos col100">  
+            <label>EMAIL:</label>
+            <input type="text" id="mos_mail">
+        </section>   
+    </div>
+
+
+<div style="display:none;"><br><input value="IEPS" class="retenidos" checked="" type="checkbox">IEPS<br><input value="IVA" class="retenidos" checked="" type="checkbox">IVA<br><input value="IVA TASA 0" class="retenidos" checked="" type="checkbox">IVA TASA 0<br><input value="FLETES" class="retenidos" checked="" type="checkbox">FLETES</div><div id="preloader" class="preloader"></div> <div id="preloader2" class="centrar"> <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status"> <span class="sr-only">Cargando...</span> </div> </div> <div id="panelMensajeOk"></div> <div id="panelMensajeErr"></div></section><br><br><br><br><br><br> <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body></html>
