@@ -1,0 +1,285 @@
+
+          .btn_gris{
+            background-color: #075D9E;
+            color: white;
+            font-size: 1.2em;
+            padding: 5px 20px;
+            height: 40px;
+            display: inline-block;
+            border: none;
+            box-shadow:none;
+            margin: 10px;
+          }
+          .btn_gris:hover{
+            background-color: #07ACC9;
+            cursor: pointer;
+            color: white;
+          }	           
+          .sectionCampos input, .sectionCampos textarea, .sectionCampos select{
+            width: 100%;
+            padding: 5px 10px;
+            font-size: 1.2em;            
+          } 
+          .formulario{
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 10px;
+            padding: 20px;
+          }
+          .formulario input[type="checkbox"]{
+            margin-right: 5px;
+          }
+          .formulario input[type="checkbox"] + label {
+            color: #9A9696;
+            font-size: 1.1em;
+          }
+          .formulario input[type="checkbox"]:checked + label {
+            color: rgb(21, 22, 22);
+          }  
+                      
+          .sectionCampos{
+            width: 48%;
+            float: left;
+            min-height: 80px;
+            padding: 1%;
+          }
+          .sectionCampos label{
+            display: block;
+            font-weight: 700;
+          }
+
+          .sectionCampos select{ padding: 7px 10px; }	
+
+          .sectionCampos.col100{
+            width: 96%;
+          }
+          #section-banner h1{
+            font-size:2em;
+            z-index: 10000;
+          }
+          .contenedor-cmd{
+            background: none !important;
+            padding: 10px 0px 0px 0px !important;
+            margin: 10px 0px 0px 0px !important;
+            border: none !important;
+         }
+         .contenedor-cmd .sectionCampos .btn_gris{
+            float: left;
+            margin: 0px;
+         }
+
+          .opt-import-total{
+            float: right;
+            display: block;
+            clear: both;
+          }
+          .opt-import-total label{
+            width: 100px;
+            text-align: right;
+            margin-right: 5px;
+          }
+          .opt-import-total input{
+            text-align: right;
+            font-size: 1.3em;
+            width: 150px;
+          }	  
+
+          .titulo{
+            font-size:1.1em;
+            display:block;
+            margin:15px 0px;         
+            text-align:center;  
+            padding-top:2em;  
+            clear:both;    
+         } 
+         .titulo div{
+            background-color:white;
+            display:inline-block;
+            padding: 3px 15px;
+            border-radius:15px;        
+            opacity: 0.7;
+            color:#075D9E;
+         }
+         .titulo div label{
+            font-weight:normal !important;
+            margin-bottom:0px;
+         }   
+         
+          /*--- Dos columnas ---*/
+          .sectionCampos.Col2{
+            padding-top: 0px;
+            min-height: 50px;
+            padding-bottom: 5px;
+          }
+
+          .sectionCampos.Col2 label{
+            display: inline-block;
+            width: 29%;
+            text-align: left;
+          }
+          .sectionCampos.Col2 input,.sectionCampos.Col2 textarea,.sectionCampos.Col2 select{
+            width: 59%;
+            display: inline-block;
+          }
+
+          #panelMensajeOk{
+            color: white;
+            background-color: #075D9E;
+            border: #07ACC9 1px solid;
+          }
+
+          #panelMensajeErr{
+            color: white;
+            background-color: #6d0303;
+          }
+          #panelMensajeErr, #panelMensajeOk{
+            position: fixed;
+            bottom: 0px;
+            right: 0px;
+            width: auto;
+            min-width: 20em;
+            padding: 10px;
+            min-height: 2.5em;
+            height: auto;
+            z-index: 200001;
+            text-align: center;
+            padding: 0em;
+            padding-top: .6em;
+            font-size: 1.3em;
+            font-style: italic;
+            display: none;
+          }
+          .NoResultBusqueda{
+            display: inline-block;
+            padding: 0.5em;
+            border: 1px solid #F4D03F;
+            background-color: #FCF3CF;
+            color: #075D9E;
+            width: 50%;
+          }
+          .form-intern{
+            width: 88%;
+            height: auto;
+            padding: 20px 15px;
+            display: block;
+            margin: 10px;
+            background-color: #d0e5e9;
+            border: 1px solid #075D9E;
+            display: inline-block;
+            overflow: auto;
+          }
+          .table-gral thead tr th{
+              background-color: #D8D8D8;
+              padding: 5px;
+          }
+          .table-gral tbody tr td{
+            background-color:white;
+            padding: 5px;            
+          }  
+
+          .paso1_ok{
+            background: url("images/p1_ok.png") no-repeat;
+            height: 2.5em;
+            padding: 0.5em 0em 0.5em 3em;
+            width: 8.9em;
+            float: left;
+            font-weight: bold;
+            color: black;
+            margin-right: 1em;
+            text-align: left;
+          }
+        
+          .paso1_no{
+            background: url("images/p1_no.png") no-repeat;
+            height: 2.5em;
+            padding: 0.5em 0em 0.5em 3em;
+            width: 8.9em;		
+            float: left;
+            font-weight: none;
+            color: #585858;
+            margin-right: 1em;
+            text-align: left;
+          }
+        
+          .paso2_ok{
+            background: url("images/p2_ok.png") no-repeat;
+            height: 2.5em;
+            padding: 0.5em 0em 0.5em 3em;
+            width: 8.9em;		
+            float: left;
+            font-weight: bold;
+            color: black;		
+            margin-right: 1em;
+            text-align: left;
+          }
+        
+          .paso2_no{
+            background: url("images/p2_no.png") no-repeat;
+            height: 2.5em;
+            padding: 0.5em 0em 0.5em 3em;
+            width: 8.9em;		
+            float: left;
+            font-weight: none;
+            color: #585858;		
+            margin-right: 1em;
+            text-align: left;
+          }
+        
+          .paso3_ok{
+            background: url("images/p3_ok.png") no-repeat;
+            height: 2.5em;
+            padding: 0.5em 0em 0.5em 3em;
+            width: 8.9em;		
+            float: left;
+            font-weight: bold;
+            color: black;		
+            margin-right: 1em;
+            text-align: left;
+          }
+        
+          .paso3_no{
+            background: url("images/p3_no.png") no-repeat;
+            height: 2.5em;
+            padding: 0.5em 0em 0.5em 3em;
+            width: 8.9em;		
+            float: left;
+            font-weight: none;
+            color: #585858;		
+            margin-right: 1em;
+            text-align: left;
+          }	    
+          .sectionCampos select {
+               padding: 7px 10px;
+          }   
+          .sectionCampos.Col2 select {
+            width: 64%;
+          }                        
+          @media  (max-width: 790px){
+            .formulario{
+              width: 100%;
+              margin-left: 0px;
+              padding: 5px;
+            }
+            .sectionCampos{
+              width: 88% !important;
+              padding: 1% !important;
+            }
+            .cuadroNewCFDI{
+              width: 96%;
+            }
+              .contenedor-cmd .sectionCampos .btn_gris{
+              margin-left: 35%;
+            }            
+        }   
+
+        @media  (max-width: 680px){
+            /*--- Dos columnas ---*/
+            .sectionCampos.Col2 label{
+              display: block;
+              width: 100%;
+            }
+            .sectionCampos.Col2 input,.sectionCampos.Col2 textarea,.sectionCampos.Col2 select{
+              width: 100%;
+              display: block;
+            }	             
+        }   

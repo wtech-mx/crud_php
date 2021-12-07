@@ -1,0 +1,122 @@
+<style>
+    body,html{
+        margin: 0em;
+        padding: 0em;
+        background-color: #ECF0F5;
+    }    
+</style>
+
+
+<div id="listarRFC" style="display:none"></div>
+
+
+    <form class="formulario" METHOD="POST" id="FormDatosClientes" style="text-align:center">         
+ 
+        <div class="imgEncabezado form-intern contenedor-cmd" style="max-width:1120px; margin-top:0px; display:inline-block;">
+            <div class="paso1_no">Conceptos</div>
+            <div class="paso2_ok">Inf. Fiscal</div>
+            <div class="paso3_no">Emitir CFDI</div>
+        </div>  
+        <div style="clear:both"></div>
+
+        <section class="form-intern" style="max-width:1120px; margin-top:0px; display:inline-block;">
+
+                <input type="text" style="display: none;" id="txtId" name="txtId"/>
+                <input type="text" style="display: none;" id="txtReferencia" name="txtReferencia"/>
+                <input type="text" style="display: none;" id="txtCliente" name="txtCliente"/>                
+
+                <section class="sectionCampos Col2">
+                    <label>Rfc *:</label>
+                    <input type="text" value="{txtRfc}" id="txtRfc" name="txtRfc"/>
+                    <img id="espera2" src="{url_base}imagenes/ajax-loader.gif" style="display: none;">                    
+                </section>
+
+                <section class="sectionCampos Col2">                    
+                    <label></label>
+                    <input type="button" style="display: none;" class="btn_gris" value="Editar Información" id="btnEditar">                    
+                </section>       
+
+                <section class="sectionCampos Col2">
+                    <label>Razon Social *:</label>
+                    <input type="text" value="{txtRazon_social}" id="txtRazon_social" name="txtRazon_social"/>
+                </section>
+
+                <section id="cont_masrfc" class="sectionCampos Col2" style="display: none;">
+                    <label></label>
+                    <input type="button" class="btn_gris" value="Otra Razón Social" id="masrfc">
+                </section>                         
+
+                <section class="sectionCampos Col2">
+                    <label>E-Mail *:</label>
+                    <input type="text" value="{txtEmail}" id="txtEmail" name="txtEmail"/>
+                </section> 
+
+                <section class="titulo" style="padding-top:0px; margin-top:0px;"><div> <input type="checkbox" id="viw_domicilio"> <label for="viw_domicilio">Domicilio Fiscal</label> </div></section>
+
+                <div id="dats_dom_fiscal" style="display: none;">
+
+                        <section class="sectionCampos Col2">
+                            <label>Calle *:</label>
+                            <input type="text" value="" id="txtCalle" name="txtCalle"/>
+                        </section>
+
+                        <section class="sectionCampos Col2">
+                            <label>Número Exterior *:</label>
+                            <input type="text" value=""  id="txtNum_exterior" name="txtNum_exterior"/>
+                        </section>
+
+                        <section class="sectionCampos Col2">
+                            <label>Número Interior:</label>
+                            <input type="text" value="" id="txtNum_interior" name="txtNum_interior"/>
+                        </section>
+
+                        <section class="sectionCampos Col2">
+                            <label>Colonia *:</label>
+                            <input type="text" value="" id="txtColonia" name="txtColonia"/>
+                        </section>
+
+                        <section class="sectionCampos Col2">
+                            <label>Localidad:</label>
+                            <input type="text" value="" id="txtLocalidad" name="txtLocalidad"/>
+                        </section>                     
+
+                        <section class="sectionCampos Col2">
+                            <label>Municipio *:</label>
+                            <input type="text"  value=""  id="txtMunicipio" name="txtMunicipio"/>
+                        </section>              
+
+                        <section class="sectionCampos Col2">
+                            <label>Código Postal *:</label>
+                            <input type="text" value="" id="txtCod_pos" name="txtCod_pos"/>
+                        </section>               
+
+                        <section class="sectionCampos Col2">
+                            <label>Telefono:</label>
+                            <input type="text" value="" id="txtFax" name="txtFax"/>
+                        </section> 
+
+                        <section class="sectionCampos Col2">
+                            <label for="Pais">Pais *: </label>
+                            <select id="selectId_pais" name="selectId_pais">
+                                <option value="" selected>Seleccione el Pais</option>{lista_paises}
+                            </select>          
+                        </section>  
+
+                        <section class="sectionCampos Col2">
+                            <label>Estado *:</label>
+                            <select  id="selectId_estado" name="selectId_estado">
+                            </select>
+                        </section>
+
+                </div>
+        </section>        
+
+        <section class="form-intern contenedor-cmd" style="max-width:1120px; margin-top:0px;">     
+            <img id="espera1" src="{url_base}imagenes/ajax-loader.gif" style="display: none;">
+    
+            <input type="button" style="margin-top:0.5em;" class="btn_gris" value="Anterior" id="btnPaso1">
+            <input type="button" style="margin-top:0.5em;" class="btn_gris" value="Siguiente" id="btnPaso3">
+        </section>        
+    </form>
+
+    <script type="text/javascript" src="{url_base}recursos/js/datos-clientes.js?v=1.0.0"></script>

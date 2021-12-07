@@ -4,13 +4,38 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>CRUD de productos con PHP - MySQL - jQuery AJAX </title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cfdi.facturoporti.com.mx/css/bootstrap.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="css/custom.css"> -->
+
+
+	<script	script src="https://cfdi.facturoporti.com.mx/Scripts/modernizr-2.8.3.js" type="text/javascript"></script>
+    <link href="https://cfdi.facturoporti.com.mx/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="https://cfdi.facturoporti.com.mx/css/BootstrapTable/116/bootstrap-table.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://cfdi.facturoporti.com.mx/css/sticky-footer-navbar.css" rel="stylesheet" type="text/css" />
+    <link href="https://cfdi.facturoporti.com.mx/css/theme.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cfdi.facturoporti.com.mx/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="https://cfdi.facturoporti.com.mx/Scripts/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="https://cfdi.facturoporti.com.mx/Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+    <script src="https://cfdi.facturoporti.com.mx/Scripts/jquery.form.min.js" type="text/javascript"></script>
+    
+    <script src="https://cfdi.facturoporti.com.mx/Scripts/SesionMasterBootStrap" type="text/javascript"></script>
+    <script src="https://cfdi.facturoporti.com.mx/Scripts/jquery-ui-1.12.1.min.js" type="text/javascript"></script>
+        
+    <script src="https://cfdi.facturoporti.com.mx/Scripts/SesionMaster-2" type="text/javascript"></script>
+    
+    <script src="https://cfdi.facturoporti.com.mx/Scripts/FontAwesome/all.min.js" type="text/javascript"></script>
+    
+
+
 </head>
 <body>
  

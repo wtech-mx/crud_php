@@ -61,7 +61,7 @@
 		});
 		
 		
-		$( "#add_product" ).submit(function( event ) {
+		$( "#add_FormAutoTransporte" ).submit(function( event ) {
 		  var parametros = $(this).serialize();
 			$.ajax({
 					type: "POST",
@@ -159,7 +159,7 @@
 		});
 		
 		
-		$( "#add_product" ).submit(function( event ) {
+		$( "#add_FormAutoTransporte" ).submit(function( event ) {
 		  var parametros = $(this).serialize();
 			$.ajax({
 					type: "POST",
