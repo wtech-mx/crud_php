@@ -1,10 +1,13 @@
 
 <?php
+	//Condicion para validar registros obligatorios
 	if (empty($_POST['edit_id'])){
 		$errors[] = "ID está vacío.";
 	} elseif (!empty($_POST['edit_id'])){
-	require_once ("../conexion.php");//Contiene funcion que conecta a la base de datos
-	// escaping, additionally removing everything that could be (html/javascript-) code
+		//Contiene funcion que conecta a la base de datos
+	require_once ("../conexion.php");
+
+
 	$placa = mysqli_real_escape_string($con, (strip_tags($_POST["edit_placa"], ENT_QUOTES)));
 	$anio = mysqli_real_escape_string($con, (strip_tags($_POST["edit_anio"], ENT_QUOTES)));
 	$tipo = mysqli_real_escape_string($con, (strip_tags($_POST["edit_tipo"], ENT_QUOTES)));
@@ -23,7 +26,7 @@
 	// UPDATE data into database
     $sql = "UPDATE cporte_tvehiculos SET placa='".$placa."', anio='".$anio."', tipo='".$tipo."', permisosct='".$permisosct."',  numeropermisosct='".$numeropermisosct."', nombreaseguradoraresponsabilidadcivil='".$nombreaseguradoraresponsabilidadcivil."',  numeropolizaresponsabilidadcivil='".$numeropolizaresponsabilidadcivil."', nombreaseguradoracarga='".$nombreaseguradoracarga."',  numeropolizacarga='".$numeropolizacarga."',  nombreaseguradoramedioambiente='".$nombreaseguradoramedioambiente."',  numeropolizamedioambiente='".$numeropolizamedioambiente."',  primaseguro='".$primaseguro."' WHERE id='".$id."' ";
 	$query = mysqli_query($con, $sql);
-    // if product has been added successfully
+   	// si el producto se ha agregado correctamente
     if ($query) {
         $messages[] = "El producto ha sido actualizado con éxito.";
     } else {

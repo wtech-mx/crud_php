@@ -2,6 +2,9 @@
 		$(function() {
 			load(1);
 		});
+
+
+		// Al cargar la pagina muestra los registro en la vista index
 		function load(page){
 			var query=$("#q").val();
 			var per_page=10;
@@ -19,6 +22,9 @@
 				}
 			})
 		}
+
+		//  Trae lo registros en los inputs del modal edit para poder asi visualizarlos y editarlos
+
 		$('#editProductModal').on('show.bs.modal', function (event) {
 		  var button = $(event.relatedTarget) // Button that triggered the modal
 		  var placa = button.data('placa') 
@@ -49,12 +55,7 @@
 		  $('#edit_id').val(id)
 		})
 		
-		$('#deleteProductModal').on('show.bs.modal', function (event) {
-		  var button = $(event.relatedTarget) // Button that triggered the modal
-		  var id = button.data('id') 
-		  $('#delete_id').val(id)
-		})
-		
+		// Metodo el cual edita los cambios
 		
 		$( "#edit_product" ).submit(function( event ) {
 		  var parametros = $(this).serialize();
@@ -73,7 +74,9 @@
 			});
 		  event.preventDefault();
 		});
-		
+
+
+		// Metodo en el cual se agregar los registros ingresado
 		
 		$( "#add_FormAutoTransporte" ).submit(function( event ) {
 		  var parametros = $(this).serialize();
@@ -92,6 +95,16 @@
 			});
 		  event.preventDefault();
 		});
+
+		// Tre el Id al Boton seleccionado
+
+		$('#deleteProductModal').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget) // Button that triggered the modal
+			var id = button.data('id') 
+			$('#delete_id').val(id)
+		  })
+
+		//   Metodo el cual hace la funcion de eliminar del id que selecciono
 		
 		$( "#delete_product" ).submit(function( event ) {
 		  var parametros = $(this).serialize();

@@ -1,9 +1,12 @@
 <?php
+
+//Condicion para validar registros obligatorios
 if (empty($_POST['placa'])) {
 	$errors[] = "Ingresa la placa del vehiculo.";
 } elseif (!empty($_POST['placa'])) {
-	require_once("./../conexion.php"); //Contiene funcion que conecta a la base de datos
-	// escaping, additionally removing everything that could be (html/javascript-) code
+	//Contiene funcion que conecta a la base de datos
+	require_once("./../conexion.php"); 
+	
 	$placa = mysqli_real_escape_string($con, (strip_tags($_POST["placa"], ENT_QUOTES)));
 	$anio = mysqli_real_escape_string($con, (strip_tags($_POST["anio"], ENT_QUOTES)));
 	$tipo = mysqli_real_escape_string($con, (strip_tags($_POST["tipo"], ENT_QUOTES)));
@@ -22,7 +25,7 @@ if (empty($_POST['placa'])) {
 	$sql = "INSERT INTO cporte_tvehiculos(id, placa, anio, tipo, permisosct, numeropermisosct, nombreaseguradoraresponsabilidadcivil, numeropolizaresponsabilidadcivil, nombreaseguradoracarga, numeropolizacarga, nombreaseguradoramedioambiente, numeropolizamedioambiente, primaseguro) 
 	VALUES (NULL,'$placa','$anio','$tipo','$permisosct','$numeropermisosct','$nombreaseguradoraresponsabilidadcivil','$numeropolizaresponsabilidadcivil','$nombreaseguradoracarga','$numeropolizacarga','$nombreaseguradoramedioambiente','$numeropolizamedioambiente','$primaseguro')";
 	$query = mysqli_query($con, $sql);
-	// if product has been added successfully
+	// si el producto se ha agregado correctamente
 	if ($query) {
 		$messages[] = "El producto ha sido guardado con éxito.";
 	} else {
