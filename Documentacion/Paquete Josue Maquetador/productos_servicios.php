@@ -43,8 +43,9 @@ class productos_servicios{
 			Separa en Arrays "Materia prima" de "Productos" y de "Servicios"	
 	    */
 		function ReadInfoProdServ(){
-		        $this->DB->prepare("select id,nombre,tipo from tproductos where codigo != '{Desc.}' and handel=? and cancel='0' order by nombre asc");
-		        $this->DB->stmt->bind_param('i', $this->handel );
+			$prueba  = '{Desc.}';
+		        $this->DB->prepare("select id,nombre,tipo from tproductos where codigo != ? and handel=? and cancel='0' order by nombre asc");
+		        $this->DB->stmt->bind_param('si',$prueba , $this->handel );
 		        $this->DB->execute();
 
 		        if( $this->DB->getAffect() > 0 ){

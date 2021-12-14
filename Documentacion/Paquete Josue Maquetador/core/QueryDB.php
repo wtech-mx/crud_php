@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 class ConexionDB{
     var $con;
     var $server;
